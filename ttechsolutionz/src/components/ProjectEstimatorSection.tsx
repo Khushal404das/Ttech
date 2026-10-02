@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { motion } from 'motion/react';
 import {
   Calculator,
   CheckCircle2,
@@ -218,7 +219,14 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
   };
 
   return (
-    <section id="estimator" className="py-24 relative bg-[#040B1A] border-t border-slate-900">
+    <motion.section
+      id="estimator"
+      className="py-24 relative bg-[#040B1A] border-t border-slate-900"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
@@ -551,6 +559,6 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

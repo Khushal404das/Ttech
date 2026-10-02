@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
 import {
   Send,
   CheckCircle2,
@@ -132,7 +133,14 @@ export const InquirySection: React.FC<InquirySectionProps> = ({
   };
 
   return (
-    <section id="contact" className="py-24 relative bg-[#040B1A] border-t border-slate-900">
+    <motion.section
+      id="contact"
+      className="py-24 relative bg-[#040B1A] border-t border-slate-900"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Agency Pitch & Direct Channels */}
@@ -423,6 +431,6 @@ export const InquirySection: React.FC<InquirySectionProps> = ({
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Laptop,
   ExternalLink,
@@ -134,7 +135,14 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
     : projects.filter((p) => p.category === filter);
 
   return (
-    <section id="portfolio" className="py-24 relative bg-[#040B1A] border-t border-slate-900">
+    <motion.section
+      id="portfolio"
+      className="py-24 relative bg-[#040B1A] border-t border-slate-900"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
@@ -172,10 +180,15 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {filteredProjects.map((project) => (
-            <div
+          {filteredProjects.map((project, index) => (
+            <motion.div
               key={project.id}
               className="group relative rounded-3xl p-6 sm:p-7 bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/90 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-xl hover:shadow-cyan-950/30 backdrop-blur-sm"
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.45, delay: Math.min(index * 0.07, 0.28) }}
+              whileHover={{ y: -5 }}
             >
               <div>
                 {/* Category & Client */}
@@ -241,15 +254,21 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   Build Similar
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
 
       {/* Case Study Details Modal */}
+      <AnimatePresence>
       {activeProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="max-w-2xl w-full bg-slate-900 border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <motion.div
+            className="max-w-2xl w-full bg-slate-900 border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            initial={{ opacity: 0, y: 18, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 18, scale: 0.98 }}
+          >
             <button
               onClick={() => setActiveProject(null)}
               className="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"
@@ -334,9 +353,10 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
-    </section>
+      </AnimatePresence>
+    </motion.section>
   );
 };
