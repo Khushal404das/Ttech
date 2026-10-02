@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* =========================================
+   FONTS
+   ========================================= */
 @layer base {
   :root {
     --font-display: 'Manrope', sans-serif;
@@ -7,7 +10,6 @@
     --font-code: 'JetBrains Mono', monospace;
   }
 
-  /* Default Dark Mode */
   html.dark, html:not(.light) {
     color-scheme: dark;
   }
@@ -19,7 +21,6 @@
     overflow-x: hidden;
   }
 
-  /* Light Mode */
   html.light {
     color-scheme: light;
   }
@@ -53,11 +54,8 @@
 
 /* =========================================================================
    LIGHT THEME OVERRIDES
-   Ensures exceptional contrast, legibility, and high-end agency aesthetic
    ========================================================================= */
-
 html.light {
-  /* Main section backgrounds */
   & .bg-\[\#030712\],
   & .bg-\[\#030816\],
   & .bg-\[\#020617\] {
@@ -68,14 +66,12 @@ html.light {
     background-color: #ffffff !important;
   }
 
-  /* Navbar */
   & header.bg-\[\#030712\]\/90 {
     background-color: rgba(255, 255, 255, 0.94) !important;
     border-bottom-color: rgba(226, 232, 240, 0.9) !important;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05) !important;
   }
 
-  /* Glass Panels & Cards */
   & .glass-panel {
     background: rgba(255, 255, 255, 0.92) !important;
     backdrop-filter: blur(16px);
@@ -88,7 +84,6 @@ html.light {
     box-shadow: 0 14px 34px -10px rgba(14, 165, 233, 0.14) !important;
   }
 
-  /* Dark surfaces to light cards */
   & .bg-slate-900,
   & .bg-slate-950,
   & .bg-\[\#070e1e\]\/95 {
@@ -118,7 +113,6 @@ html.light {
     background-color: #e2e8f0 !important;
   }
 
-  /* Borders */
   & .border-slate-900,
   & .border-cyan-900\/40,
   & .border-cyan-950\/60,
@@ -133,7 +127,6 @@ html.light {
     border-color: #bae6fd !important;
   }
 
-  /* Typography / Text colors */
   & .text-white {
     color: #0f172a !important;
   }
@@ -154,7 +147,6 @@ html.light {
     color: #64748b !important;
   }
 
-  /* Preserve white text on primary buttons & colored badges */
   & .bg-gradient-to-r,
   & .bg-gradient-to-tr,
   & .bg-gradient-to-br,
@@ -174,7 +166,6 @@ html.light {
     color: #ffffff !important;
   }
 
-  /* Form inputs & textareas */
   & input,
   & textarea,
   & select {
@@ -188,7 +179,6 @@ html.light {
     color: #94a3b8 !important;
   }
 
-  /* Subtle circuit grid in light theme */
   & .bg-circuit-grid {
     background-image: 
       linear-gradient(to right, rgba(2, 132, 199, 0.07) 1px, transparent 1px),
@@ -199,7 +189,6 @@ html.light {
     background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.07) 0%, rgba(6, 182, 212, 0.04) 35%, transparent 70%) !important;
   }
 
-  /* Scrollbars in light mode */
   & ::-webkit-scrollbar-track {
     background: #f1f5f9 !important;
   }
@@ -211,7 +200,9 @@ html.light {
   }
 }
 
-/* Custom Circuit & Glow Effects */
+/* =========================================================================
+   BACKGROUND EFFECTS
+   ========================================================================= */
 .bg-circuit-grid {
   background-size: 40px 40px;
   background-image: 
@@ -238,111 +229,9 @@ html.light {
   box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
 }
 
-/* Keyframes & Animations */
-@keyframes marquee-scroll {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee-scroll 32s linear infinite;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-@keyframes float-slow {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-14px) rotate(4deg);
-  }
-}
-
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
-}
-
-@keyframes float-reverse {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(14px) rotate(-4deg);
-  }
-}
-
-.animate-float-reverse {
-  animation: float-reverse 7s ease-in-out infinite;
-}
-
-@keyframes pulse-trace {
-  0%, 100% {
-    opacity: 0.3;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    opacity: 0.9;
-    stroke-dashoffset: 100;
-  }
-}
-
-.animate-trace {
-  animation: pulse-trace 6s ease-in-out infinite;
-}
-
-@keyframes electric-steam {
-  0% {
-    stroke-dashoffset: 40;
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0.3;
-  }
-}
-
-.animate-steam {
-  stroke-dasharray: 8 4;
-  animation: electric-steam 2.5s linear infinite;
-}
-
-@keyframes neon-glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.25), 0 0 30px rgba(6, 182, 212, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(6, 182, 212, 0.5), 0 0 50px rgba(6, 182, 212, 0.25);
-  }
-}
-
-.neon-border-pulse {
-  animation: neon-glow-pulse 3s ease-in-out infinite;
-}
-
-/* Glassmorphism */
+/* =========================================================================
+   GLASSMORPHISM
+   ========================================================================= */
 .glass-panel {
   background: rgba(11, 21, 40, 0.7);
   backdrop-filter: blur(16px);
@@ -355,18 +244,256 @@ html.light {
   box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
 }
 
-/* Custom scrollbars */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* =========================================================================
+   KEYFRAMES & ANIMATIONS
+   ========================================================================= */
+
+/* Marquee scroll */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
 }
-::-webkit-scrollbar-track {
-  background: #030712;
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
 }
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #0284c7;
+
+/* Float animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(4deg); }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(14px) rotate(-4deg); }
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+}
+
+/* Pulse trace */
+@keyframes pulse-trace {
+  0%, 100% { opacity: 0.3; stroke-dashoffset: 0; }
+  50% { opacity: 0.9; stroke-dashoffset: 100; }
+}
+
+.animate-trace {
+  animation: pulse-trace 6s ease-in-out infinite;
+}
+
+/* Electric steam */
+@keyframes electric-steam {
+  0% { stroke-dashoffset: 40; opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.3; }
+}
+
+.animate-steam {
+  stroke-dasharray: 8 4;
+  animation: electric-steam 2.5s linear infinite;
+}
+
+/* Neon glow pulse */
+@keyframes neon-glow-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(6, 182, 212, 0.25), 0 0 30px rgba(6, 182, 212, 0.1); }
+  50% { box-shadow: 0 0 25px rgba(6, 182, 212, 0.5), 0 0 50px rgba(6, 182, 212, 0.25); }
+}
+
+.neon-border-pulse {
+  animation: neon-glow-pulse 3s ease-in-out infinite;
+}
+
+/* Gradient shift */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+/* Shimmer */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.shimmer-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-effect::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+/* Beam scan */
+@keyframes beam-scan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+.animate-beam {
+  animation: beam-scan 3s ease-in-out infinite;
+}
+
+/* Spin slow */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+/* Blink cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s ease-in-out infinite;
+}
+
+/* Fade up */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+/* Ping (TW doesn't always load, ensure it's here) */
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* =========================================================================
+   SCROLLBAR
+   ========================================================================= */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #030712; }
+::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #0284c7; }
+
+/* =========================================================================
+   PREFERS REDUCED MOTION
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================================
+   UTILITY CLASSES
+   ========================================================================= */
+
+/* Magnetic card hover effect */
+.magnetic-card {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+}
+
+.magnetic-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 40px -12px rgba(6, 182, 212, 0.2);
+}
+
+/* Gradient border effect */
+.gradient-border {
+  position: relative;
+  background: linear-gradient(#030712, #030712) padding-box,
+              linear-gradient(135deg, rgba(6,182,212,0.4), rgba(99,102,241,0.4)) border-box;
+  border: 1px solid transparent;
+}
+
+/* Glowing button */
+.glow-btn {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.glow-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(6,182,212,0.6), rgba(99,102,241,0.6));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.glow-btn:hover::before {
+  opacity: 1;
+}
+
+/* Card shine on hover */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.04), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.6s ease;
+}
+
+.card-shine:hover::before {
+  left: 125%;
+}
+
+/* Section divider with gradient */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(6,182,212,0.4) 30%, rgba(99,102,241,0.4) 70%, transparent);
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
 }

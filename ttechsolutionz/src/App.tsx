@@ -4,11 +4,17 @@
  */
 
 import React, { useState } from 'react';
+import { AnimatePresence } from 'motion/react';
+import { AnimatedBackground } from './components/AnimatedBackground';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
+import { StatsSection } from './components/StatsSection';
 import { ServicesSection } from './components/ServicesSection';
+import { ProcessSection } from './components/ProcessSection';
 import { ProjectEstimatorSection } from './components/ProjectEstimatorSection';
 import { PortfolioSection } from './components/PortfolioSection';
+import { CTASection } from './components/CTASection';
+import { TestimonialsSection } from './components/TestimonialsSection';
 import { InquirySection } from './components/InquirySection';
 import { Footer } from './components/Footer';
 import type { AppSection } from './types';
@@ -16,11 +22,9 @@ import type { AppSection } from './types';
 export default function App() {
   const [activeSection, setActiveSection] = useState<AppSection>('home');
 
-  // Pre-fill states for the quote estimator and contact form
   const [estimatorService, setEstimatorService] = useState<string>('SaaS Platform & Multi-Tenant App');
   const [estimatorStack, setEstimatorStack] = useState<string>('.NET Core 9 + React 19 (Enterprise)');
 
-  // Contact form initial states
   const [inquiryService, setInquiryService] = useState<string>('SaaS Platform & Web App');
   const [inquiryStack, setInquiryStack] = useState<string>('.NET Core 9 + React 19 (Enterprise)');
   const [inquiryBudget, setInquiryBudget] = useState<string>('$4,500 - $8,000 USD');
@@ -94,62 +98,83 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 selection:bg-cyan-500 selection:text-slate-950 flex flex-col font-sans">
-      {/* Top Fixed Header Navigation */}
-      <Navbar
-        activeSection={activeSection}
-        onSelectSection={handleSelectSection}
-        onOpenConsultation={() => handleOpenConsultation()}
-      />
+    <div className="relative min-h-screen bg-[#030712] text-slate-100 selection:bg-cyan-500 selection:text-slate-950 flex flex-col font-sans">
+      {/* Global canvas particle background */}
+      <AnimatedBackground />
 
-      {/* Main Content Sections */}
-      <main className="flex-1">
-        {/* Hero Section with Interactive Laptop/Mobile Simulator */}
-        <HeroSection
-          onOpenEstimator={() => {
-            setActiveSection('estimator');
-            scrollToSection('estimator');
-          }}
+      {/* Everything above canvas */}
+      <div className="relative z-10 flex flex-col min-h-screen">
+        {/* Fixed Header */}
+        <Navbar
+          activeSection={activeSection}
+          onSelectSection={handleSelectSection}
           onOpenConsultation={() => handleOpenConsultation()}
-          onExploreStack={() => {
-            setActiveSection('dotnet-stack');
-            scrollToSection('dotnet-stack');
-          }}
         />
 
-        <ServicesSection
-          onSelectServiceForQuote={handleSelectServiceForQuote}
-          onOpenConsultation={handleOpenConsultation}
+        {/* Main Content */}
+        <main className="flex-1">
+          {/* 1. Hero — full screen with typewriter + parallax */}
+          <HeroSection
+            onOpenEstimator={() => {
+              setActiveSection('estimator');
+              scrollToSection('estimator');
+            }}
+            onOpenConsultation={() => handleOpenConsultation()}
+            onExploreStack={() => {
+              setActiveSection('dotnet-stack');
+              scrollToSection('dotnet-stack');
+            }}
+          />
+
+          {/* 2. Animated stats counters */}
+          <StatsSection />
+
+          {/* 3. Services */}
+          <ServicesSection
+            onSelectServiceForQuote={handleSelectServiceForQuote}
+            onOpenConsultation={handleOpenConsultation}
+          />
+
+          {/* 4. How we work — process timeline */}
+          <ProcessSection />
+
+          {/* 5. Project estimator */}
+          <ProjectEstimatorSection
+            initialService={estimatorService}
+            initialStack={estimatorStack}
+            onLockEstimate={handleLockEstimate}
+          />
+
+          {/* 6. Portfolio */}
+          <PortfolioSection
+            onSelectProjectForConsultation={(projName) => handleOpenConsultation(projName)}
+          />
+
+          {/* 7. CTA banner */}
+          <CTASection
+            onOpenConsultation={() => handleOpenConsultation()}
+            onOpenEstimator={() => { setActiveSection('estimator'); scrollToSection('estimator'); }}
+          />
+
+          {/* 8. Testimonials carousel */}
+          <TestimonialsSection />
+
+          {/* 9. Contact inquiry */}
+          <InquirySection
+            initialService={inquiryService}
+            initialStack={inquiryStack}
+            initialBudget={inquiryBudget}
+            initialTimeline={inquiryTimeline}
+            initialDescription={inquiryDescription}
+          />
+        </main>
+
+        {/* Footer */}
+        <Footer
+          onSelectSection={handleSelectSection}
+          onOpenConsultation={() => handleOpenConsultation()}
         />
-
-        {/* Interactive Cost & Timeline Estimator */}
-        <ProjectEstimatorSection
-          initialService={estimatorService}
-          initialStack={estimatorStack}
-          onLockEstimate={handleLockEstimate}
-        />
-
-        {/* Featured Case Studies & Portfolio */}
-        <PortfolioSection
-          onSelectProjectForConsultation={(projName) => handleOpenConsultation(projName)}
-        />
-
-        {/* Interactive Consultation Form connected to Firestore */}
-        <InquirySection
-          initialService={inquiryService}
-          initialStack={inquiryStack}
-          initialBudget={inquiryBudget}
-          initialTimeline={inquiryTimeline}
-          initialDescription={inquiryDescription}
-        />
-      </main>
-
-      {/* Footer */}
-      <Footer
-        onSelectSection={handleSelectSection}
-        onOpenConsultation={() => handleOpenConsultation()}
-      />
-
+      </div>
     </div>
   );
 }
