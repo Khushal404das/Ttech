@@ -164,7 +164,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         {/* Filter Controls */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           {categories.map((cat) => (
-            <button
+            <motion.button
               key={cat}
               onClick={() => setFilter(cat)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
@@ -172,9 +172,12 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
                   : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800'
               }`}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              layout
             >
               {cat}
-            </button>
+            </motion.button>
           ))}
         </div>
 
@@ -262,12 +265,21 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       {/* Case Study Details Modal */}
       <AnimatePresence>
       {activeProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onClick={() => setActiveProject(null)}
+        >
           <motion.div
             className="max-w-2xl w-full bg-slate-900 border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto"
             initial={{ opacity: 0, y: 18, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.98 }}
+            transition={{ duration: 0.24, ease: 'easeOut' }}
+            onClick={(event) => event.stopPropagation()}
           >
             <button
               onClick={() => setActiveProject(null)}
@@ -354,7 +366,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               </button>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       )}
       </AnimatePresence>
     </motion.section>

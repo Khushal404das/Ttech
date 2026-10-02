@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { TtechLogo } from './TtechLogo';
 import {
   Menu,
@@ -24,11 +24,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   inquiryCount = 0,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -54,6 +57,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           : 'bg-transparent py-4 sm:py-5'
       }`}
     >
+      <motion.div
+        className="absolute inset-x-0 top-0 h-px origin-left bg-gradient-to-r from-cyan-400 via-blue-500 to-teal-400"
+        style={{ scaleX: scrollProgress / 100 }}
+        aria-hidden="true"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -129,8 +137,15 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Mobile Menu Dropdown */}
+      <AnimatePresence>
       {mobileMenuOpen && (
-        <div className="lg:hidden mt-3 px-4 pt-2 pb-5 bg-slate-950/95 backdrop-blur-2xl border-b border-slate-800/80 animate-in slide-in-from-top-3 duration-200">
+        <motion.div
+          className="lg:hidden mt-3 px-4 pt-2 pb-5 bg-slate-950/95 backdrop-blur-2xl border-b border-slate-800/80"
+          initial={{ opacity: 0, height: 0, y: -8 }}
+          animate={{ opacity: 1, height: 'auto', y: 0 }}
+          exit={{ opacity: 0, height: 0, y: -8 }}
+          transition={{ duration: 0.22, ease: 'easeOut' }}
+        >
           <div className="grid grid-cols-2 gap-2 mb-4">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
@@ -164,8 +179,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
     </header>
   );
 };
