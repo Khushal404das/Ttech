@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Code2,
   Globe,
@@ -188,7 +189,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
     <section id="services" className="py-24 relative bg-[#040B1A] border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          className="text-center max-w-3xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.65, ease: 'easeOut' }}
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-3">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
             <span>Our Core Agency Capabilities</span>
@@ -202,14 +209,19 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           <p className="text-slate-300 text-base sm:text-lg">
             Directly from our agency blueprint: We cover the entire digital lifecycle from initial UI/UX wireframes to full-stack enterprise .NET architecture and cloud deployment.
           </p>
-        </div>
+        </motion.div>
 
         {/* Services Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {services.map((service) => (
-            <div
+            <motion.div
               key={service.id}
               className="group relative rounded-3xl p-6 sm:p-7 bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-xl hover:shadow-cyan-950/30 backdrop-blur-sm"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{ duration: 0.5, delay: Math.min(services.indexOf(service) * 0.06, 0.3), ease: 'easeOut' }}
+              whileHover={{ y: -6 }}
             >
               <div>
                 {/* Header: Icon & Badge */}
@@ -265,7 +277,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   Get Estimate
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -297,9 +309,16 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       </div>
 
       {/* Deliverables & Detail Modal */}
+      <AnimatePresence>
       {selectedService && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="max-w-xl w-full bg-slate-900 border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <motion.div
+            className="max-w-xl w-full bg-slate-900 border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 12 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+          >
             <button
               onClick={() => setSelectedService(null)}
               className="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"
@@ -395,9 +414,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
+      </AnimatePresence>
     </section>
   );
 };
