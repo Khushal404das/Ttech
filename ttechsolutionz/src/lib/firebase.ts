@@ -16,14 +16,34 @@ import {
 } from 'firebase/firestore';
 import { firebaseConfig } from './firebaseConfig';
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+let app: any;
+try {
+  app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+} catch (err) {
+  console.warn('Firebase initialization skipped or failed:', err);
+}
 
-export const auth = getAuth(app);
+let authInstance: any = null;
+try {
+  if (app) {
+    authInstance = getAuth(app);
+  }
+} catch (err) {
+  console.warn('Firebase Auth initialization skipped or failed:', err);
+}
+export const auth = authInstance;
 
-// Use custom database ID if provisioned, or default
-export const db = firebaseConfig.firestoreDatabaseId
-  ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
-  : getFirestore(app);
+let dbInstance: any = null;
+try {
+  if (app) {
+    dbInstance = firebaseConfig.firestoreDatabaseId
+      ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
+      : getFirestore(app);
+  }
+} catch (err) {
+  console.warn('Firebase Firestore initialization skipped or failed:', err);
+}
+export const db = dbInstance;
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({

@@ -123,37 +123,37 @@ return <CyberCanvas renderState={state} />;`,
   return (
     <section className="py-20 relative overflow-hidden bg-[#020617] border-y border-cyan-900/40">
       {/* Circuit board traces & background ambient glows */}
-      <div className="absolute inset-0 bg-circuit-grid opacity-40 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-cyan-600/10 blur-[130px] pointer-events-none rounded-full" />
+      <div className="absolute inset-0 opacity-0 opacity-40 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#2563EB]/10 blur-[130px] pointer-events-none rounded-full" />
       <div className="absolute bottom-0 right-10 w-96 h-96 bg-blue-600/10 blur-[120px] pointer-events-none rounded-full" />
 
       {/* Floating 3D Cubes (inspired by the posters) */}
       <div className="absolute top-12 left-8 hidden lg:block animate-float-slow pointer-events-none opacity-60">
-        <div className="w-10 h-10 border border-cyan-400/40 bg-cyan-500/10 backdrop-blur-sm rotate-45 rounded-lg shadow-lg shadow-cyan-500/20" />
+        <div className="w-10 h-10 border border-cyan-400/40 bg-[#3B82F6]/10  rotate-45 rounded-lg shadow-lg shadow-[#2563EB]/20" />
       </div>
       <div className="absolute bottom-16 right-12 hidden lg:block animate-float-reverse pointer-events-none opacity-50">
-        <div className="w-12 h-12 border border-blue-400/40 bg-blue-500/10 backdrop-blur-sm rotate-12 rounded-lg shadow-lg shadow-blue-500/20" />
+        <div className="w-12 h-12 border border-blue-400/40 bg-blue-500/10  rotate-12 rounded-lg shadow-lg shadow-[#2563EB]/20" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Banner Header Tag */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-800">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-[#DCE8F8]">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping inline-block" />
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-cyan-400">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] animate-ping inline-block" />
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#2563EB]">
               Agency Master Banner Showcase
             </span>
           </div>
 
           {/* "Let's Build Together" handwritten-style neon badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-cyan-950/80 via-blue-950/80 to-purple-950/80 border border-cyan-400/40 text-cyan-200 text-xs font-semibold shadow-md shadow-cyan-950/50">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-spin" />
+            <Sparkles className="w-3.5 h-3.5 text-[#2563EB] animate-spin" />
             <span className="italic font-display tracking-wide">Let&apos;s Build Together</span>
           </div>
         </div>
 
         {/* Master Panoramic Cyber Banner Box */}
-        <div className="relative rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-[#06152b] via-[#040e1f] to-[#020713] border-2 border-cyan-500/30 shadow-2xl shadow-cyan-950/60 overflow-hidden">
+        <div className="relative rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-[#06152b] via-[#040e1f] to-[#020713] border-2 border-[#2563EB]/30 shadow-2xl shadow-cyan-950/60 overflow-hidden">
           {/* Subtle Circuit Overlay SVGs */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none opacity-20"
@@ -183,14 +183,14 @@ return <CyberCanvas renderState={state} />;`,
             {/* Left Column: Brand Logo + 5 Cyber Service Nodes */}
             <div className="lg:col-span-5 space-y-6">
               {/* Ttech Solutions Logo with Circuit Steam */}
-              <div className="p-4 rounded-2xl bg-slate-950/60 border border-cyan-500/20 backdrop-blur-md">
+              <div className="p-4 rounded-2xl bg-white/60 border border-[#2563EB]/20 ">
                 <TtechLogo size="lg" showTagline={true} />
               </div>
 
               {/* Interactive Service Nodes List */}
               <div className="space-y-2.5">
-                <div className="text-[11px] font-mono text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 px-1">
-                  <Zap className="w-3 h-3 text-cyan-400 animate-pulse" />
+                <div className="text-[11px] font-mono text-[#2563EB] uppercase tracking-wider flex items-center gap-1.5 px-1">
+                  <Zap className="w-3 h-3 text-[#2563EB] animate-pulse" />
                   <span>Interactive Core Competencies (Click to switch preview)</span>
                 </div>
 
@@ -204,27 +204,27 @@ return <CyberCanvas renderState={state} />;`,
                         onClick={() => setActiveServiceIdx(idx)}
                         className={`flex items-center gap-3.5 p-3 rounded-xl border text-left transition-all cursor-pointer group ${
                           isActive
-                            ? 'bg-gradient-to-r from-cyan-950/90 to-blue-950/80 border-cyan-400 text-white shadow-lg shadow-cyan-500/20 translate-x-1'
-                            : 'bg-slate-950/50 border-slate-800/80 text-slate-300 hover:bg-slate-900 hover:border-cyan-500/40'
+                            ? 'bg-gradient-to-r from-cyan-950/90 to-blue-950/80 border-cyan-400 text-[#0B1220] shadow-lg shadow-[#2563EB]/20 translate-x-1'
+                            : 'bg-white0 border-[#DCE8F8] text-[#475569] hover:bg-white hover:border-[#2563EB]/30'
                         }`}
                       >
                         {/* Glowing neon rounded square icon */}
                         <div
                           className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border transition-all ${
                             isActive
-                              ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-md shadow-cyan-400/40 scale-105'
-                              : 'bg-slate-900 border-slate-700/80 text-slate-400 group-hover:text-cyan-400 group-hover:border-cyan-500/40'
+                              ? 'bg-[#3B82F6]/20 border-cyan-400 text-[#2563EB] shadow-md shadow-cyan-400/40 scale-105'
+                              : 'bg-white border-[#DCE8F8] text-[#7B8AA3] group-hover:text-[#2563EB] group-hover:border-[#2563EB]/30'
                           }`}
                         >
                           <IconComponent className="w-5 h-5" />
                         </div>
 
                         <div className="min-w-0 flex-1">
-                          <div className="text-sm font-bold truncate group-hover:text-white transition-colors">
+                          <div className="text-sm font-bold truncate group-hover:text-[#0B1220] transition-colors">
                             {svc.title}
                           </div>
-                          <div className="text-[11px] text-slate-400 font-mono flex items-center gap-1.5 mt-0.5">
-                            <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-cyan-400 animate-pulse' : 'bg-slate-500'}`} />
+                          <div className="text-[11px] text-[#7B8AA3] font-mono flex items-center gap-1.5 mt-0.5">
+                            <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#2563EB] animate-pulse' : 'bg-slate-500'}`} />
                             <span className="truncate">{svc.badge}</span>
                           </div>
                         </div>
@@ -232,8 +232,8 @@ return <CyberCanvas renderState={state} />;`,
                         <ArrowRight
                           className={`w-4 h-4 transition-transform ${
                             isActive
-                              ? 'text-cyan-400 translate-x-1'
-                              : 'text-slate-600 group-hover:text-slate-400'
+                              ? 'text-[#2563EB] translate-x-1'
+                              : 'text-[#7B8AA3] group-hover:text-[#7B8AA3]'
                           }`}
                         />
                       </button>
@@ -246,16 +246,16 @@ return <CyberCanvas renderState={state} />;`,
             {/* Right Column: 3D Laptop Perspective with Live Screen & Stack Badges */}
             <div className="lg:col-span-7 flex flex-col md:flex-row gap-4 items-stretch">
               {/* Laptop Screen Frame */}
-              <div className="flex-1 rounded-2xl p-1 bg-gradient-to-b from-cyan-400/40 via-slate-700 to-slate-900 shadow-2xl shadow-cyan-900/50 flex flex-col">
-                <div className="bg-[#030919] rounded-xl border border-cyan-500/30 flex-1 flex flex-col overflow-hidden">
+              <div className="flex-1 rounded-2xl p-1 bg-gradient-to-b from-[#3B82F6]/40 via-slate-700 to-slate-900 shadow-2xl shadow-cyan-900/50 flex flex-col">
+                <div className="bg-[#030919] rounded-xl border border-[#2563EB]/30 flex-1 flex flex-col overflow-hidden">
                   {/* Laptop Top Browser Bar */}
-                  <div className="flex items-center justify-between px-3 py-2 bg-slate-950 border-b border-slate-800">
+                  <div className="flex items-center justify-between px-3 py-2 bg-white border-b border-[#DCE8F8]">
                     <div className="flex items-center gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
                       <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
                       <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                     </div>
-                    <div className="text-[10px] font-mono text-slate-400 bg-slate-900 px-3 py-0.5 rounded-md border border-slate-800">
+                    <div className="text-[10px] font-mono text-[#7B8AA3] bg-white px-3 py-0.5 rounded-md border border-[#DCE8F8]">
                       https://ttechsolutions.com/{currentService.id}
                     </div>
                     <span className="text-[10px] font-mono text-emerald-400 font-semibold flex items-center gap-1">
@@ -267,39 +267,39 @@ return <CyberCanvas renderState={state} />;`,
                   {/* Laptop Screen Content */}
                   <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div>
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-[10px] font-semibold mb-2">
-                        <Sparkles className="w-3 h-3 text-cyan-400" />
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF2FF] border border-[#2563EB]/30 text-[#2563EB] text-[10px] font-semibold mb-2">
+                        <Sparkles className="w-3 h-3 text-[#2563EB]" />
                         <span>Ideas to Intelligent Solutions</span>
                       </div>
-                      <h4 className="text-lg sm:text-xl font-display font-extrabold text-white leading-tight">
+                      <h4 className="text-lg sm:text-xl font-display font-extrabold text-[#0B1220] leading-tight">
                         {currentService.screenTitle}
                       </h4>
-                      <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                      <p className="text-xs text-[#475569] mt-1.5 leading-relaxed">
                         {currentService.screenSubtitle}
                       </p>
                     </div>
 
                     {/* Live Simulated Code snippet */}
-                    <div className="p-3 rounded-xl bg-slate-950/90 border border-slate-800 font-mono text-[11px] text-cyan-300 overflow-x-auto">
-                      <div className="flex items-center justify-between text-slate-500 text-[9px] mb-1 border-b border-slate-800/80 pb-1">
+                    <div className="p-3 rounded-xl bg-white/90 border border-[#DCE8F8] font-mono text-[11px] text-[#2563EB] overflow-x-auto">
+                      <div className="flex items-center justify-between text-[#7B8AA3] text-[9px] mb-1 border-b border-[#DCE8F8] pb-1">
                         <span>LIVE RUNTIME EXECUTION</span>
                         <span className="text-emerald-400">{currentService.metric}</span>
                       </div>
-                      <pre className="text-slate-300 leading-tight">
+                      <pre className="text-[#475569] leading-tight">
                         <code>{currentService.codeSnippet}</code>
                       </pre>
                     </div>
 
                     {/* Performance & Trust metrics */}
-                    <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800/80">
-                      <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
-                        <div className="text-[10px] text-slate-400">Benchmark</div>
-                        <div className="text-xs font-bold text-cyan-400 font-display">
+                    <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#DCE8F8]">
+                      <div className="p-2 rounded-lg bg-white border border-[#DCE8F8] text-center">
+                        <div className="text-[10px] text-[#7B8AA3]">Benchmark</div>
+                        <div className="text-xs font-bold text-[#2563EB] font-display">
                           {currentService.stats}
                         </div>
                       </div>
-                      <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
-                        <div className="text-[10px] text-slate-400">Production SLA</div>
+                      <div className="p-2 rounded-lg bg-white border border-[#DCE8F8] text-center">
+                        <div className="text-[10px] text-[#7B8AA3]">Production SLA</div>
                         <div className="text-xs font-bold text-emerald-400 font-display">
                           100% Guaranteed
                         </div>
@@ -310,7 +310,7 @@ return <CyberCanvas renderState={state} />;`,
                     <div className="flex items-center justify-between pt-1">
                       <button
                         onClick={onStartProject}
-                        className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-cyan-600/30 transition-all flex items-center gap-1.5 cursor-pointer"
+                        className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-[#3B82F6] hover:to-blue-500 text-[#0B1220] font-bold text-xs shadow-md shadow-[#2563EB]/20 transition-all flex items-center gap-1.5 cursor-pointer"
                       >
                         <span>Start Your Project</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -318,7 +318,7 @@ return <CyberCanvas renderState={state} />;`,
 
                       <button
                         onClick={onExploreServices}
-                        className="text-xs font-semibold text-cyan-300 hover:text-white transition-colors cursor-pointer"
+                        className="text-xs font-semibold text-[#2563EB] hover:text-[#0B1220] transition-colors cursor-pointer"
                       >
                         All Capabilities &rarr;
                       </button>
@@ -328,8 +328,8 @@ return <CyberCanvas renderState={state} />;`,
               </div>
 
               {/* Right Stack Tech Badges Bar (matching the banner layout) */}
-              <div className="w-full md:w-36 flex md:flex-col justify-between gap-1.5 p-3 rounded-2xl bg-slate-950/80 border border-slate-800/80 backdrop-blur-md">
-                <div className="hidden md:block text-[10px] font-mono uppercase tracking-wider text-slate-400 text-center pb-2 border-b border-slate-800">
+              <div className="w-full md:w-36 flex md:flex-col justify-between gap-1.5 p-3 rounded-2xl bg-white/80 border border-[#DCE8F8] ">
+                <div className="hidden md:block text-[10px] font-mono uppercase tracking-wider text-[#7B8AA3] text-center pb-2 border-b border-[#DCE8F8]">
                   Tech Core
                 </div>
 
@@ -339,13 +339,13 @@ return <CyberCanvas renderState={state} />;`,
                     return (
                       <div
                         key={tb.name}
-                        className="flex items-center gap-2 p-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 w-full transition-all group cursor-default"
+                        className="flex items-center gap-2 p-1.5 rounded-lg bg-white hover:bg-[#F1F7FF] border border-[#DCE8F8] hover:border-[#2563EB]/30 w-full transition-all group cursor-default"
                         title={tb.name}
                       >
                         <div className="w-6 h-6 flex items-center justify-center shrink-0">
                           <IconComponent size={20} />
                         </div>
-                        <span className="hidden md:inline text-[11px] font-semibold text-slate-300 group-hover:text-cyan-300 transition-colors">
+                        <span className="hidden md:inline text-[11px] font-semibold text-[#475569] group-hover:text-[#2563EB] transition-colors">
                           {tb.name}
                         </span>
                       </div>
@@ -360,3 +360,4 @@ return <CyberCanvas renderState={state} />;`,
     </section>
   );
 };
+

@@ -1,45 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { TtechLogo } from './TtechLogo';
 import {
-  Code2,
   ArrowUp,
-  Cpu,
   Heart,
   Mail,
-  Phone,
   MessageSquare,
-  Globe,
-  ShieldCheck,
 } from 'lucide-react';
-import type { AppSection } from '../types';
 
 interface FooterProps {
-  onSelectSection: (section: AppSection) => void;
   onOpenConsultation: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({
-  onSelectSection,
-  onOpenConsultation,
-}) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="bg-[#020612] text-slate-400 border-t border-slate-900 pt-16 pb-12 relative overflow-hidden">
-      {/* Background circuit ambient */}
+    <footer className="bg-[#F8FBFF] text-[#7B8AA3] border-t border-[#DCE8F8] pt-16 pb-12 relative overflow-hidden">
+      {/* Background ambient */}
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-900/10 blur-[120px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
           {/* Brand Info (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
-            <TtechLogo size="lg" showTagline={true} />
-            <p className="text-xs text-slate-400 leading-relaxed max-w-sm mt-3">
+            <Link to="/" className="inline-block">
+              <TtechLogo size="lg" showTagline={true} />
+            </Link>
+            <p className="text-xs text-[#7B8AA3] leading-relaxed max-w-sm mt-3">
               <strong>Ttech SOLUTIONS</strong> is an engineering-first software and digital design agency. We specialize in enterprise .NET Core architectures, high-velocity React web applications, conversion-driven SaaS platforms, and bespoke UI/UX design.
             </p>
-            <div className="text-xs text-cyan-400 font-mono">
+            <div className="text-xs text-[#2563EB] font-mono">
               &quot;Ideas to Intelligent Solutions&quot;
             </div>
 
@@ -48,7 +41,7 @@ export const Footer: React.FC<FooterProps> = ({
                 href="https://wa.me/923489763998?text=Hello%20Ttech%20SOLUTIONS,%20I%20would%20like%20to%20discuss%20a%20project"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/40 transition-colors flex items-center gap-2 text-xs font-mono font-medium"
+                className="px-3 py-2 rounded-xl bg-white border border-[#DCE8F8] text-[#475569] hover:text-emerald-400 hover:border-emerald-500/40 transition-colors flex items-center gap-2 text-xs font-mono font-medium"
                 aria-label="WhatsApp: +92 348 9763998"
               >
                 <MessageSquare className="w-4 h-4 text-emerald-400" />
@@ -56,7 +49,7 @@ export const Footer: React.FC<FooterProps> = ({
               </a>
               <a
                 href="mailto:contact@ttechsolutions.dev"
-                className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+                className="p-2.5 rounded-xl bg-white border border-[#DCE8F8] text-[#475569] hover:text-[#2563EB] hover:border-[#2563EB]/30 transition-colors"
                 aria-label="Email: contact@ttechsolutions.dev"
               >
                 <Mail className="w-4 h-4" />
@@ -66,169 +59,92 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Agency Services Links */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono mb-4">
+            <h4 className="text-xs font-bold text-[#0B1220] uppercase tracking-wider font-mono mb-4">
               Core Services
             </h4>
             <ul className="space-y-2.5 text-xs">
-              <li>
-                <button
-                  onClick={() => onSelectSection('services')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer"
-                >
-                  Software Development (.NET)
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('services')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer"
-                >
-                  Web Applications &amp; SAAS
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('services')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer"
-                >
-                  Website Development
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('services')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer"
-                >
-                  Full Stack Development
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('services')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer"
-                >
-                  AI Automation &amp; Agents
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('services')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer"
-                >
-                  UI/UX Design &amp; Figma to Web
-                </button>
-              </li>
+              {[
+                'Software Development (.NET)',
+                'Web Applications & SAAS',
+                'Website Development',
+                'Full Stack Development',
+                'AI Automation & Agents',
+                'UI/UX Design & Figma to Web',
+              ].map((service) => (
+                <li key={service}>
+                  <Link
+                    to="/services"
+                    className="hover:text-[#2563EB] transition-colors no-underline text-[#7B8AA3]"
+                  >
+                    {service}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Tech Stacks */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono mb-4">
+            <h4 className="text-xs font-bold text-[#0B1220] uppercase tracking-wider font-mono mb-4">
               Technology Stack
             </h4>
             <ul className="space-y-2.5 text-xs">
-              <li>
-                <button
-                  onClick={() => onSelectSection('dotnet-stack')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer font-mono"
-                >
-                  .NET 9 Core / C#
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('dotnet-stack')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer font-mono"
-                >
-                  React 19 &amp; Next.js
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('dotnet-stack')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer font-mono"
-                >
-                  Entity Framework Core
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('dotnet-stack')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer font-mono"
-                >
-                  Node.js / Express / Python
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('dotnet-stack')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer font-mono"
-                >
-                  PHP 8 / Laravel 11
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectSection('dotnet-stack')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer font-mono"
-                >
-                  Microsoft Azure &amp; Docker
-                </button>
-              </li>
+              {[
+                '.NET 9 Core / C#',
+                'React 19 & Next.js',
+                'Entity Framework Core',
+                'Node.js / Express / Python',
+                'PHP 8 / Laravel 11',
+                'Microsoft Azure & Docker',
+              ].map((tech) => (
+                <li key={tech}>
+                  <Link
+                    to="/services"
+                    className="hover:text-[#2563EB] transition-colors cursor-pointer font-mono no-underline text-[#7B8AA3]"
+                  >
+                    {tech}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Quick Tools & CTAs */}
+          {/* Quick Links */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono mb-4">
+            <h4 className="text-xs font-bold text-[#0B1220] uppercase tracking-wider font-mono mb-4">
               Client Tools
             </h4>
             <ul className="space-y-2.5 text-xs mb-4">
               <li>
-                <button
-                  onClick={() => onSelectSection('estimator')}
-                  className="text-cyan-400 hover:text-cyan-300 transition-colors cursor-pointer font-medium"
-                >
+                <Link to="/services" className="text-[#2563EB] hover:text-[#2563EB] transition-colors font-medium no-underline">
                   Project Cost Estimator →
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectSection('ai-scoper')}
-                  className="text-purple-400 hover:text-purple-300 transition-colors cursor-pointer font-medium"
-                >
+                <Link to="/services" className="text-[#2563EB] hover:text-[#2563EB] transition-colors font-medium no-underline">
                   AI Technical Scoper →
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectSection('portfolio')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer"
-                >
+                <Link to="/work" className="hover:text-[#2563EB] transition-colors no-underline text-[#7B8AA3]">
                   Featured Case Studies
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectSection('testimonials')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer"
-                >
-                  Client Reviews &amp; SLA
-                </button>
+                <Link to="/work" className="hover:text-[#2563EB] transition-colors no-underline text-[#7B8AA3]">
+                  Client Reviews & SLA
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectSection('faq')}
-                  className="hover:text-cyan-300 transition-colors cursor-pointer"
-                >
-                  Process &amp; Pricing FAQ
-                </button>
+                <Link to="/services" className="hover:text-[#2563EB] transition-colors no-underline text-[#7B8AA3]">
+                  Process & Pricing FAQ
+                </Link>
               </li>
             </ul>
 
             <button
               onClick={onOpenConsultation}
-              className="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all shadow-md shadow-cyan-600/20 cursor-pointer"
+              className="w-full py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#3B82F6] text-white text-xs font-bold transition-all shadow-md shadow-[#2563EB]/15 cursor-pointer"
             >
               Start Your Project
             </button>
@@ -236,20 +152,20 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <div className="pt-8 border-t border-[#DCE8F8] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <div className="flex items-center gap-2">
             <span>© {new Date().getFullYear()} Ttech SOLUTIONS. All rights reserved.</span>
             <span>·</span>
-            <span className="text-cyan-400 font-medium">Think. Transform. Trust.</span>
+            <span className="text-[#2563EB] font-medium">Think. Transform. Trust.</span>
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="text-[11px] text-slate-500">
+            <span className="text-[11px] text-[#7B8AA3]">
               Clean Code Architecture · On-Time Delivery · 24/7 Support
             </span>
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition-all cursor-pointer"
+              className="p-2 rounded-xl bg-white border border-[#DCE8F8] text-[#7B8AA3] hover:text-[#0B1220] hover:border-[#60A5FA] transition-all cursor-pointer"
               aria-label="Back to top"
             >
               <ArrowUp className="w-4 h-4" />

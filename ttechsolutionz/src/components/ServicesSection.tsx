@@ -167,13 +167,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   const getIcon = (name: string) => {
     switch (name) {
       case 'Code2':
-        return <Code2 className="w-6 h-6 text-cyan-400" />;
+        return <Code2 className="w-6 h-6 text-[#2563EB]" />;
       case 'Layers':
         return <Layers className="w-6 h-6 text-blue-400" />;
       case 'Globe':
         return <Globe className="w-6 h-6 text-teal-400" />;
       case 'Server':
-        return <Server className="w-6 h-6 text-purple-400" />;
+        return <Server className="w-6 h-6 text-[#2563EB]" />;
       case 'Bot':
         return <Bot className="w-6 h-6 text-amber-400" />;
       case 'Palette':
@@ -181,12 +181,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       case 'ShoppingCart':
         return <ShoppingCart className="w-6 h-6 text-emerald-400" />;
       default:
-        return <Code2 className="w-6 h-6 text-cyan-400" />;
+        return <Code2 className="w-6 h-6 text-[#2563EB]" />;
     }
   };
 
   return (
-    <section id="services" className="py-24 relative bg-[#040B1A] border-t border-slate-900">
+    <section id="services" className="py-24 relative bg-[#F8FBFF] border-t border-[#DCE8F8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -196,17 +196,17 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.65, ease: 'easeOut' }}
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF2FF] border border-[#2563EB]/30 text-[#2563EB] text-xs font-semibold mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
             <span>Our Core Agency Capabilities</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-display mb-4">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0B1220] tracking-tight font-display mb-4">
             Transforming Complex Ideas Into{' '}
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] bg-clip-text text-transparent">
               Intelligent Software
             </span>
           </h2>
-          <p className="text-slate-300 text-base sm:text-lg">
+          <p className="text-[#475569] text-base sm:text-lg">
             Directly from our agency blueprint: We cover the entire digital lifecycle from initial UI/UX wireframes to full-stack enterprise .NET architecture and cloud deployment.
           </p>
         </motion.div>
@@ -216,7 +216,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           {services.map((service) => (
             <motion.div
               key={service.id}
-              className="group relative rounded-3xl p-6 sm:p-7 bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-xl hover:shadow-cyan-950/30 backdrop-blur-sm"
+              className="group relative rounded-3xl p-6 sm:p-7 bg-white hover:bg-white border border-[#DCE8F8] hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between hover:shadow-xl hover:shadow-[#2563EB]/10 "
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.12 }}
@@ -226,19 +226,19 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               <div>
                 {/* Header: Icon & Badge */}
                 <div className="flex items-center justify-between mb-5">
-                  <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800 group-hover:border-cyan-500/40 group-hover:bg-cyan-950/30 transition-colors">
+                  <div className="p-3 rounded-2xl bg-white border border-[#DCE8F8] group-hover:border-[#2563EB]/30 group-hover:bg-[#EAF2FF] transition-colors">
                     {getIcon(service.iconName)}
                   </div>
-                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800/90 text-cyan-300 border border-slate-700/80">
+                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#F1F7FF] text-[#2563EB] border border-[#DCE8F8]">
                     {service.highlightBadge}
                   </span>
                 </div>
 
                 {/* Title & Tagline */}
-                <h3 className="text-xl font-bold text-white font-display mb-2 group-hover:text-cyan-300 transition-colors">
+                <h3 className="text-xl font-bold text-[#0B1220] font-display mb-2 group-hover:text-[#2563EB] transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                <p className="text-[#475569] text-sm leading-relaxed mb-4">
                   {service.tagline}
                 </p>
 
@@ -247,13 +247,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   {service.technologies.slice(0, 4).map((tech, i) => (
                     <span
                       key={i}
-                      className="text-[11px] px-2 py-0.5 rounded-md bg-slate-950/80 text-slate-300 border border-slate-800 font-mono"
+                      className="text-[11px] px-2 py-0.5 rounded-md bg-white/80 text-[#475569] border border-[#DCE8F8] font-mono"
                     >
                       {tech}
                     </span>
                   ))}
                   {service.technologies.length > 4 && (
-                    <span className="text-[11px] px-2 py-0.5 rounded-md bg-slate-950/80 text-cyan-400 font-mono">
+                    <span className="text-[11px] px-2 py-0.5 rounded-md bg-white/80 text-[#2563EB] font-mono">
                       +{service.technologies.length - 4} more
                     </span>
                   )}
@@ -261,10 +261,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               </div>
 
               {/* Bottom Card Actions */}
-              <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <div className="pt-4 border-t border-[#DCE8F8] flex items-center justify-between gap-2">
                 <button
                   onClick={() => setSelectedService(service)}
-                  className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 cursor-pointer transition-colors"
+                  className="text-xs font-semibold text-[#2563EB] hover:text-[#2563EB] flex items-center gap-1 cursor-pointer transition-colors"
                 >
                   <span>View Deliverables</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -272,7 +272,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
                 <button
                   onClick={() => onSelectServiceForQuote(service.title)}
-                  className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-cyan-600 hover:text-white text-slate-200 text-xs font-medium transition-all cursor-pointer"
+                  className="px-3 py-1.5 rounded-xl bg-[#F1F7FF] hover:bg-[#2563EB] hover:text-white text-[#475569] text-xs font-medium transition-all cursor-pointer"
                 >
                   Get Estimate
                 </button>
@@ -282,24 +282,32 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         </div>
 
         {/* Banner Slogan Callout */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-blue-950/70 via-slate-900/90 to-cyan-950/70 border border-cyan-500/30 text-center relative overflow-hidden shadow-2xl">
+        <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-b from-[#F1F7FF] to-white border border-[#DCE8F8] text-center relative overflow-hidden shadow-[0_10px_30px_rgba(37,99,235,0.08)]">
+          {/* Subtle blue ambient glow */}
+          <div
+            className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-40 bg-[#2563EB]/10 blur-3xl pointer-events-none rounded-full"
+            aria-hidden="true"
+          />
           <div className="max-w-2xl mx-auto relative z-10">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF2FF] border border-[#DCE8F8] text-[#2563EB] text-xs font-semibold mb-4">
+              <span>Next-Gen Engineering</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0B1220] font-display mb-3 tracking-tight">
               &quot;Your Idea. Our Technology.&quot;
             </h3>
-            <p className="text-slate-300 text-sm sm:text-base mb-6">
+            <p className="text-[#475569] text-sm sm:text-base mb-6 leading-relaxed">
               Powerful, resilient websites and software systems engineered to grow your enterprise with modern, fast, secure, and scalable architectures.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={() => onOpenConsultation()}
-                className="px-6 py-3 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-cyan-500/30 cursor-pointer"
+                className="px-6 py-3 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm transition-all shadow-md shadow-[#2563EB]/25 hover:shadow-lg hover:shadow-[#2563EB]/35 cursor-pointer"
               >
                 Discuss Your Requirements
               </button>
               <button
                 onClick={() => onSelectServiceForQuote('Full Stack Development')}
-                className="px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm border border-slate-700 transition-all cursor-pointer"
+                className="px-6 py-3 rounded-2xl bg-white hover:bg-[#F1F7FF] text-[#0B1220] hover:text-[#2563EB] font-semibold text-sm border border-[#DCE8F8] transition-all cursor-pointer shadow-sm"
               >
                 Estimate Full Stack Project
               </button>
@@ -311,9 +319,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       {/* Deliverables & Detail Modal */}
       <AnimatePresence>
       {selectedService && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80  animate-in fade-in duration-200">
           <motion.div
-            className="max-w-xl w-full bg-slate-900 border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            className="max-w-xl w-full bg-white border border-[#2563EB]/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto"
             initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
@@ -321,42 +329,42 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           >
             <button
               onClick={() => setSelectedService(null)}
-              className="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-xl bg-[#F1F7FF] text-[#7B8AA3] hover:text-[#0B1220] hover:bg-[#EAF2FF] cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 rounded-2xl bg-cyan-950/50 border border-cyan-500/40">
+              <div className="p-3 rounded-2xl bg-[#EAF2FF] border border-[#2563EB]/30">
                 {getIcon(selectedService.iconName)}
               </div>
               <div>
-                <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider">
+                <span className="text-xs font-mono text-[#2563EB] uppercase tracking-wider">
                   {selectedService.highlightBadge}
                 </span>
-                <h3 className="text-2xl font-bold text-white font-display">
+                <h3 className="text-2xl font-bold text-[#0B1220] font-display">
                   {selectedService.title}
                 </h3>
               </div>
             </div>
 
-            <p className="text-slate-300 text-sm leading-relaxed mb-6">
+            <p className="text-[#475569] text-sm leading-relaxed mb-6">
               {selectedService.description}
             </p>
 
             {/* Timeline & SLA */}
-            <div className="grid grid-cols-2 gap-3 mb-6 p-4 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div className="grid grid-cols-2 gap-3 mb-6 p-4 rounded-2xl bg-white/70 border border-[#DCE8F8]">
               <div className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-cyan-400" />
+                <Clock className="w-4 h-4 text-[#2563EB]" />
                 <div>
-                  <div className="text-[11px] text-slate-400">Typical Sprint Timeline</div>
-                  <div className="text-xs font-bold text-white">{selectedService.timeline}</div>
+                  <div className="text-[11px] text-[#7B8AA3]">Typical Sprint Timeline</div>
+                  <div className="text-xs font-bold text-[#0B1220]">{selectedService.timeline}</div>
                 </div>
               </div>
               <div className="flex items-center gap-2.5">
                 <Shield className="w-4 h-4 text-emerald-400" />
                 <div>
-                  <div className="text-[11px] text-slate-400">Quality Standard</div>
+                  <div className="text-[11px] text-[#7B8AA3]">Quality Standard</div>
                   <div className="text-xs font-bold text-emerald-400">Clean Code Guarantee</div>
                 </div>
               </div>
@@ -364,13 +372,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
             {/* Deliverables List */}
             <div className="mb-6">
-              <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">
+              <h4 className="text-xs font-semibold text-[#475569] uppercase tracking-wider mb-3">
                 Key Production Deliverables:
               </h4>
               <ul className="space-y-2.5">
                 {selectedService.deliverables.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-300">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                  <li key={idx} className="flex items-start gap-2.5 text-xs text-[#475569]">
+                    <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -379,14 +387,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
             {/* Tech Stack List */}
             <div className="mb-8">
-              <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-2.5">
+              <h4 className="text-xs font-semibold text-[#475569] uppercase tracking-wider mb-2.5">
                 Core Stack Applied:
               </h4>
               <div className="flex flex-wrap gap-1.5">
                 {selectedService.technologies.map((t, idx) => (
                   <span
                     key={idx}
-                    className="px-2.5 py-1 rounded-lg bg-slate-800 text-cyan-300 text-xs font-mono border border-slate-700"
+                    className="px-2.5 py-1 rounded-lg bg-[#F1F7FF] text-[#2563EB] text-xs font-mono border border-[#60A5FA]"
                   >
                     {t}
                   </span>
@@ -395,10 +403,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             </div>
 
             {/* Modal Actions */}
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#DCE8F8]">
               <button
                 onClick={() => setSelectedService(null)}
-                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-[#F1F7FF] hover:bg-[#EAF2FF] text-[#475569] text-xs font-semibold cursor-pointer"
               >
                 Close
               </button>
@@ -408,7 +416,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   setSelectedService(null);
                   onSelectServiceForQuote(sTitle);
                 }}
-                className="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold shadow-md shadow-cyan-600/30 cursor-pointer flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#3B82F6] text-[#0B1220] text-xs font-bold shadow-md shadow-[#2563EB]/20 cursor-pointer flex items-center gap-1.5"
               >
                 <span>Calculate Cost For This</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -421,3 +429,4 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
     </section>
   );
 };
+

@@ -71,39 +71,39 @@ export const TechLogosMarquee: React.FC = () => {
     : techList.filter((t) => t.category === activeCategory);
 
   return (
-    <section className="py-16 relative bg-[#030816] border-y border-slate-900 overflow-hidden">
+    <section className="py-16 relative bg-[#030816] border-y border-[#DCE8F8] overflow-hidden">
       {/* Background glow and circuit traces */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-cyan-600/10 blur-[100px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-[#2563EB]/10 blur-[100px] pointer-events-none rounded-full" />
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-80 h-80 bg-purple-600/10 blur-[100px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-800/80">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-[#DCE8F8]">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF2FF] border border-[#2563EB]/30 text-[#2563EB] text-xs font-semibold mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#2563EB] animate-pulse" />
               <span>Full-Stack Technology Suite</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0B1220] font-display">
               Enterprise Technologies &amp;{' '}
-              <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#3B82F6] to-purple-400 bg-clip-text text-transparent">
                 Modern Frameworks
               </span>
             </h3>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-[#7B8AA3] mt-1">
               We master the industry&apos;s leading programming languages, frameworks, and databases for 99.9% uptime.
             </p>
           </div>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-2xl bg-slate-950 border border-slate-800">
+          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-2xl bg-white border border-[#DCE8F8]">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   activeCategory === cat
-                    ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/30'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                    ? 'bg-[#3B82F6] text-[#0B1220] font-bold shadow-md shadow-[#2563EB]/20'
+                    : 'text-[#7B8AA3] hover:text-[#0B1220] hover:bg-white'
                 }`}
               >
                 {cat}
@@ -125,17 +125,17 @@ export const TechLogosMarquee: React.FC = () => {
             return (
               <div
                 key={`${tech.name}-${idx}`}
-                className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900/70 hover:bg-slate-900 border border-slate-800/80 hover:border-cyan-500/50 transition-all hover:scale-105 duration-200 shrink-0 shadow-lg shadow-black/40 group cursor-default"
+                className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white hover:bg-white border border-[#DCE8F8] hover:border-[#2563EB]/50 transition-all hover:scale-105 duration-200 shrink-0 shadow-lg shadow-black/40 group cursor-default"
               >
                 <div className="w-8 h-8 flex items-center justify-center shrink-0 drop-shadow-md group-hover:rotate-6 transition-transform">
                   <IconComponent size={28} />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors whitespace-nowrap">
+                  <div className="text-xs font-bold text-[#0B1220] group-hover:text-[#2563EB] transition-colors whitespace-nowrap">
                     {tech.name}
                   </div>
-                  <div className="text-[10px] text-slate-400 font-mono flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/80" />
+                  <div className="text-[10px] text-[#7B8AA3] font-mono flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]/80" />
                     <span>{tech.badge}</span>
                   </div>
                 </div>
@@ -153,21 +153,21 @@ export const TechLogosMarquee: React.FC = () => {
             return (
               <div
                 key={tech.name}
-                className="p-4 rounded-2xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 hover:border-cyan-500/40 transition-all duration-300 group flex items-start gap-3 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30"
+                className="p-4 rounded-2xl bg-white hover:bg-white border border-[#DCE8F8] hover:border-[#2563EB]/30 transition-all duration-300 group flex items-start gap-3 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#2563EB]/10"
               >
-                <div className="p-2 rounded-xl bg-slate-950 border border-slate-800/80 shrink-0 group-hover:border-cyan-500/40 transition-colors">
+                <div className="p-2 rounded-xl bg-white border border-[#DCE8F8] shrink-0 group-hover:border-[#2563EB]/30 transition-colors">
                   <IconComponent size={26} />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <h4 className="text-xs font-bold text-white truncate group-hover:text-cyan-300 transition-colors">
+                    <h4 className="text-xs font-bold text-[#0B1220] truncate group-hover:text-[#2563EB] transition-colors">
                       {tech.name}
                     </h4>
                   </div>
-                  <span className="text-[10px] text-cyan-400/90 font-mono block mt-0.5">
+                  <span className="text-[10px] text-[#2563EB]/90 font-mono block mt-0.5">
                     {tech.badge}
                   </span>
-                  <p className="text-[11px] text-slate-400 mt-1 leading-snug line-clamp-2">
+                  <p className="text-[11px] text-[#7B8AA3] mt-1 leading-snug line-clamp-2">
                     {tech.description}
                   </p>
                 </div>
@@ -179,45 +179,45 @@ export const TechLogosMarquee: React.FC = () => {
 
       {/* 4 Pillars of Ttech Guarantee Banner (from build-full-stack banner) */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-cyan-500/30 shadow-xl shadow-cyan-950/30 backdrop-blur-md">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#DCE8F8] shadow-[0_10px_30px_rgba(37,99,235,0.08)]">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-              <div className="p-2 rounded-xl bg-cyan-950/60 border border-cyan-500/30 text-cyan-400">
+              <div className="p-2 rounded-xl bg-[#EAF2FF] border border-[#DCE8F8] text-[#2563EB]">
                 <Code2 className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <div className="text-xs font-bold text-white">Clean Code</div>
-                <div className="text-[10px] text-slate-400">SOLID &amp; Modular</div>
+                <div className="text-xs font-bold text-[#0B1220]">Clean Code</div>
+                <div className="text-[10px] text-[#7B8AA3]">SOLID &amp; Modular</div>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-              <div className="p-2 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-400">
+              <div className="p-2 rounded-xl bg-[#F1F7FF] border border-[#DCE8F8] text-[#2563EB]">
                 <Sparkles className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <div className="text-xs font-bold text-white">Modern Design</div>
-                <div className="text-[10px] text-slate-400">Pixel-Perfect UI</div>
+                <div className="text-xs font-bold text-[#0B1220]">Modern Design</div>
+                <div className="text-[10px] text-[#7B8AA3]">Pixel-Perfect UI</div>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-              <div className="p-2 rounded-xl bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">
+              <div className="p-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600">
                 <Clock className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <div className="text-xs font-bold text-white">On-Time Delivery</div>
-                <div className="text-[10px] text-slate-400">100% Sprint SLA</div>
+                <div className="text-xs font-bold text-[#0B1220]">On-Time Delivery</div>
+                <div className="text-[10px] text-[#7B8AA3]">100% Sprint SLA</div>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-              <div className="p-2 rounded-xl bg-sky-950/60 border border-sky-500/30 text-sky-400">
+              <div className="p-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-600">
                 <Headphones className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <div className="text-xs font-bold text-white">Post-Launch Care</div>
-                <div className="text-[10px] text-slate-400">24/7 Warranty Support</div>
+                <div className="text-xs font-bold text-[#0B1220]">Post-Launch Care</div>
+                <div className="text-[10px] text-[#7B8AA3]">24/7 Warranty Support</div>
               </div>
             </div>
           </div>
@@ -226,3 +226,4 @@ export const TechLogosMarquee: React.FC = () => {
     </section>
   );
 };
+

@@ -162,7 +162,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header and tabs */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/80 p-5 rounded-2xl border border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/80 p-5 rounded-2xl border border-[#DCE8F8]">
         <div>
           <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <Navigation className="w-3.5 h-3.5" />
@@ -176,7 +176,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800 shrink-0">
+        <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-[#DCE8F8] shrink-0">
           <button
             onClick={() => setViewTab('search')}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
@@ -197,7 +197,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
           >
             <Bookmark className="w-3.5 h-3.5" />
             <span>Saved Places</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-800 text-slate-300">
+            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#F1F7FF] text-slate-300">
               {savedPlaces.length}
             </span>
           </button>
@@ -206,8 +206,8 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
 
       {viewTab === 'saved' ? (
         /* Saved Places in Firestore */
-        <div className="bg-slate-900/60 rounded-2xl border border-slate-800 p-6 space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="bg-white/60 rounded-2xl border border-[#DCE8F8] p-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-[#DCE8F8] pb-3">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <Bookmark className="w-4 h-4 text-sky-400" />
               <span>My Saved Places ({savedPlaces.length})</span>
@@ -219,7 +219,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
 
           {savedPlaces.length === 0 ? (
             <div className="text-center py-12 space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto text-slate-400">
+              <div className="w-12 h-12 rounded-2xl bg-[#F1F7FF] border border-[#60A5FA] flex items-center justify-center mx-auto text-slate-400">
                 <Bookmark className="w-6 h-6" />
               </div>
               <p className="text-sm font-semibold text-slate-300">No saved places yet</p>
@@ -239,7 +239,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
               {savedPlaces.map((place) => (
                 <div
                   key={place.id || place.title}
-                  className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 flex flex-col justify-between space-y-3 hover:border-sky-500/50 transition-colors"
+                  className="bg-[#F1F7FF]/80 border border-[#60A5FA] rounded-xl p-4 flex flex-col justify-between space-y-3 hover:border-sky-500/50 transition-colors"
                 >
                   <div>
                     <div className="flex items-start justify-between gap-2">
@@ -255,7 +255,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
                       )}
                     </div>
                     {place.notes && (
-                      <p className="text-xs text-slate-300 mt-1 line-clamp-3 bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+                      <p className="text-xs text-slate-300 mt-1 line-clamp-3 bg-white/60 p-2 rounded-lg border border-[#DCE8F8]">
                         {place.notes}
                       </p>
                     )}
@@ -283,7 +283,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
         /* Search Mode */
         <div className="space-y-5">
           {/* Search Box & Location Controls */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 space-y-4 shadow-xl">
+          <div className="bg-white/90 border border-[#DCE8F8] rounded-2xl p-4 sm:p-5 space-y-4 shadow-xl">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="sm:col-span-2 relative">
                 <label className="block text-xs font-medium text-slate-300 mb-1">
@@ -297,7 +297,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                     placeholder="e.g. Best artisanal bakeries, quiet libraries, scenic parks..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="w-full bg-white border border-[#DCE8F8] rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                   />
                 </div>
               </div>
@@ -314,7 +314,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
                     onChange={(e) => setCityOrLocation(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                     placeholder="e.g. San Francisco, Tokyo..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="w-full bg-white border border-[#DCE8F8] rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                   />
                 </div>
               </div>
@@ -332,7 +332,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
                       setQuery(cat.query);
                       handleSearch(cat.query);
                     }}
-                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700/60 transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs bg-[#F1F7FF] hover:bg-slate-750 text-slate-300 hover:text-white border border-[#60A5FA]/60 transition-colors cursor-pointer"
                   >
                     <Icon className="w-3.5 h-3.5 text-sky-400" />
                     <span>{cat.label}</span>
@@ -342,7 +342,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
             </div>
 
             {/* Geolocation indicator & Search trigger button */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-800/80">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#DCE8F8]/80">
               <div className="flex items-center gap-2">
                 <button
                   type="button"
@@ -414,7 +414,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
                   return (
                     <div
                       key={idx}
-                      className="bg-slate-900 border border-slate-800 hover:border-sky-500/40 rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md transition-all"
+                      className="bg-white border border-[#DCE8F8] hover:border-sky-500/40 rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md transition-all"
                     >
                       <div className="space-y-2">
                         <div className="flex items-start justify-between gap-2">
@@ -427,19 +427,19 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
                         </div>
 
                         {reviewSnippet && (
-                          <div className="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800/80 text-xs text-slate-300 italic">
+                          <div className="bg-white/80 p-2.5 rounded-lg border border-[#DCE8F8]/80 text-xs text-slate-300 italic">
                             &ldquo;{reviewSnippet}&rdquo;
                           </div>
                         )}
                       </div>
 
-                      <div className="pt-2 border-t border-slate-800/60 flex items-center gap-2">
+                      <div className="pt-2 border-t border-[#DCE8F8]/60 flex items-center gap-2">
                         {maps.uri && (
                           <a
                             href={maps.uri}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex-1 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors"
+                            className="flex-1 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-[#F1F7FF] hover:bg-[#F1F7FF] text-slate-200 text-xs font-medium border border-[#60A5FA] transition-colors"
                           >
                             <span>Google Maps</span>
                             <ExternalLink className="w-3 h-3 text-slate-400" />
@@ -479,7 +479,7 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
 
           {/* Gemini Synthesis Markdown Output */}
           {responseMarkdown && (
-            <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-3">
+            <div className="bg-white/70 border border-[#DCE8F8] rounded-2xl p-5 sm:p-6 space-y-3">
               <div className="flex items-center gap-2 text-indigo-400 text-xs font-semibold">
                 <Star className="w-3.5 h-3.5" />
                 <span>Gemini Analysis &amp; Recommendations</span>
@@ -494,3 +494,4 @@ export const MapsSection: React.FC<MapsSectionProps> = ({
     </div>
   );
 };
+

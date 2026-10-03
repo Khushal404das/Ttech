@@ -67,7 +67,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
 
             <button
               onClick={() => onSelectSection('maps')}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-sm border border-slate-700 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F1F7FF] hover:bg-[#F1F7FF] text-slate-200 font-medium text-sm border border-[#60A5FA] transition-all cursor-pointer"
             >
               <Compass className="w-4 h-4 text-sky-400" />
               <span>Explore Places Grounding</span>
@@ -82,7 +82,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
 
       {/* Sync Metrics Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-900/70 border border-slate-800 p-5 rounded-xl flex items-center justify-between">
+        <div className="bg-white/70 border border-[#DCE8F8] p-5 rounded-xl flex items-center justify-between">
           <div>
             <p className="text-xs text-slate-400 font-medium">Saved Places</p>
             <p className="text-2xl font-bold text-white mt-1">{savedPlacesCount}</p>
@@ -95,7 +95,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
           </div>
         </div>
 
-        <div className="bg-slate-900/70 border border-slate-800 p-5 rounded-xl flex items-center justify-between">
+        <div className="bg-white/70 border border-[#DCE8F8] p-5 rounded-xl flex items-center justify-between">
           <div>
             <p className="text-xs text-slate-400 font-medium">Workspace Notes</p>
             <p className="text-2xl font-bold text-white mt-1">{notesCount}</p>
@@ -108,7 +108,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
           </div>
         </div>
 
-        <div className="bg-slate-900/70 border border-slate-800 p-5 rounded-xl flex items-center justify-between">
+        <div className="bg-white/70 border border-[#DCE8F8] p-5 rounded-xl flex items-center justify-between">
           <div>
             <p className="text-xs text-slate-400 font-medium">Chat Turns</p>
             <p className="text-2xl font-bold text-white mt-1">{chatCount}</p>
@@ -121,7 +121,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
           </div>
         </div>
 
-        <div className="bg-slate-900/70 border border-slate-800 p-5 rounded-xl flex items-center justify-between">
+        <div className="bg-white/70 border border-[#DCE8F8] p-5 rounded-xl flex items-center justify-between">
           <div>
             <p className="text-xs text-slate-400 font-medium">Firebase Auth Status</p>
             <p className="text-sm font-semibold text-white mt-2 truncate max-w-[130px]">
@@ -151,7 +151,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
           {/* Card 1: Chatbot */}
           <div
             onClick={() => onSelectSection('chat')}
-            className="group relative bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 cursor-pointer flex flex-col justify-between"
+            className="group relative bg-white/80 border border-[#DCE8F8] hover:border-indigo-500/50 rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 cursor-pointer flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -179,7 +179,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
           {/* Card 2: Maps Grounding */}
           <div
             onClick={() => onSelectSection('maps')}
-            className="group relative bg-slate-900/80 border border-slate-800 hover:border-sky-500/50 rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/10 cursor-pointer flex flex-col justify-between"
+            className="group relative bg-white/80 border border-[#DCE8F8] hover:border-sky-500/50 rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/10 cursor-pointer flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -207,7 +207,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
           {/* Card 3: Notes & Persistence */}
           <div
             onClick={() => onSelectSection('notes')}
-            className="group relative bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/10 cursor-pointer flex flex-col justify-between"
+            className="group relative bg-white/80 border border-[#DCE8F8] hover:border-amber-500/50 rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/10 cursor-pointer flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -236,3 +236,4 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
     </div>
   );
 };
+

@@ -41,7 +41,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
   return (
     <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
       {/* Overview Header */}
-      <div className="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 space-y-2">
+      <div className="bg-white/80 p-6 rounded-2xl border border-[#DCE8F8] space-y-2">
         <div className="flex items-center gap-2 text-indigo-400 text-xs font-semibold uppercase tracking-wider">
           <Database className="w-4 h-4" />
           <span>Firebase Authentication &amp; Firestore Database</span>
@@ -56,8 +56,8 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
       </div>
 
       {/* Auth Card */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="bg-white border border-[#DCE8F8] rounded-2xl p-6 shadow-xl space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DCE8F8] pb-5">
           <div className="flex items-center gap-4">
             {user?.photoURL ? (
               <img
@@ -108,7 +108,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
                 </button>
                 <button
                   onClick={onGuestSignIn}
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-[#F1F7FF] hover:bg-[#F1F7FF] text-slate-300 text-xs font-medium border border-[#60A5FA] transition-colors cursor-pointer"
                 >
                   <span>Quick Guest Mode</span>
                 </button>
@@ -119,7 +119,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
 
         {/* User Details Grid */}
         {user && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-950/70 p-4 rounded-xl border border-slate-800/80">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-white/70 p-4 rounded-xl border border-[#DCE8F8]/80">
             <div>
               <span className="text-slate-500 block">User UID:</span>
               <span className="text-slate-300 font-mono select-all truncate block">{user.uid}</span>
@@ -141,13 +141,13 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
           </h4>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
+            <div className="p-3.5 rounded-xl bg-white/60 border border-[#DCE8F8]">
               <span className="text-xs text-slate-400">Firebase Project ID</span>
               <p className="text-sm font-semibold text-white font-mono mt-1 truncate">
                 {projectId}
               </p>
             </div>
-            <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
+            <div className="p-3.5 rounded-xl bg-white/60 border border-[#DCE8F8]">
               <span className="text-xs text-slate-400">Firestore Database ID</span>
               <p className="text-sm font-semibold text-white font-mono mt-1 truncate">
                 {firestoreDatabaseId}
@@ -164,7 +164,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
           </h4>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="bg-slate-950/80 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
+            <div className="bg-white/80 border border-[#DCE8F8] p-4 rounded-xl flex items-center justify-between">
               <div>
                 <p className="text-xs text-slate-400">Workspace Notes</p>
                 <p className="text-xl font-bold text-white mt-1">{notesCount}</p>
@@ -172,7 +172,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
               <FileText className="w-5 h-5 text-amber-400" />
             </div>
 
-            <div className="bg-slate-950/80 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
+            <div className="bg-white/80 border border-[#DCE8F8] p-4 rounded-xl flex items-center justify-between">
               <div>
                 <p className="text-xs text-slate-400">Saved Places</p>
                 <p className="text-xl font-bold text-white mt-1">{savedPlacesCount}</p>
@@ -180,7 +180,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
               <Bookmark className="w-5 h-5 text-sky-400" />
             </div>
 
-            <div className="bg-slate-950/80 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
+            <div className="bg-white/80 border border-[#DCE8F8] p-4 rounded-xl flex items-center justify-between">
               <div>
                 <p className="text-xs text-slate-400">Chat Sessions</p>
                 <p className="text-xl font-bold text-white mt-1">{chatCount}</p>
@@ -205,3 +205,4 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
     </div>
   );
 };
+

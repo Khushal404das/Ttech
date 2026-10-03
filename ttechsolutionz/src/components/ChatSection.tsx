@@ -191,9 +191,9 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-140px)] min-h-[600px] bg-slate-900/60 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl animate-in fade-in duration-200">
+    <div className="flex flex-col h-[calc(100vh-140px)] min-h-[600px] bg-white/60 rounded-2xl border border-[#DCE8F8] overflow-hidden shadow-2xl animate-in fade-in duration-200">
       {/* Top Bar: Persona Selection & System Instruction Toggle */}
-      <div className="border-b border-slate-800 bg-slate-950/70 p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="border-b border-[#DCE8F8] bg-white/70 p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">
           {PERSONAS.map((p) => {
             const isSelected = selectedPersona.id === p.id;
@@ -204,7 +204,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   isSelected
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 ring-1 ring-indigo-400'
-                    : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60'
+                    : 'bg-[#F1F7FF]/80 text-slate-300 hover:bg-[#F1F7FF] hover:text-white border border-[#60A5FA]/60'
                 }`}
               >
                 {p.id === 'fast' && <Zap className="w-3.5 h-3.5 text-amber-300" />}
@@ -223,7 +223,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
             className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${
               showConfig
                 ? 'bg-indigo-950/80 border-indigo-500/50 text-indigo-300'
-                : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                : 'bg-white border-[#DCE8F8] text-slate-400 hover:text-slate-200'
             }`}
             title="Custom System Instruction"
           >
@@ -233,7 +233,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
 
           <button
             onClick={handleClearHistory}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-white border border-[#DCE8F8] text-slate-400 hover:text-slate-200 hover:bg-[#F1F7FF] transition-colors cursor-pointer"
             title="Reset Chat"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -244,7 +244,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
 
       {/* Collapsible System Instruction Panel */}
       {showConfig && (
-        <div className="border-b border-slate-800 bg-slate-950/90 p-4 animate-in slide-in-from-top-2 duration-150">
+        <div className="border-b border-[#DCE8F8] bg-white/90 p-4 animate-in slide-in-from-top-2 duration-150">
           <div className="flex items-center justify-between mb-1.5">
             <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
               <Bot className="w-3.5 h-3.5 text-indigo-400" />
@@ -261,7 +261,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
             value={customSystemInstruction}
             onChange={(e) => setCustomSystemInstruction(e.target.value)}
             rows={2}
-            className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 resize-none font-sans"
+            className="w-full bg-white border border-[#DCE8F8] rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 resize-none font-sans"
             placeholder="Define custom behavior or instructions for Gemini..."
           />
         </div>
@@ -283,7 +283,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                 className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
                   isUser
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-slate-800 border border-slate-700 text-indigo-400'
+                    : 'bg-[#F1F7FF] border border-[#60A5FA] text-indigo-400'
                 }`}
               >
                 {isUser ? (
@@ -306,14 +306,14 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                 className={`group relative rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                   isUser
                     ? 'bg-indigo-600 text-white rounded-tr-sm shadow-md'
-                    : 'bg-slate-800/90 text-slate-200 border border-slate-700/60 rounded-tl-sm shadow-sm'
+                    : 'bg-[#F1F7FF]/90 text-slate-200 border border-[#60A5FA]/60 rounded-tl-sm shadow-sm'
                 }`}
               >
                 <div className="whitespace-pre-wrap font-sans text-sm">{msg.content}</div>
 
                 {/* Footer / Actions for model messages */}
                 {!isUser && (
-                  <div className="mt-2 pt-2 border-t border-slate-700/40 flex items-center justify-between text-[11px] text-slate-400">
+                  <div className="mt-2 pt-2 border-t border-[#60A5FA]/40 flex items-center justify-between text-[11px] text-slate-400">
                     <span className="text-[10px] font-mono text-slate-500">
                       {new Date(msg.timestamp).toLocaleTimeString([], {
                         hour: '2-digit',
@@ -354,10 +354,10 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
         {/* Loading Indicator */}
         {isLoading && (
           <div className="flex gap-3 max-w-3xl mr-auto">
-            <div className="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0 text-indigo-400">
+            <div className="w-8 h-8 rounded-xl bg-[#F1F7FF] border border-[#60A5FA] flex items-center justify-center shrink-0 text-indigo-400">
               <Bot className="w-4 h-4" />
             </div>
-            <div className="bg-slate-800/90 border border-slate-700/60 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-2 text-slate-300 text-xs">
+            <div className="bg-[#F1F7FF]/90 border border-[#60A5FA]/60 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-2 text-slate-300 text-xs">
               <Loader2 className="w-4 h-4 text-indigo-400 animate-spin" />
               <span>{selectedPersona.name} is thinking...</span>
             </div>
@@ -386,7 +386,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
             <button
               key={idx}
               onClick={() => handleSendMessage(prompt)}
-              className="text-xs bg-slate-800/60 hover:bg-slate-800 text-slate-300 px-3 py-1.5 rounded-full border border-slate-700/60 transition-colors cursor-pointer truncate max-w-xs"
+              className="text-xs bg-[#F1F7FF]/60 hover:bg-[#F1F7FF] text-slate-300 px-3 py-1.5 rounded-full border border-[#60A5FA]/60 transition-colors cursor-pointer truncate max-w-xs"
             >
               💡 {prompt}
             </button>
@@ -395,8 +395,8 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
       )}
 
       {/* Chat Input Bar */}
-      <div className="border-t border-slate-800 bg-slate-950/80 p-3 sm:p-4">
-        <div className="flex items-end gap-2 bg-slate-900 border border-slate-800 rounded-xl p-2 focus-within:ring-2 focus-within:ring-indigo-500/50 focus-within:border-indigo-500">
+      <div className="border-t border-[#DCE8F8] bg-white/80 p-3 sm:p-4">
+        <div className="flex items-end gap-2 bg-white border border-[#DCE8F8] rounded-xl p-2 focus-within:ring-2 focus-within:ring-indigo-500/50 focus-within:border-indigo-500">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -424,3 +424,4 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
     </div>
   );
 };
+

@@ -11,7 +11,7 @@ export const TtechLogo: React.FC<TtechLogoProps> = ({
   className = '',
   size = 'md',
   showTagline = true,
-  variant = 'glow',
+  variant = 'light',
 }) => {
   const iconSizes = {
     sm: 'w-7 h-7',
@@ -41,6 +41,8 @@ export const TtechLogo: React.FC<TtechLogoProps> = ({
     xl: 'text-sm',
   };
 
+  const isDarkBanner = variant === 'dark';
+
   return (
     <div className={`inline-flex items-center gap-3 select-none ${className}`}>
       {/* Coffee/Tea Cup with Circuit CPU & Steam Circuit Traces */}
@@ -49,44 +51,44 @@ export const TtechLogo: React.FC<TtechLogoProps> = ({
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full drop-shadow-[0_0_12px_rgba(6,182,212,0.4)] transition-transform duration-300 hover:scale-105"
+          className="w-full h-full drop-shadow-[0_0_12px_rgba(37,99,235,0.25)] transition-transform duration-300 hover:scale-105"
         >
           {/* Steaming Circuit Traces Rising from the Cup with animated electric flow */}
-          <g className="stroke-cyan-400" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <g className="stroke-[#2563EB]" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             {/* Left trace */}
             <path d="M35 40 V 22 L 30 17 V 10" className="animate-steam" />
-            <circle cx="30" cy="10" r="3.2" className="fill-cyan-300 stroke-none animate-pulse" />
+            <circle cx="30" cy="10" r="3.2" className="fill-[#60A5FA] stroke-none animate-pulse" />
             
             {/* Center-left trace */}
             <path d="M42 40 V 26 L 47 21 V 13" className="animate-steam" style={{ animationDelay: '0.6s' }} />
-            <circle cx="47" cy="13" r="3.2" className="fill-cyan-400 stroke-none" />
+            <circle cx="47" cy="13" r="3.2" className="fill-[#2563EB] stroke-none" />
 
             {/* Center-right trace */}
             <path d="M56 40 V 24 L 52 19 V 7" className="animate-steam" style={{ animationDelay: '1.2s' }} />
-            <circle cx="52" cy="7" r="3.5" className="fill-cyan-300 stroke-none animate-pulse" />
+            <circle cx="52" cy="7" r="3.5" className="fill-[#60A5FA] stroke-none animate-pulse" />
 
             {/* Right trace */}
             <path d="M63 40 V 26 L 68 20 V 12" className="animate-steam" style={{ animationDelay: '1.8s' }} />
-            <circle cx="68" cy="12" r="3.2" className="fill-cyan-400 stroke-none animate-pulse" />
+            <circle cx="68" cy="12" r="3.2" className="fill-[#2563EB] stroke-none animate-pulse" />
           </g>
 
           {/* Cup Body Silhouette */}
           <path
             d="M22 43 C22 41 24 39 27 39 H73 C76 39 78 41 78 43 C78 64 68 83 50 83 C32 83 22 64 22 43 Z"
-            className="fill-slate-950 stroke-cyan-400"
+            className={isDarkBanner ? "fill-[#0B1528] stroke-[#60A5FA]" : "fill-white stroke-[#2563EB]"}
             strokeWidth="3.5"
           />
 
           {/* Cup Base */}
           <path
             d="M32 85 H68 C71 85 73 87 72 89 C70 91 66 92 50 92 C34 92 30 91 28 89 C27 87 29 85 32 85 Z"
-            className="fill-cyan-400/90"
+            className="fill-[#2563EB]/90"
           />
 
           {/* Cup Handle on the right */}
           <path
             d="M77 47 C85 47 92 52 92 61 C92 70 85 75 74 74"
-            className="stroke-cyan-400"
+            className={isDarkBanner ? "stroke-[#60A5FA]" : "stroke-[#2563EB]"}
             strokeWidth="3.8"
             strokeLinecap="round"
             fill="none"
@@ -95,43 +97,43 @@ export const TtechLogo: React.FC<TtechLogoProps> = ({
           {/* Circuit Tracks on Cup Exterior (Left side) */}
           <path
             d="M25 55 H 32 L 36 62 H 42"
-            className="stroke-sky-400"
+            className="stroke-[#60A5FA]"
             strokeWidth="2"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="25" cy="55" r="2.2" className="fill-sky-300" />
+          <circle cx="25" cy="55" r="2.2" className="fill-[#2563EB]" />
           <path
             d="M27 68 H 34 L 38 72"
-            className="stroke-sky-400"
+            className="stroke-[#60A5FA]"
             strokeWidth="2"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="27" cy="68" r="2" className="fill-sky-300" />
+          <circle cx="27" cy="68" r="2" className="fill-[#2563EB]" />
 
           {/* Microchip / CPU Core in center of Cup */}
           <g>
             {/* CPU Chip Pins */}
             {/* Top pins */}
-            <line x1="46" y1="52" x2="46" y2="49" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
-            <line x1="50" y1="52" x2="50" y2="49" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
-            <line x1="54" y1="52" x2="54" y2="49" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
+            <line x1="46" y1="52" x2="46" y2="49" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
+            <line x1="50" y1="52" x2="50" y2="49" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
+            <line x1="54" y1="52" x2="54" y2="49" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
             
             {/* Bottom pins */}
-            <line x1="46" y1="70" x2="46" y2="73" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
-            <line x1="50" y1="70" x2="50" y2="73" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
-            <line x1="54" y1="70" x2="54" y2="73" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
+            <line x1="46" y1="70" x2="46" y2="73" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
+            <line x1="50" y1="70" x2="50" y2="73" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
+            <line x1="54" y1="70" x2="54" y2="73" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
 
             {/* Left pins */}
-            <line x1="41" y1="57" x2="38" y2="57" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
-            <line x1="41" y1="61" x2="38" y2="61" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
-            <line x1="41" y1="65" x2="38" y2="65" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
+            <line x1="41" y1="57" x2="38" y2="57" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
+            <line x1="41" y1="61" x2="38" y2="61" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
+            <line x1="41" y1="65" x2="38" y2="65" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
 
             {/* Right pins */}
-            <line x1="59" y1="57" x2="62" y2="57" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
-            <line x1="59" y1="61" x2="62" y2="61" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
-            <line x1="59" y1="65" x2="62" y2="65" className="stroke-cyan-300" strokeWidth="2" strokeLinecap="round" />
+            <line x1="59" y1="57" x2="62" y2="57" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
+            <line x1="59" y1="61" x2="62" y2="61" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
+            <line x1="59" y1="65" x2="62" y2="65" className="stroke-[#60A5FA]" strokeWidth="2" strokeLinecap="round" />
 
             {/* Chip Square Body */}
             <rect
@@ -140,7 +142,7 @@ export const TtechLogo: React.FC<TtechLogoProps> = ({
               width="18"
               height="18"
               rx="2.5"
-              className="fill-cyan-400 stroke-cyan-300"
+              className={isDarkBanner ? "fill-[#131D33] stroke-[#60A5FA]" : "fill-[#EAF2FF] stroke-[#2563EB]"}
               strokeWidth="1.5"
             />
 
@@ -151,14 +153,14 @@ export const TtechLogo: React.FC<TtechLogoProps> = ({
               width="10"
               height="10"
               rx="1.5"
-              className="fill-slate-950"
+              className="fill-[#2563EB]"
             />
             <rect
               x="47.5"
               y="58.5"
               width="5"
               height="5"
-              className="fill-cyan-300"
+              className="fill-white"
             />
           </g>
         </svg>
@@ -167,17 +169,17 @@ export const TtechLogo: React.FC<TtechLogoProps> = ({
       {/* Brand Typography */}
       <div className="flex flex-col">
         <div className="flex items-baseline gap-1.5 leading-none">
-          <span className={`font-display font-extrabold text-white tracking-tight ${textSizes[size]}`}>
+          <span className={`font-display font-extrabold tracking-tight ${textSizes[size]} ${isDarkBanner ? 'text-white' : 'text-[#0B1220]'}`}>
             Ttech
           </span>
-          <span className={`font-display font-bold uppercase text-cyan-400 ${subTextSizes[size]}`}>
+          <span className={`font-display font-bold uppercase ${isDarkBanner ? 'text-[#60A5FA]' : 'text-[#2563EB]'} ${subTextSizes[size]}`}>
             SOLUTIONS
           </span>
         </div>
 
         {showTagline && (
           <div className="mt-1 flex items-center gap-1.5 leading-none">
-            <span className={`font-medium tracking-wide text-slate-400 ${sloganSizes[size]}`}>
+            <span className={`font-medium tracking-wide ${sloganSizes[size]} ${isDarkBanner ? 'text-white/90' : 'text-[#7B8AA3]'}`}>
               Think. Transform. Trust.
             </span>
           </div>
@@ -186,3 +188,4 @@ export const TtechLogo: React.FC<TtechLogoProps> = ({
     </div>
   );
 };
+

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export type Theme = 'dark';
+export type Theme = 'light';
 
 interface ThemeContextType {
   theme: Theme;
@@ -12,32 +12,20 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 const THEME_STORAGE_KEY = 'ttech_theme';
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    // 1. Check local storage
-    try {
-      const stored = localStorage.getItem(THEME_STORAGE_KEY);
-      if (stored === 'dark') {
-        return 'dark';
-      }
-    } catch {
-      // ignore
-    }
-
-    return 'dark';
-  });
+  const [theme, setThemeState] = useState<Theme>('light');
 
   const applyTheme = (targetTheme: Theme) => {
     const root = document.documentElement;
-    root.classList.remove('light');
-    root.classList.add('dark');
-    root.setAttribute('data-theme', 'dark');
-    root.style.colorScheme = 'dark';
+    root.classList.remove('dark');
+    root.classList.add('light');
+    root.setAttribute('data-theme', 'light');
+    root.style.colorScheme = 'light';
   };
 
   useEffect(() => {
     applyTheme(theme);
     try {
-      localStorage.setItem(THEME_STORAGE_KEY, theme);
+      localStorage.setItem(THEME_STORAGE_KEY, 'light');
     } catch {
       // ignore
     }

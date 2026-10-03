@@ -296,27 +296,27 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
       <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2 pointer-events-auto select-none">
         {/* Initial Teaser Bubble (Dismissible) */}
         {!isOpen && showTeaser && (
-          <div className="relative max-w-xs bg-slate-900/95 border border-cyan-500/40 backdrop-blur-xl p-3.5 rounded-2xl shadow-2xl shadow-cyan-950/40 text-left animate-in fade-in slide-in-from-bottom-3 duration-300">
+          <div className="relative max-w-xs bg-white/95 border border-[#2563EB]/30  p-3.5 rounded-2xl shadow-2xl shadow-cyan-950/40 text-left animate-in fade-in slide-in-from-bottom-3 duration-300">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setShowTeaser(false);
               }}
-              className="absolute top-2 right-2 text-slate-400 hover:text-white p-1 rounded-md cursor-pointer"
+              className="absolute top-2 right-2 text-[#7B8AA3] hover:text-[#0B1220] p-1 rounded-md cursor-pointer"
               aria-label="Dismiss quick chat bubble"
             >
               <X className="w-3.5 h-3.5" />
             </button>
             <div className="flex items-start gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/20">
-                <Bot className="w-4 h-4 text-white" />
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0 shadow-md shadow-[#2563EB]/20">
+                <Bot className="w-4 h-4 text-[#0B1220]" />
               </div>
               <div className="pr-2">
-                <div className="flex items-center gap-1.5 text-[11px] font-mono text-cyan-400 font-semibold mb-0.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#2563EB] font-semibold mb-0.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
                   <span>Online · Tech Architect</span>
                 </div>
-                <p className="text-xs text-slate-200 font-medium leading-snug">
+                <p className="text-xs text-[#475569] font-medium leading-snug">
                   Have a quick question about pricing, tech stack, or delivery?
                 </p>
                 <button
@@ -324,7 +324,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                     setShowTeaser(false);
                     setIsOpen(true);
                   }}
-                  className="mt-2 text-[11px] font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 cursor-pointer transition-colors"
+                  className="mt-2 text-[11px] font-semibold text-[#2563EB] hover:text-[#2563EB] flex items-center gap-1 cursor-pointer transition-colors"
                 >
                   <span>Chat with Us Live</span>
                   <ArrowRight className="w-3 h-3" />
@@ -344,13 +344,13 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
           aria-expanded={isOpen}
           className={`group relative flex items-center justify-center rounded-2xl transition-all duration-300 cursor-pointer ${
             isOpen
-              ? 'w-13 h-13 bg-slate-800 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-600 shadow-xl'
-              : 'w-14 h-14 bg-gradient-to-r from-cyan-600 via-sky-500 to-blue-600 text-white shadow-2xl shadow-cyan-500/40 hover:shadow-cyan-400/60 hover:scale-105 active:scale-95'
+              ? 'w-13 h-13 bg-[#F1F7FF] border border-[#60A5FA] text-[#475569] hover:text-[#0B1220] hover:border-[#60A5FA] shadow-xl'
+              : 'w-14 h-14 bg-gradient-to-r from-cyan-600 via-sky-500 to-blue-600 text-[#0B1220] shadow-2xl shadow-cyan-500/40 hover:shadow-cyan-400/60 hover:scale-105 active:scale-95'
           }`}
         >
           {/* Animated Glow Halo */}
           {!isOpen && (
-            <span className="absolute -inset-1 rounded-2xl bg-cyan-400/30 blur-md opacity-70 group-hover:opacity-100 transition-opacity animate-pulse pointer-events-none" />
+            <span className="absolute -inset-1 rounded-2xl bg-[#2563EB]/30 blur-md opacity-70 group-hover:opacity-100 transition-opacity animate-pulse pointer-events-none" />
           )}
 
           {isOpen ? (
@@ -374,27 +374,27 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
           role="dialog"
           aria-modal="true"
           aria-label="Quick Technical Chat Advisor"
-          className={`fixed z-50 transition-all duration-300 flex flex-col bg-[#070e1e]/95 backdrop-blur-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-950/60 overflow-hidden ${
+          className={`fixed z-50 transition-all duration-300 flex flex-col bg-[#070e1e]/95  border border-[#2563EB]/30 shadow-2xl shadow-cyan-950/60 overflow-hidden ${
             isExpanded
               ? 'inset-4 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[680px] sm:h-[720px] rounded-3xl'
               : 'bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[420px] h-[580px] max-h-[82vh] rounded-3xl'
           }`}
         >
           {/* Modal Header */}
-          <div className="px-4 py-3.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between gap-3 shrink-0">
+          <div className="px-4 py-3.5 bg-white border-b border-[#DCE8F8] flex items-center justify-between gap-3 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center shadow-md shadow-cyan-500/20 shrink-0">
-                <Bot className="w-5 h-5 text-white" />
-                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-slate-900" />
+              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center shadow-md shadow-[#2563EB]/20 shrink-0">
+                <Bot className="w-5 h-5 text-[#0B1220]" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#DCE8F8]" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-white font-display">Ttech Solutions</h3>
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-950 border border-cyan-700/50 text-cyan-300 font-semibold uppercase">
+                  <h3 className="text-sm font-bold text-[#0B1220] font-display">Ttech Solutions</h3>
+                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#EAF2FF] border border-cyan-700/50 text-[#2563EB] font-semibold uppercase">
                     Advisor
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400 flex items-center gap-1">
+                <p className="text-[11px] text-[#7B8AA3] flex items-center gap-1">
                   <span>Fast Answers</span>
                   <span>·</span>
                   <span className="text-emerald-400">Online</span>
@@ -403,12 +403,12 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
             </div>
 
             {/* Header Action Icons */}
-            <div className="flex items-center gap-1 text-slate-400">
+            <div className="flex items-center gap-1 text-[#7B8AA3]">
               {activeTab === 'chat' && (
                 <button
                   onClick={handleResetChat}
                   title="Clear chat history"
-                  className="p-1.5 rounded-lg hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
                   aria-label="Restart chat"
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -417,7 +417,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
                 title={isExpanded ? 'Restore compact size' : 'Expand window'}
-                className="hidden sm:block p-1.5 rounded-lg hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                className="hidden sm:block p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
                 aria-label={isExpanded ? 'Minimize size' : 'Maximize size'}
               >
                 {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
@@ -425,7 +425,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
               <button
                 onClick={() => setIsOpen(false)}
                 title="Close chat"
-                className="p-1.5 rounded-lg hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="w-4 h-4" />
@@ -434,24 +434,24 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
           </div>
 
           {/* Sub-Navigation Tabs: Quick Chat vs Instant Callback */}
-          <div className="grid grid-cols-2 p-1 bg-slate-950 border-b border-slate-800/80 text-xs font-semibold text-center shrink-0">
+          <div className="grid grid-cols-2 p-1 bg-white border-b border-[#DCE8F8] text-xs font-semibold text-center shrink-0">
             <button
               onClick={() => setActiveTab('chat')}
               className={`py-1.5 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1.5 ${
                 activeTab === 'chat'
-                  ? 'bg-slate-900 text-cyan-400 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-white text-[#2563EB] shadow-sm'
+                  : 'text-[#7B8AA3] hover:text-[#475569]'
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+              <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
               <span>Quick AI Chat</span>
             </button>
             <button
               onClick={() => setActiveTab('quick-lead')}
               className={`py-1.5 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1.5 ${
                 activeTab === 'quick-lead'
-                  ? 'bg-slate-900 text-cyan-400 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-white text-[#2563EB] shadow-sm'
+                  : 'text-[#7B8AA3] hover:text-[#475569]'
               }`}
             >
               <PhoneCall className="w-3.5 h-3.5 text-emerald-400" />
@@ -472,16 +472,16 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                       className={`flex gap-2.5 ${isUser ? 'justify-end' : 'justify-start'}`}
                     >
                       {!isUser && (
-                        <div className="w-7 h-7 rounded-lg bg-cyan-950 border border-cyan-800/60 flex items-center justify-center shrink-0 mt-1">
-                          <Bot className="w-4 h-4 text-cyan-300" />
+                        <div className="w-7 h-7 rounded-lg bg-[#EAF2FF] border border-cyan-800/60 flex items-center justify-center shrink-0 mt-1">
+                          <Bot className="w-4 h-4 text-[#2563EB]" />
                         </div>
                       )}
 
                       <div
                         className={`max-w-[85%] rounded-2xl p-3.5 text-xs leading-relaxed transition-all ${
                           isUser
-                            ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-900/30'
-                            : 'bg-slate-900/90 border border-slate-800 text-slate-200 shadow-sm'
+                            ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-[#0B1220] shadow-md shadow-cyan-900/30'
+                            : 'bg-white border border-[#DCE8F8] text-[#475569] shadow-sm'
                         }`}
                       >
                         {/* Text Content with simple markdown styling */}
@@ -494,14 +494,14 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                                 <ul key={pIdx} className="space-y-1 my-1 pl-1">
                                   {items.map((item, iIdx) => (
                                     <li key={iIdx} className="flex items-start gap-1.5">
-                                      <span className="text-cyan-400 shrink-0 mt-0.5">•</span>
+                                      <span className="text-[#2563EB] shrink-0 mt-0.5">•</span>
                                       <span>
                                         {item
                                           .replace(/^[-*]\s+/, '')
                                           .split(/(\*\*.*?\*\*)/g)
                                           .map((part, bIdx) =>
                                             part.startsWith('**') && part.endsWith('**') ? (
-                                              <strong key={bIdx} className="text-white font-semibold">
+                                              <strong key={bIdx} className="text-[#0B1220] font-semibold">
                                                 {part.slice(2, -2)}
                                               </strong>
                                             ) : (
@@ -520,7 +520,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                               <p key={pIdx}>
                                 {paragraph.split(/(\*\*.*?\*\*)/g).map((part, bIdx) =>
                                   part.startsWith('**') && part.endsWith('**') ? (
-                                    <strong key={bIdx} className="text-white font-semibold">
+                                    <strong key={bIdx} className="text-[#0B1220] font-semibold">
                                       {part.slice(2, -2)}
                                     </strong>
                                   ) : (
@@ -534,10 +534,10 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
 
                         {/* Actions for Assistant messages (Copy & Transfer) */}
                         {!isUser && (
-                          <div className="mt-2.5 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+                          <div className="mt-2.5 pt-2 border-t border-[#DCE8F8] flex items-center justify-between text-[10px] text-[#7B8AA3]">
                             <button
                               onClick={() => handleCopy(msg.id, msg.content)}
-                              className="flex items-center gap-1 hover:text-slate-200 transition-colors cursor-pointer"
+                              className="flex items-center gap-1 hover:text-[#475569] transition-colors cursor-pointer"
                               title="Copy answer"
                             >
                               {copiedId === msg.id ? (
@@ -556,7 +556,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                             {onTransferToInquiry && msg.id !== 'welcome-advisor' && (
                               <button
                                 onClick={handleTransferToMainForm}
-                                className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-medium cursor-pointer"
+                                className="flex items-center gap-1 text-[#2563EB] hover:text-[#2563EB] font-medium cursor-pointer"
                               >
                                 <span>Use in Project Form</span>
                                 <ArrowRight className="w-3 h-3" />
@@ -578,11 +578,11 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                 {/* Loading indicator */}
                 {isLoading && (
                   <div className="flex items-start gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-cyan-950 border border-cyan-800/60 flex items-center justify-center shrink-0">
-                      <Bot className="w-4 h-4 text-cyan-300" />
+                    <div className="w-7 h-7 rounded-lg bg-[#EAF2FF] border border-cyan-800/60 flex items-center justify-center shrink-0">
+                      <Bot className="w-4 h-4 text-[#2563EB]" />
                     </div>
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 text-xs text-cyan-300 flex items-center gap-2">
-                      <Loader2 className="w-3.5 h-3.5 animate-spin text-cyan-400" />
+                    <div className="bg-white border border-[#DCE8F8] rounded-2xl px-4 py-3 text-xs text-[#2563EB] flex items-center gap-2">
+                      <Loader2 className="w-3.5 h-3.5 animate-spin text-[#2563EB]" />
                       <span>Formulating technical recommendation...</span>
                     </div>
                   </div>
@@ -597,7 +597,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                     </div>
                     <button
                       onClick={() => handleSendMessage()}
-                      className="text-xs text-cyan-400 underline shrink-0 cursor-pointer"
+                      className="text-xs text-[#2563EB] underline shrink-0 cursor-pointer"
                     >
                       Retry
                     </button>
@@ -608,13 +608,13 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
               </div>
 
               {/* Quick Prompt Chips */}
-              <div className="px-3 py-2 bg-slate-950/80 border-t border-slate-800/80 shrink-0">
-                <div className="text-[10px] uppercase font-mono text-slate-400 mb-1.5 px-1 font-semibold flex items-center justify-between">
+              <div className="px-3 py-2 bg-white/80 border-t border-[#DCE8F8] shrink-0">
+                <div className="text-[10px] uppercase font-mono text-[#7B8AA3] mb-1.5 px-1 font-semibold flex items-center justify-between">
                   <span>Quick Questions:</span>
                   {onTransferToInquiry && (
                     <button
                       onClick={handleTransferToMainForm}
-                      className="text-cyan-400 hover:underline capitalize"
+                      className="text-[#2563EB] hover:underline capitalize"
                     >
                       Transfer to Main Form &rarr;
                     </button>
@@ -626,7 +626,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                       key={idx}
                       onClick={() => handleSendMessage(item.prompt)}
                       disabled={isLoading}
-                      className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-[11px] text-slate-300 hover:text-white whitespace-nowrap transition-colors shrink-0 cursor-pointer disabled:opacity-50"
+                      className="px-2.5 py-1 rounded-lg bg-white border border-[#DCE8F8] hover:border-[#2563EB]/50 text-[11px] text-[#475569] hover:text-[#0B1220] whitespace-nowrap transition-colors shrink-0 cursor-pointer disabled:opacity-50"
                     >
                       {item.label}
                     </button>
@@ -635,7 +635,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
               </div>
 
               {/* Chat Input Bar */}
-              <div className="p-3 bg-slate-900/90 border-t border-slate-800 shrink-0">
+              <div className="p-3 bg-white border-t border-[#DCE8F8] shrink-0">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -655,12 +655,12 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                       }
                     }}
                     placeholder="Type a question (e.g. estimate for .NET & React app)..."
-                    className="flex-1 max-h-24 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 resize-none"
+                    className="flex-1 max-h-24 bg-white border border-[#DCE8F8] rounded-xl px-3.5 py-2.5 text-xs text-[#0B1220] placeholder-slate-400 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-cyan-500 resize-none"
                   />
                   <button
                     type="submit"
                     disabled={!input.trim() || isLoading}
-                    className="p-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md shadow-cyan-600/30 shrink-0 cursor-pointer"
+                    className="p-2.5 rounded-xl bg-[#2563EB] hover:bg-[#3B82F6] text-[#0B1220] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md shadow-[#2563EB]/20 shrink-0 cursor-pointer"
                     aria-label="Send message"
                   >
                     <Send className="w-4 h-4" />
@@ -668,11 +668,11 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                 </form>
 
                 {/* Footer conversion helper */}
-                <div className="mt-2 flex items-center justify-between text-[10px] text-slate-400 px-1">
+                <div className="mt-2 flex items-center justify-between text-[10px] text-[#7B8AA3] px-1">
                   <span>Enter to send · Shift+Enter for newline</span>
                   <button
                     onClick={() => setActiveTab('quick-lead')}
-                    className="text-cyan-400 hover:underline cursor-pointer"
+                    className="text-[#2563EB] hover:underline cursor-pointer"
                   >
                     Prefer a human callback?
                   </button>
@@ -689,33 +689,33 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>Express 20-Second Callback</span>
                 </div>
-                <h4 className="text-base font-bold text-white font-display">
+                <h4 className="text-base font-bold text-[#0B1220] font-display">
                   Get a response from our lead engineer
                 </h4>
-                <p className="text-xs text-slate-300 leading-relaxed mt-1">
+                <p className="text-xs text-[#475569] leading-relaxed mt-1">
                   Don&apos;t have time for the full consultation form? Leave your details below and a senior architect will follow up via email or WhatsApp within 2 hours.
                 </p>
               </div>
 
               {leadSuccess ? (
-                <div className="flex-1 flex flex-col items-center justify-center text-center p-6 bg-slate-900/60 border border-emerald-500/30 rounded-2xl">
+                <div className="flex-1 flex flex-col items-center justify-center text-center p-6 bg-white border border-emerald-500/30 rounded-2xl">
                   <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center mb-3">
                     <CheckCircle2 className="w-6 h-6 text-emerald-400" />
                   </div>
-                  <h5 className="text-sm font-bold text-white mb-1">Request Received!</h5>
-                  <p className="text-xs text-slate-300 max-w-xs mb-4">
+                  <h5 className="text-sm font-bold text-[#0B1220] mb-1">Request Received!</h5>
+                  <p className="text-xs text-[#475569] max-w-xs mb-4">
                     Our lead architect has received your note and will review your specifications shortly.
                   </p>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setLeadSuccess(false)}
-                      className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-xl transition-colors cursor-pointer"
+                      className="px-3 py-1.5 bg-[#F1F7FF] hover:bg-[#EAF2FF] text-[#475569] text-xs rounded-xl transition-colors cursor-pointer"
                     >
                       Send Another
                     </button>
                     <button
                       onClick={() => setActiveTab('chat')}
-                      className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs rounded-xl transition-colors cursor-pointer"
+                      className="px-3 py-1.5 bg-[#2563EB] hover:bg-[#3B82F6] text-[#0B1220] text-xs rounded-xl transition-colors cursor-pointer"
                     >
                       Return to Chat
                     </button>
@@ -724,8 +724,8 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
               ) : (
                 <form onSubmit={handleQuickLeadSubmit} className="space-y-3.5 flex-1 flex flex-col">
                   <div>
-                    <label className="block text-slate-300 text-[11px] font-medium mb-1">
-                      Your Name <span className="text-cyan-400">*</span>
+                    <label className="block text-[#475569] text-[11px] font-medium mb-1">
+                      Your Name <span className="text-[#2563EB]">*</span>
                     </label>
                     <input
                       type="text"
@@ -733,13 +733,13 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                       value={leadName}
                       onChange={(e) => setLeadName(e.target.value)}
                       placeholder="e.g., Alex Mercer"
-                      className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500"
+                      className="w-full px-3 py-2 bg-white border border-[#DCE8F8] rounded-xl text-xs text-[#0B1220] placeholder-slate-400 focus:outline-none focus:border-[#2563EB]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 text-[11px] font-medium mb-1">
-                      Email or WhatsApp Number <span className="text-cyan-400">*</span>
+                    <label className="block text-[#475569] text-[11px] font-medium mb-1">
+                      Email or WhatsApp Number <span className="text-[#2563EB]">*</span>
                     </label>
                     <input
                       type="text"
@@ -747,18 +747,18 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                       value={leadContact}
                       onChange={(e) => setLeadContact(e.target.value)}
                       placeholder="e.g., alex@company.com or +92 348 9763998"
-                      className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500"
+                      className="w-full px-3 py-2 bg-white border border-[#DCE8F8] rounded-xl text-xs text-[#0B1220] placeholder-slate-400 focus:outline-none focus:border-[#2563EB]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 text-[11px] font-medium mb-1">
+                    <label className="block text-[#475569] text-[11px] font-medium mb-1">
                       Project Area of Interest
                     </label>
                     <select
                       value={leadService}
                       onChange={(e) => setLeadService(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-cyan-500 cursor-pointer"
+                      className="w-full px-3 py-2 bg-white border border-[#DCE8F8] rounded-xl text-xs text-[#0B1220] focus:outline-none focus:border-[#2563EB] cursor-pointer"
                     >
                       <option value="SaaS & Custom Web Application">SaaS &amp; Custom Web Application</option>
                       <option value=".NET Core 9 Enterprise Backend">.NET Core 9 Enterprise Backend</option>
@@ -770,7 +770,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 text-[11px] font-medium mb-1">
+                    <label className="block text-[#475569] text-[11px] font-medium mb-1">
                       Quick Note (Optional)
                     </label>
                     <textarea
@@ -778,7 +778,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                       value={leadNotes}
                       onChange={(e) => setLeadNotes(e.target.value)}
                       placeholder="Briefly describe what you're building or target budget..."
-                      className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 resize-none"
+                      className="w-full px-3 py-2 bg-white border border-[#DCE8F8] rounded-xl text-xs text-[#0B1220] placeholder-slate-400 focus:outline-none focus:border-[#2563EB] resize-none"
                     />
                   </div>
 
@@ -786,7 +786,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                     <button
                       type="submit"
                       disabled={leadSubmitting || !leadName.trim() || !leadContact.trim()}
-                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-900/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-[#0B1220] text-xs font-bold transition-all shadow-lg shadow-emerald-900/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {leadSubmitting ? (
                         <>
@@ -817,7 +817,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                     <button
                       type="button"
                       onClick={handleTransferToMainForm}
-                      className="text-[11px] text-slate-400 hover:text-cyan-300 underline cursor-pointer"
+                      className="text-[11px] text-[#7B8AA3] hover:text-[#2563EB] underline cursor-pointer"
                     >
                       Prefer our detailed inquiry questionnaire? Click here
                     </button>
@@ -831,3 +831,4 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
     </>
   );
 };
+

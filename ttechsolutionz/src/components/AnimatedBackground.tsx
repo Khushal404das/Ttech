@@ -11,11 +11,12 @@ interface Particle {
   pulsePhase: number;
 }
 
+// Blue particle palette
 const COLORS = [
-  'rgba(6,182,212,',   // cyan
-  'rgba(99,102,241,',  // indigo
-  'rgba(20,184,166,',  // teal
-  'rgba(59,130,246,',  // blue
+  'rgba(37,99,235,',   // primary #2563EB
+  'rgba(30,64,175,',   // primary-dark #1E40AF
+  'rgba(96,165,250,',  // primary-light #60A5FA
+  'rgba(59,130,246,',  // blue-500
 ];
 
 export const AnimatedBackground: React.FC = () => {
@@ -40,15 +41,15 @@ export const AnimatedBackground: React.FC = () => {
 
     const spawnParticles = () => {
       particles = [];
-      const count = Math.floor((canvas.width * canvas.height) / 18000);
+      const count = Math.floor((canvas.width * canvas.height) / 22000);
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           vx: (Math.random() - 0.5) * 0.4,
           vy: (Math.random() - 0.5) * 0.4,
-          radius: Math.random() * 1.8 + 0.4,
-          alpha: Math.random() * 0.6 + 0.15,
+          radius: Math.random() * 1.4 + 0.3,
+          alpha: Math.random() * 0.4 + 0.08,
           color: COLORS[Math.floor(Math.random() * COLORS.length)],
           pulsePhase: Math.random() * Math.PI * 2,
         });
@@ -67,11 +68,11 @@ export const AnimatedBackground: React.FC = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       t += 0.008;
 
-      // Draw aurora blobs
+      // Draw subtle blue aurora blobs (very light on white bg)
       const blobs = [
-        { x: canvas.width * 0.15, y: canvas.height * 0.08, r: canvas.width * 0.38, color: 'rgba(6,182,212,0.045)' },
-        { x: canvas.width * 0.85, y: canvas.height * 0.12, r: canvas.width * 0.32, color: 'rgba(99,102,241,0.04)' },
-        { x: canvas.width * 0.5, y: canvas.height * 0.5, r: canvas.width * 0.28, color: 'rgba(20,184,166,0.03)' },
+        { x: canvas.width * 0.15, y: canvas.height * 0.08, r: canvas.width * 0.38, color: 'rgba(37,99,235,0.025)' },
+        { x: canvas.width * 0.85, y: canvas.height * 0.12, r: canvas.width * 0.32, color: 'rgba(96,165,250,0.02)' },
+        { x: canvas.width * 0.5, y: canvas.height * 0.5, r: canvas.width * 0.28, color: 'rgba(220,232,248,0.04)' },
       ];
 
       blobs.forEach((blob, i) => {
@@ -94,7 +95,7 @@ export const AnimatedBackground: React.FC = () => {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 130) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(6,182,212,${(1 - dist / 130) * 0.08})`;
+            ctx.strokeStyle = `rgba(37,99,235,${(1 - dist / 130) * 0.06})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -105,7 +106,6 @@ export const AnimatedBackground: React.FC = () => {
 
       // Draw + animate particles
       particles.forEach((p) => {
-        // Mouse repulsion
         const mdx = p.x - mouseX;
         const mdy = p.y - mouseY;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
@@ -115,14 +115,11 @@ export const AnimatedBackground: React.FC = () => {
           p.vy += (mdy / mdist) * force * 0.3;
         }
 
-        // Velocity damping
         p.vx *= 0.98;
         p.vy *= 0.98;
-
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap edges
         if (p.x < -5) p.x = canvas.width + 5;
         if (p.x > canvas.width + 5) p.x = -5;
         if (p.y < -5) p.y = canvas.height + 5;

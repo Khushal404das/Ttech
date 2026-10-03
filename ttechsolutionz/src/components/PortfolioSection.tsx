@@ -137,7 +137,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
   return (
     <motion.section
       id="portfolio"
-      className="py-24 relative bg-[#040B1A] border-t border-slate-900"
+      className="py-24 relative bg-[#F8FBFF] border-t border-[#DCE8F8]"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.12 }}
@@ -146,17 +146,17 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-3">
-            <Laptop className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF2FF] border border-[#2563EB]/30 text-[#2563EB] text-xs font-semibold mb-3">
+            <Laptop className="w-3.5 h-3.5 text-[#2563EB]" />
             <span>Proven Agency Track Record</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-display mb-4">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0B1220] tracking-tight font-display mb-4">
             Featured Systems &amp;{' '}
-            <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] bg-clip-text text-transparent">
               Client Success Stories
             </span>
           </h2>
-          <p className="text-slate-300 text-base sm:text-lg">
+          <p className="text-[#475569] text-base sm:text-lg">
             Explore how we build production software that drives business growth, secures enterprise contracts, and delights end users.
           </p>
         </div>
@@ -169,8 +169,8 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               onClick={() => setFilter(cat)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 filter === cat
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
-                  : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800'
+                  ? 'bg-[#3B82F6] text-[#0B1220] shadow-md shadow-[#2563EB]/20'
+                  : 'bg-white text-[#7B8AA3] hover:text-[#0B1220] border border-[#DCE8F8]'
               }`}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.96 }}
@@ -186,7 +186,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
-              className="group relative rounded-3xl p-6 sm:p-7 bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/90 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-xl hover:shadow-cyan-950/30 backdrop-blur-sm"
+              className="group relative rounded-3xl p-6 sm:p-7 bg-white hover:bg-white border border-[#DCE8F8]/90 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between hover:shadow-xl hover:shadow-[#2563EB]/10 "
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
@@ -196,28 +196,28 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               <div>
                 {/* Category & Client */}
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-mono text-cyan-400 font-semibold uppercase tracking-wider">
+                  <span className="text-[11px] font-mono text-[#2563EB] font-semibold uppercase tracking-wider">
                     {project.category}
                   </span>
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-[#7B8AA3]">
                     {project.client}
                   </span>
                 </div>
 
                 {/* Title & Tagline */}
-                <h3 className="text-xl font-bold text-white font-display mb-2 group-hover:text-cyan-300 transition-colors">
+                <h3 className="text-xl font-bold text-[#0B1220] font-display mb-2 group-hover:text-[#2563EB] transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+                <p className="text-[#475569] text-xs sm:text-sm leading-relaxed mb-6">
                   {project.tagline}
                 </p>
 
                 {/* Key Metric Highlights */}
-                <div className="grid grid-cols-2 gap-2 mb-6 p-3 rounded-2xl bg-slate-950/70 border border-slate-800/80">
+                <div className="grid grid-cols-2 gap-2 mb-6 p-3 rounded-2xl bg-white/70 border border-[#DCE8F8]">
                   {project.metrics.slice(0, 2).map((m, mi) => (
                     <div key={mi}>
-                      <div className="text-[10px] text-slate-400">{m.label}</div>
-                      <div className="text-base font-bold text-cyan-400 font-display">{m.value}</div>
+                      <div className="text-[10px] text-[#7B8AA3]">{m.label}</div>
+                      <div className="text-base font-bold text-[#2563EB] font-display">{m.value}</div>
                     </div>
                   ))}
                 </div>
@@ -227,13 +227,13 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   {project.technologies.slice(0, 4).map((tech, ti) => (
                     <span
                       key={ti}
-                      className="text-[10px] px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800 font-mono"
+                      className="text-[10px] px-2 py-0.5 rounded bg-white text-[#475569] border border-[#DCE8F8] font-mono"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 4 && (
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-950 text-cyan-400 font-mono">
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#2563EB] font-mono">
                       +{project.technologies.length - 4}
                     </span>
                   )}
@@ -241,10 +241,10 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               </div>
 
               {/* Actions */}
-              <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+              <div className="pt-4 border-t border-[#DCE8F8] flex items-center justify-between">
                 <button
                   onClick={() => setActiveProject(project)}
-                  className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 cursor-pointer"
+                  className="text-xs font-semibold text-[#2563EB] hover:text-[#2563EB] flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Inspect Case Study</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -252,7 +252,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
                 <button
                   onClick={() => onSelectProjectForConsultation(project.title)}
-                  className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-cyan-600 hover:text-white text-slate-300 text-xs font-medium transition-all cursor-pointer"
+                  className="px-3 py-1.5 rounded-xl bg-[#F1F7FF] hover:bg-[#2563EB] hover:text-[#0B1220] text-[#475569] text-xs font-medium transition-all cursor-pointer"
                 >
                   Build Similar
                 </button>
@@ -266,7 +266,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       <AnimatePresence>
       {activeProject && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 "
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -274,7 +274,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           onClick={() => setActiveProject(null)}
         >
           <motion.div
-            className="max-w-2xl w-full bg-slate-900 border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            className="max-w-2xl w-full bg-white border border-[#2563EB]/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto"
             initial={{ opacity: 0, y: 18, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.98 }}
@@ -283,46 +283,46 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           >
             <button
               onClick={() => setActiveProject(null)}
-              className="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-xl bg-[#F1F7FF] text-[#7B8AA3] hover:text-[#0B1220] hover:bg-[#EAF2FF] cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#2563EB]">
               {activeProject.category} // {activeProject.client}
             </span>
 
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display mt-1 mb-4">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0B1220] font-display mt-1 mb-4">
               {activeProject.title}
             </h3>
 
-            <p className="text-slate-300 text-sm leading-relaxed mb-6">
+            <p className="text-[#475569] text-sm leading-relaxed mb-6">
               {activeProject.description}
             </p>
 
             {/* Metrics */}
-            <div className="grid grid-cols-3 gap-3 mb-6 p-4 rounded-2xl bg-slate-950 border border-slate-800 text-center">
+            <div className="grid grid-cols-3 gap-3 mb-6 p-4 rounded-2xl bg-white border border-[#DCE8F8] text-center">
               {activeProject.metrics.map((m, mi) => (
                 <div key={mi}>
-                  <div className="text-lg sm:text-2xl font-bold text-cyan-400 font-display">{m.value}</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">{m.label}</div>
+                  <div className="text-lg sm:text-2xl font-bold text-[#2563EB] font-display">{m.value}</div>
+                  <div className="text-[11px] text-[#7B8AA3] mt-0.5">{m.label}</div>
                 </div>
               ))}
             </div>
 
             {/* Architecture Preview */}
-            <div className="mb-6 p-4 rounded-2xl bg-slate-950/60 border border-slate-800 font-mono text-xs">
-              <span className="text-slate-400 block text-[10px] uppercase">Engineered Architecture:</span>
-              <span className="text-cyan-300 font-semibold">{activeProject.architecturePreview}</span>
+            <div className="mb-6 p-4 rounded-2xl bg-white/60 border border-[#DCE8F8] font-mono text-xs">
+              <span className="text-[#7B8AA3] block text-[10px] uppercase">Engineered Architecture:</span>
+              <span className="text-[#2563EB] font-semibold">{activeProject.architecturePreview}</span>
             </div>
 
             {/* Client Testimonial Quote */}
             {activeProject.testimonialQuote && (
-              <div className="mb-6 p-4 rounded-2xl bg-cyan-950/20 border border-cyan-800/40">
-                <p className="text-xs italic text-slate-200 mb-2">
+              <div className="mb-6 p-4 rounded-2xl bg-[#EAF2FF]/20 border border-[#2563EB]/20">
+                <p className="text-xs italic text-[#475569] mb-2">
                   &quot;{activeProject.testimonialQuote}&quot;
                 </p>
-                <div className="text-[11px] font-semibold text-cyan-400">
+                <div className="text-[11px] font-semibold text-[#2563EB]">
                   — {activeProject.clientRole}
                 </div>
               </div>
@@ -330,14 +330,14 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
             {/* Tech Stack */}
             <div className="mb-8">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">
+              <span className="text-xs font-semibold text-[#7B8AA3] uppercase tracking-wider block mb-2">
                 Tech Stack Applied:
               </span>
               <div className="flex flex-wrap gap-2">
                 {activeProject.technologies.map((t, ti) => (
                   <span
                     key={ti}
-                    className="px-2.5 py-1 rounded-lg bg-slate-800 text-cyan-300 text-xs font-mono border border-slate-700"
+                    className="px-2.5 py-1 rounded-lg bg-[#F1F7FF] text-[#2563EB] text-xs font-mono border border-[#60A5FA]"
                   >
                     {t}
                   </span>
@@ -346,10 +346,10 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
             </div>
 
             {/* Modal Actions */}
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#DCE8F8]">
               <button
                 onClick={() => setActiveProject(null)}
-                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-[#F1F7FF] hover:bg-[#EAF2FF] text-[#475569] text-xs font-semibold cursor-pointer"
               >
                 Close
               </button>
@@ -359,7 +359,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   setActiveProject(null);
                   onSelectProjectForConsultation(pTitle);
                 }}
-                className="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold shadow-md shadow-cyan-600/30 cursor-pointer flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#3B82F6] text-[#0B1220] text-xs font-bold shadow-md shadow-[#2563EB]/20 cursor-pointer flex items-center gap-1.5"
               >
                 <span>Request Project Proposal</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -372,3 +372,4 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
     </motion.section>
   );
 };
+

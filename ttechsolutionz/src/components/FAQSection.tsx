@@ -306,7 +306,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
   ] as const;
 
   return (
-    <section id="faq" className="py-24 relative bg-[#030712] border-t border-slate-900 overflow-hidden">
+    <section id="faq" className="py-24 relative bg-[#F8FBFF] border-t border-[#DCE8F8] overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-cyan-900/10 blur-[130px] rounded-full pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-blue-900/10 blur-[100px] rounded-full pointer-events-none" />
@@ -314,18 +314,18 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-3">
-            <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF2FF] border border-[#2563EB]/30 text-[#2563EB] text-xs font-semibold mb-3">
+            <HelpCircle className="w-3.5 h-3.5 text-[#2563EB]" />
             <span>Transparency &amp; Engineering Answers</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-display mb-4">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0B1220] tracking-tight font-display mb-4">
             Frequently Asked{' '}
-            <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] bg-clip-text text-transparent">
               Questions
             </span>
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p className="text-[#475569] text-sm sm:text-base leading-relaxed">
             Everything you need to know about our engineering methodology, transparent pricing models, source code ownership, and post-launch support guarantees.
           </p>
         </div>
@@ -333,7 +333,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
         {/* Filter Tabs & Search Bar Container */}
         <div className="space-y-4 mb-8">
           {/* Interactive Category Segmented Control */}
-          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 bg-slate-900/80 border border-slate-800 rounded-2xl max-w-3xl mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 bg-white border border-[#DCE8F8] rounded-2xl max-w-3xl mx-auto">
             {categories.map((cat) => {
               const Icon = cat.icon;
               const isActive = activeCategory === cat.id;
@@ -343,16 +343,16 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                   onClick={() => setActiveCategory(cat.id)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-600/30'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                      ? 'bg-[#2563EB] text-[#0B1220] shadow-lg shadow-[#2563EB]/20'
+                      : 'text-[#7B8AA3] hover:text-[#475569] hover:bg-[#F1F7FF]'
                   }`}
                   aria-pressed={isActive}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#0B1220]' : 'text-[#7B8AA3]'}`} />
                   <span>{cat.label}</span>
                   <span
                     className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
-                      isActive ? 'bg-cyan-700/60 text-cyan-100' : 'bg-slate-950 text-slate-400 border border-slate-800'
+                      isActive ? 'bg-cyan-700/60 text-cyan-100' : 'bg-white text-[#7B8AA3] border border-[#DCE8F8]'
                     }`}
                   >
                     {cat.count}
@@ -366,19 +366,19 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
             {/* Search Input */}
             <div className="relative w-full sm:max-w-md">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-4 h-4 text-[#7B8AA3] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search questions (e.g., code ownership, warranty, sprints)..."
-                className="w-full pl-10 pr-9 py-2.5 bg-slate-900/60 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500/70 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                className="w-full pl-10 pr-9 py-2.5 bg-white border border-[#DCE8F8] rounded-xl text-xs text-[#0B1220] placeholder-slate-400 focus:outline-none focus:border-[#2563EB]/70 focus:ring-1 focus:ring-cyan-500/50 transition-all"
                 aria-label="Search frequently asked questions"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 p-0.5"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7B8AA3] hover:text-[#475569] p-0.5"
                   aria-label="Clear search query"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -387,28 +387,28 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
             </div>
 
             {/* Quick Actions (Expand/Collapse All & Single-mode toggle) */}
-            <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end text-xs text-slate-400">
+            <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end text-xs text-[#7B8AA3]">
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={handleExpandAll}
-                  className="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-slate-200 transition-colors flex items-center gap-1.5 cursor-pointer text-[11px]"
+                  className="px-2.5 py-1.5 rounded-lg bg-white border border-[#DCE8F8] hover:border-[#60A5FA] hover:text-[#475569] transition-colors flex items-center gap-1.5 cursor-pointer text-[11px]"
                   title="Expand all questions"
                 >
-                  <FolderOpen className="w-3.5 h-3.5 text-cyan-400" />
+                  <FolderOpen className="w-3.5 h-3.5 text-[#2563EB]" />
                   <span>Expand All</span>
                 </button>
                 <button
                   onClick={handleCollapseAll}
-                  className="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-slate-200 transition-colors flex items-center gap-1.5 cursor-pointer text-[11px]"
+                  className="px-2.5 py-1.5 rounded-lg bg-white border border-[#DCE8F8] hover:border-[#60A5FA] hover:text-[#475569] transition-colors flex items-center gap-1.5 cursor-pointer text-[11px]"
                   title="Collapse all questions"
                 >
-                  <Folder className="w-3.5 h-3.5 text-slate-400" />
+                  <Folder className="w-3.5 h-3.5 text-[#7B8AA3]" />
                   <span>Collapse All</span>
                 </button>
               </div>
 
               {/* Toggle single-accordion mode */}
-              <label className="flex items-center gap-2 cursor-pointer select-none text-[11px] text-slate-400 hover:text-slate-300 ml-2">
+              <label className="flex items-center gap-2 cursor-pointer select-none text-[11px] text-[#7B8AA3] hover:text-[#475569] ml-2">
                 <input
                   type="checkbox"
                   checked={singleOpenMode}
@@ -420,7 +420,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                       setOpenIds(first ? new Set([first]) : new Set());
                     }
                   }}
-                  className="rounded border-slate-700 bg-slate-900 text-cyan-500 focus:ring-cyan-500 focus:ring-offset-0 w-3.5 h-3.5"
+                  className="rounded border-[#60A5FA] bg-white text-[#2563EB] focus:ring-cyan-500 focus:ring-offset-0 w-3.5 h-3.5"
                 />
                 <span>One-at-a-time</span>
               </label>
@@ -430,14 +430,14 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
 
         {/* Results summary if searching */}
         {searchQuery.trim() && (
-          <div className="mb-4 text-xs text-slate-400 flex items-center justify-between px-1">
+          <div className="mb-4 text-xs text-[#7B8AA3] flex items-center justify-between px-1">
             <span>
               Showing {filteredFaqs.length} of {faqData.length} questions matching{' '}
-              <span className="text-cyan-300 font-medium">&quot;{searchQuery}&quot;</span>
+              <span className="text-[#2563EB] font-medium">&quot;{searchQuery}&quot;</span>
             </span>
             <button
               onClick={() => setSearchQuery('')}
-              className="text-cyan-400 hover:underline cursor-pointer"
+              className="text-[#2563EB] hover:underline cursor-pointer"
             >
               Reset search
             </button>
@@ -446,22 +446,22 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
 
         {/* Accordion List */}
         {filteredFaqs.length === 0 ? (
-          <div className="text-center py-16 px-4 bg-slate-900/40 rounded-3xl border border-slate-800/80">
-            <HelpCircle className="w-10 h-10 text-slate-600 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-white mb-1">No matching questions found</h3>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto mb-4">
+          <div className="text-center py-16 px-4 bg-[#F1F7FF] rounded-3xl border border-[#DCE8F8]">
+            <HelpCircle className="w-10 h-10 text-[#7B8AA3] mx-auto mb-3" />
+            <h3 className="text-base font-bold text-[#0B1220] mb-1">No matching questions found</h3>
+            <p className="text-xs text-[#7B8AA3] max-w-sm mx-auto mb-4">
               We couldn&apos;t find an answer matching &quot;{searchQuery}&quot;. Feel free to reach out directly to our engineering team.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={() => setSearchQuery('')}
-                className="px-4 py-2 rounded-xl bg-slate-800 text-white text-xs hover:bg-slate-700 transition-colors"
+                className="px-4 py-2 rounded-xl bg-[#F1F7FF] text-[#0B1220] text-xs hover:bg-[#EAF2FF] transition-colors"
               >
                 Clear Search
               </button>
               <button
                 onClick={() => onOpenConsultation(`Question about: ${searchQuery}`)}
-                className="px-4 py-2 rounded-xl bg-cyan-600 text-white text-xs hover:bg-cyan-500 transition-colors font-medium shadow-md shadow-cyan-600/20"
+                className="px-4 py-2 rounded-xl bg-[#2563EB] text-[#0B1220] text-xs hover:bg-[#3B82F6] transition-colors font-medium shadow-md shadow-[#2563EB]/15"
               >
                 Ask Our Technical Architects
               </button>
@@ -473,18 +473,18 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
               const isOpen = openIds.has(item.id);
               const categoryColor =
                 item.category === 'process'
-                  ? 'text-cyan-400 border-cyan-800/40 bg-cyan-950/40'
+                  ? 'text-[#2563EB] border-[#2563EB]/20 bg-[#EAF2FF]'
                   : item.category === 'pricing'
                   ? 'text-emerald-400 border-emerald-800/40 bg-emerald-950/40'
-                  : 'text-purple-400 border-purple-800/40 bg-purple-950/40';
+                  : 'text-[#2563EB] border-purple-800/40 bg-purple-950/40';
 
               return (
                 <div
                   key={item.id}
                   className={`rounded-2xl transition-all duration-200 border ${
                     isOpen
-                      ? 'bg-slate-900/90 border-cyan-500/40 shadow-xl shadow-cyan-950/10'
-                      : 'bg-slate-900/40 border-slate-800/80 hover:border-slate-700/80 hover:bg-slate-900/60'
+                      ? 'bg-white border-[#2563EB]/30 shadow-xl shadow-cyan-950/10'
+                      : 'bg-[#F1F7FF] border-[#DCE8F8] hover:border-[#DCE8F8] hover:bg-white'
                   }`}
                 >
                   {/* Accordion Trigger Header */}
@@ -501,8 +501,8 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                         <span className={`px-2 py-0.5 rounded border text-[10px] uppercase tracking-wider font-semibold ${categoryColor}`}>
                           {item.categoryLabel}
                         </span>
-                        <span className="text-slate-500" aria-hidden="true">·</span>
-                        <span className="text-slate-400 font-sans hidden sm:inline text-xs">
+                        <span className="text-[#7B8AA3]" aria-hidden="true">·</span>
+                        <span className="text-[#7B8AA3] font-sans hidden sm:inline text-xs">
                           {item.summary}
                         </span>
                       </div>
@@ -510,7 +510,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                       {/* Question Heading */}
                       <h3
                         className={`text-sm sm:text-base font-bold transition-colors ${
-                          isOpen ? 'text-cyan-300' : 'text-white group-hover:text-cyan-200'
+                          isOpen ? 'text-[#2563EB]' : 'text-[#0B1220] group-hover:text-[#2563EB]'
                         }`}
                       >
                         {item.question}
@@ -521,8 +521,8 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                     <div
                       className={`p-2 rounded-xl border transition-all shrink-0 mt-1 sm:mt-0 ${
                         isOpen
-                          ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-300 rotate-180'
-                          : 'bg-slate-950 border-slate-800 text-slate-400 group-hover:border-slate-700 group-hover:text-slate-200'
+                          ? 'bg-[#3B82F6]/20 border-[#2563EB]/50 text-[#2563EB] rotate-180'
+                          : 'bg-white border-[#DCE8F8] text-[#7B8AA3] group-hover:border-[#60A5FA] group-hover:text-[#475569]'
                       }`}
                     >
                       <ChevronDown className="w-4 h-4 transition-transform duration-200" />
@@ -535,22 +535,22 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                       id={`faq-answer-${item.id}`}
                       role="region"
                       aria-labelledby={`faq-header-${item.id}`}
-                      className="px-4 pb-5 sm:px-5 sm:pb-6 pt-1 border-t border-slate-800/80 animate-in fade-in-50 duration-200"
+                      className="px-4 pb-5 sm:px-5 sm:pb-6 pt-1 border-t border-[#DCE8F8] animate-in fade-in-50 duration-200"
                     >
-                      <p className="text-slate-200 text-xs sm:text-sm leading-relaxed mb-4">
+                      <p className="text-[#475569] text-xs sm:text-sm leading-relaxed mb-4">
                         {item.answer}
                       </p>
 
                       {/* Key Points Checklist */}
                       {item.keyPoints && item.keyPoints.length > 0 && (
-                        <div className="mb-4 p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/90 space-y-2">
-                          <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider font-mono">
+                        <div className="mb-4 p-3.5 rounded-xl bg-white/70 border border-[#DCE8F8]/90 space-y-2">
+                          <div className="text-[11px] font-bold text-[#475569] uppercase tracking-wider font-mono">
                             Key Takeaways &amp; Commitments:
                           </div>
-                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#475569]">
                             {item.keyPoints.map((point, pIdx) => (
                               <li key={pIdx} className="flex items-start gap-2">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                                <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0 mt-0.5" />
                                 <span>{point}</span>
                               </li>
                             ))}
@@ -563,20 +563,20 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                         {item.recommendedAction ? (
                           <button
                             onClick={() => onSelectSection(item.recommendedAction!.section)}
-                            className="inline-flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors cursor-pointer group/link"
+                            className="inline-flex items-center gap-1.5 text-[#2563EB] hover:text-[#2563EB] font-semibold transition-colors cursor-pointer group/link"
                           >
                             <span>{item.recommendedAction.label}</span>
                             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
                           </button>
                         ) : (
-                          <span className="text-[11px] text-slate-500">
+                          <span className="text-[11px] text-[#7B8AA3]">
                             Engineering Standard · Ttech SOLUTIONS
                           </span>
                         )}
 
                         <button
                           onClick={() => onOpenConsultation(item.question)}
-                          className="text-slate-400 hover:text-slate-200 text-[11px] underline underline-offset-4 cursor-pointer"
+                          className="text-[#7B8AA3] hover:text-[#475569] text-[11px] underline underline-offset-4 cursor-pointer"
                         >
                           Have a specific question about this?
                         </button>
@@ -590,16 +590,16 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
         )}
 
         {/* Still have questions? Interactive Help Card */}
-        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-cyan-950/40 border border-slate-800 hover:border-cyan-500/30 transition-all flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#F1F7FF] to-white border border-[#DCE8F8] shadow-[0_10px_30px_rgba(37,99,235,0.08)] flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#2563EB]">
               <MessageSquare className="w-4 h-4" />
               <span>Direct Architect Access</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#0B1220] font-display">
               Have a custom project or unlisted technical requirement?
             </h3>
-            <p className="text-slate-300 text-xs sm:text-sm max-w-xl leading-relaxed">
+            <p className="text-[#475569] text-xs sm:text-sm max-w-xl leading-relaxed">
               Our lead engineers are happy to discuss custom distributed architectures, migrations, API integrations, and non-disclosure agreements (NDAs).
             </p>
           </div>
@@ -613,14 +613,14 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                   onSelectSection('estimator');
                 }
               }}
-              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 hover:text-white hover:border-slate-700 text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white border border-[#DCE8F8] text-[#475569] hover:text-[#0B1220] hover:border-[#60A5FA] text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
-              <Calculator className="w-3.5 h-3.5 text-cyan-400" />
+              <Calculator className="w-3.5 h-3.5 text-[#2563EB]" />
               <span>Project Estimator</span>
             </button>
             <button
               onClick={() => onOpenConsultation('Custom Technical Consultation')}
-              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all shadow-lg shadow-cyan-600/30 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold transition-all shadow-[0_8px_20px_rgba(37,99,235,0.3)] flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Book Discovery Call</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -631,3 +631,4 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
     </section>
   );
 };
+

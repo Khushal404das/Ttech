@@ -190,3 +190,4 @@ export const FigmaLogo: React.FC<TechLogoProps> = ({ className = '', size = 28 }
     <path d="M0 28.5A9.5 9.5 0 009.5 38H19V19H9.5A9.5 9.5 0 000 28.5z" fill="#A259FF" />
   </svg>
 );
+

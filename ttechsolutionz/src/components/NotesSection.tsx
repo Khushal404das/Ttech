@@ -81,7 +81,7 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/80 p-5 rounded-2xl border border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/80 p-5 rounded-2xl border border-[#DCE8F8]">
         <div>
           <div className="flex items-center gap-2 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <Bookmark className="w-3.5 h-3.5" />
@@ -106,7 +106,7 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
       {isCreating && (
         <form
           onSubmit={handleCreateNote}
-          className="bg-slate-900 border border-amber-500/30 rounded-2xl p-5 space-y-4 shadow-xl animate-in slide-in-from-top-2 duration-150"
+          className="bg-white border border-amber-500/30 rounded-2xl p-5 space-y-4 shadow-xl animate-in slide-in-from-top-2 duration-150"
         >
           <h3 className="text-sm font-bold text-white flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-amber-400" />
@@ -122,7 +122,7 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Travel Itinerary, Model Prompt Ideas..."
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="w-full bg-white border border-[#DCE8F8] rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
               />
             </div>
             <div>
@@ -130,7 +130,7 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as WorkspaceNote['category'])}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="w-full bg-white border border-[#DCE8F8] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-amber-500"
               >
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
@@ -149,11 +149,11 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
               placeholder="Write your note, paste AI output, or draft insights..."
               rows={4}
               required
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500 resize-none font-sans"
+              className="w-full bg-white border border-[#DCE8F8] rounded-xl p-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500 resize-none font-sans"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-[#DCE8F8]">
             <button
               type="button"
               onClick={() => setIsCreating(false)}
@@ -173,7 +173,7 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
       )}
 
       {/* Filter and search bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white/60 p-3 rounded-xl border border-[#DCE8F8]">
         <div className="flex flex-wrap items-center gap-1.5">
           {['All', ...categories].map((cat) => (
             <button
@@ -182,7 +182,7 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
               className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                 filterCategory === cat
                   ? 'bg-amber-600 text-white font-semibold'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  : 'text-slate-400 hover:text-white hover:bg-[#F1F7FF]'
               }`}
             >
               {cat}
@@ -197,15 +197,15 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search notes..."
-            className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            className="w-full bg-white border border-[#DCE8F8] rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
           />
         </div>
       </div>
 
       {/* Notes Grid */}
       {filteredNotes.length === 0 ? (
-        <div className="text-center py-16 bg-slate-900/40 rounded-2xl border border-slate-800/80 space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto text-slate-400">
+        <div className="text-center py-16 bg-white/40 rounded-2xl border border-[#DCE8F8]/80 space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-[#F1F7FF] border border-[#60A5FA] flex items-center justify-center mx-auto text-slate-400">
             <FileText className="w-6 h-6" />
           </div>
           <p className="text-sm font-semibold text-slate-300">No notes found</p>
@@ -220,7 +220,7 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
           {filteredNotes.map((note) => (
             <div
               key={note.id || note.title}
-              className="group bg-slate-900 border border-slate-800 hover:border-amber-500/40 rounded-xl p-4 flex flex-col justify-between space-y-3 transition-all duration-200 shadow-md"
+              className="group bg-white border border-[#DCE8F8] hover:border-amber-500/40 rounded-xl p-4 flex flex-col justify-between space-y-3 transition-all duration-200 shadow-md"
             >
               <div>
                 <div className="flex items-start justify-between gap-2 mb-2">
@@ -245,7 +245,7 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
+              <div className="pt-2 border-t border-[#DCE8F8] flex items-center justify-between text-[11px] text-slate-500">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
                   {note.createdAt?.toDate
@@ -283,3 +283,4 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
     </div>
   );
 };
+

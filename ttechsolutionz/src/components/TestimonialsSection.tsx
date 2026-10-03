@@ -19,7 +19,7 @@ const testimonials = [
     company: "Apex Retail Brands",
     rating: 5,
     avatar: "SC",
-    color: "from-purple-500 to-pink-600",
+    color: "from-[#3B82F6] to-pink-600",
   },
   {
     quote: "Medical compliance is rigorous — Ttech SOLUTIONS proved their enterprise security credentials from Day 1. Sub-45ms WebSocket latency and 100% audit pass rate. Exceptional team.",
@@ -46,7 +46,7 @@ const testimonials = [
     company: "Nexus Global Logistics",
     rating: 5,
     avatar: "TE",
-    color: "from-indigo-500 to-violet-600",
+    color: "from-[#3B82F6] to-violet-600",
   },
 ];
 
@@ -72,9 +72,9 @@ export const TestimonialsSection: React.FC = () => {
   const t = testimonials[current];
 
   return (
-    <section id="testimonials" className="relative py-24 overflow-hidden border-t border-slate-900/60 bg-[#040B1A]">
-      <div className="absolute inset-0 bg-aurora opacity-60" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+    <section id="testimonials" className="relative py-24 overflow-hidden border-t border-[#DCE8F8]/60 bg-[#F8FBFF]">
+      <div className="absolute inset-0 bg-[#F1F7FF] opacity-60" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/20 to-transparent" />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -85,17 +85,17 @@ export const TestimonialsSection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF2FF] border border-[#2563EB]/30 text-[#2563EB] text-xs font-semibold mb-4">
             <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
             <span>5-Star Client Reviews</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-display mb-4">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0B1220] tracking-tight font-display mb-4">
             Trusted by{' '}
             <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
               Global Leaders
             </span>
           </h2>
-          <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="text-[#7B8AA3] text-base sm:text-lg max-w-2xl mx-auto">
             Don't just take our word for it — hear from the enterprises and founders we've helped build their digital future.
           </p>
         </motion.div>
@@ -105,7 +105,7 @@ export const TestimonialsSection: React.FC = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
-              className="relative rounded-3xl p-8 sm:p-12 bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm overflow-hidden"
+              className="relative rounded-3xl p-8 sm:p-12 bg-white border border-[#DCE8F8]  overflow-hidden"
               initial={{ opacity: 0, x: 40, scale: 0.97 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -40, scale: 0.97 }}
@@ -115,7 +115,7 @@ export const TestimonialsSection: React.FC = () => {
               <div className={`absolute top-0 right-0 w-64 h-64 rounded-full bg-gradient-to-br ${t.color} opacity-5 blur-3xl pointer-events-none`} />
 
               {/* Quote icon */}
-              <Quote className="w-10 h-10 text-cyan-500/30 mb-6" />
+              <Quote className="w-10 h-10 text-[#2563EB]/30 mb-6" />
 
               {/* Stars */}
               <div className="flex gap-1 mb-6">
@@ -125,7 +125,7 @@ export const TestimonialsSection: React.FC = () => {
               </div>
 
               {/* Quote text */}
-              <p className="text-slate-200 text-base sm:text-lg leading-relaxed italic mb-8 max-w-3xl">
+              <p className="text-[#475569] text-base sm:text-lg leading-relaxed italic mb-8 max-w-3xl">
                 "{t.quote}"
               </p>
 
@@ -135,12 +135,12 @@ export const TestimonialsSection: React.FC = () => {
                   {t.avatar}
                 </div>
                 <div>
-                  <div className="text-white font-bold text-sm">{t.name}</div>
-                  <div className="text-slate-400 text-xs">{t.role}, {t.company}</div>
+                  <div className="text-[#0B1220] font-bold text-sm">{t.name}</div>
+                  <div className="text-[#7B8AA3] text-xs">{t.role}, {t.company}</div>
                 </div>
 
                 {/* Verified badge */}
-                <div className="ml-auto hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+                <div className="ml-auto hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
                   <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
@@ -160,8 +160,8 @@ export const TestimonialsSection: React.FC = () => {
                   onClick={() => { setIsAuto(false); setCurrent(i); }}
                   className={`transition-all duration-300 rounded-full cursor-pointer ${
                     i === current
-                      ? 'w-8 h-2 bg-cyan-400'
-                      : 'w-2 h-2 bg-slate-700 hover:bg-slate-500'
+                      ? 'w-8 h-2 bg-[#2563EB]'
+                      : 'w-2 h-2 bg-[#DCE8F8] hover:bg-[#60A5FA]'
                   }`}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />
@@ -172,7 +172,7 @@ export const TestimonialsSection: React.FC = () => {
             <div className="flex gap-2">
               <motion.button
                 onClick={prev}
-                className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-600 transition-all cursor-pointer"
+                className="p-2.5 rounded-xl bg-white border border-[#DCE8F8] text-[#7B8AA3] hover:text-[#0B1220] hover:border-[#60A5FA] transition-all cursor-pointer"
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.94 }}
                 aria-label="Previous testimonial"
@@ -181,7 +181,7 @@ export const TestimonialsSection: React.FC = () => {
               </motion.button>
               <motion.button
                 onClick={next}
-                className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-600 transition-all cursor-pointer"
+                className="p-2.5 rounded-xl bg-white border border-[#DCE8F8] text-[#7B8AA3] hover:text-[#0B1220] hover:border-[#60A5FA] transition-all cursor-pointer"
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.94 }}
                 aria-label="Next testimonial"
@@ -195,3 +195,4 @@ export const TestimonialsSection: React.FC = () => {
     </section>
   );
 };
+

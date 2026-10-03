@@ -70,7 +70,7 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
   };
 
   return (
-    <section id="ai-scoper" className="py-24 relative bg-[#030712] border-t border-slate-900">
+    <section id="ai-scoper" className="py-24 relative bg-[#030712] border-t border-[#DCE8F8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
@@ -90,7 +90,7 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
         </div>
 
         {/* Input Card */}
-        <div className="max-w-4xl mx-auto bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 backdrop-blur-md mb-12 shadow-xl">
+        <div className="max-w-4xl mx-auto bg-white/60 border border-[#DCE8F8] rounded-3xl p-6 sm:p-8 backdrop-blur-md mb-12 shadow-xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">
@@ -99,7 +99,7 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
               <select
                 value={serviceType}
                 onChange={(e) => setServiceType(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-cyan-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#DCE8F8] text-xs text-white focus:outline-none focus:border-cyan-500"
               >
                 <option value="SaaS Platform & Web App">SaaS Platform &amp; Web App</option>
                 <option value="Custom Enterprise Software (.NET)">Custom Enterprise Software (.NET)</option>
@@ -117,7 +117,7 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
               <select
                 value={preferredTech}
                 onChange={(e) => setPreferredTech(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-cyan-500 font-mono"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#DCE8F8] text-xs text-white focus:outline-none focus:border-cyan-500 font-mono"
               >
                 <option value=".NET Core 9 + React (Enterprise)">.NET Core 9 + React (Enterprise Choice)</option>
                 <option value="React + Next.js Full Stack">React + Next.js Full Stack</option>
@@ -137,7 +137,7 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
               value={projectIdea}
               onChange={(e) => setProjectIdea(e.target.value)}
               placeholder="e.g. I need an enterprise dashboard for managing multi-warehouse shipments, with real-time driver tracking, automated barcode generation, and role-based access for logistics managers..."
-              className="w-full p-4 rounded-2xl bg-slate-950 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+              className="w-full p-4 rounded-2xl bg-white border border-[#DCE8F8] text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
             />
           </div>
 
@@ -149,7 +149,7 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
                 <button
                   key={idx}
                   onClick={() => setProjectIdea(idea)}
-                  className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-950/80 border border-slate-800 text-slate-400 hover:text-cyan-300 hover:border-cyan-800 transition-all text-left cursor-pointer truncate max-w-xs"
+                  className="text-[11px] px-2.5 py-1 rounded-lg bg-white/80 border border-[#DCE8F8] text-slate-400 hover:text-cyan-300 hover:border-cyan-800 transition-all text-left cursor-pointer truncate max-w-xs"
                 >
                   &quot;{idea.slice(0, 45)}...&quot;
                 </button>
@@ -186,8 +186,8 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
 
         {/* Scope Results Display */}
         {scopeResult && (
-          <div className="max-w-4xl mx-auto rounded-3xl p-6 sm:p-8 bg-slate-900/90 border border-cyan-500/50 shadow-2xl backdrop-blur-xl animate-in fade-in duration-300">
-            <div className="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-3">
+          <div className="max-w-4xl mx-auto rounded-3xl p-6 sm:p-8 bg-white/90 border border-cyan-500/50 shadow-2xl backdrop-blur-xl animate-in fade-in duration-300">
+            <div className="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-[#DCE8F8] gap-3">
               <div>
                 <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest bg-cyan-950/80 px-2.5 py-1 rounded-full border border-cyan-800">
                   Architectural Synthesis Completed
@@ -198,7 +198,7 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-xs px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300">
+                <span className="text-xs px-3 py-1.5 rounded-xl bg-white border border-[#DCE8F8] text-slate-300">
                   Timeline: <strong className="text-white">{scopeResult.estimatedDuration}</strong>
                 </span>
                 <span className="text-xs px-3 py-1.5 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 font-bold">
@@ -226,19 +226,19 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
                 Recommended System Tiers:
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+                <div className="p-3.5 rounded-xl bg-white border border-[#DCE8F8]">
                   <span className="text-slate-400 block text-[10px] font-mono">CLIENT UI LAYER</span>
                   <span className="font-semibold text-cyan-300">{scopeResult.recommendedArchitecture.frontend}</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+                <div className="p-3.5 rounded-xl bg-white border border-[#DCE8F8]">
                   <span className="text-slate-400 block text-[10px] font-mono">ENTERPRISE BACKEND</span>
                   <span className="font-semibold text-purple-300">{scopeResult.recommendedArchitecture.backend}</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+                <div className="p-3.5 rounded-xl bg-white border border-[#DCE8F8]">
                   <span className="text-slate-400 block text-[10px] font-mono">DATABASE &amp; PERSISTENCE</span>
                   <span className="font-semibold text-amber-300">{scopeResult.recommendedArchitecture.database}</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+                <div className="p-3.5 rounded-xl bg-white border border-[#DCE8F8]">
                   <span className="text-slate-400 block text-[10px] font-mono">SECURITY &amp; RBAC</span>
                   <span className="font-semibold text-emerald-300">{scopeResult.recommendedArchitecture.security}</span>
                 </div>
@@ -252,12 +252,12 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
               </h4>
               <div className="space-y-2.5">
                 {scopeResult.keyModules.map((mod, idx) => (
-                  <div key={idx} className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div key={idx} className="p-3.5 rounded-xl bg-white/70 border border-[#DCE8F8] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <div className="text-xs font-bold text-white">{mod.title}</div>
                       <div className="text-[11px] text-slate-400">{mod.description}</div>
                     </div>
-                    <span className="text-[10px] px-2 py-1 rounded bg-slate-900 text-cyan-400 font-mono shrink-0">
+                    <span className="text-[10px] px-2 py-1 rounded bg-white text-cyan-400 font-mono shrink-0">
                       {mod.techComponent}
                     </span>
                   </div>
@@ -272,7 +272,7 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
                 {scopeResult.sprintPhases.map((phase, idx) => (
-                  <div key={idx} className="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                  <div key={idx} className="p-3 rounded-xl bg-white border border-[#DCE8F8]">
                     <div className="text-[10px] font-mono text-cyan-400">Phase {idx + 1} ({phase.durationWeeks} wks)</div>
                     <div className="text-xs font-bold text-white mt-1 mb-2">{phase.phase}</div>
                     <ul className="text-[10px] text-slate-400 space-y-1">
@@ -286,7 +286,7 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
             </div>
 
             {/* Action */}
-            <div className="flex flex-wrap items-center justify-between pt-4 border-t border-slate-800 gap-3">
+            <div className="flex flex-wrap items-center justify-between pt-4 border-t border-[#DCE8F8] gap-3">
               <div className="text-xs text-slate-400">
                 Ready to review this scope with our Principal Architect?
               </div>
@@ -304,3 +304,4 @@ export const AIScoperSection: React.FC<AIScoperSectionProps> = ({
     </section>
   );
 };
+

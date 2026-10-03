@@ -221,7 +221,7 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
   return (
     <motion.section
       id="estimator"
-      className="py-24 relative bg-[#040B1A] border-t border-slate-900"
+      className="py-24 relative bg-[#F8FBFF] border-t border-[#DCE8F8]"
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.08 }}
@@ -230,41 +230,41 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-3">
-            <Calculator className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF2FF] border border-[#2563EB]/30 text-[#2563EB] text-xs font-semibold mb-3">
+            <Calculator className="w-3.5 h-3.5 text-[#2563EB]" />
             <span>Transparent Pricing &amp; Timeline Calculator</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-display mb-4">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0B1220] tracking-tight font-display mb-4">
             Interactive Project Cost &amp;{' '}
-            <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] bg-clip-text text-transparent">
               Timeline Estimator
             </span>
           </h2>
-          <p className="text-slate-300 text-base sm:text-lg">
+          <p className="text-[#475569] text-base sm:text-lg">
             No guessing games. Select your project parameters, preferred stack, and custom features to get an immediate ballpark estimate based on our production sprint metrics.
           </p>
         </div>
 
         {/* Visual Progress Stepper Component */}
-        <div className="glass-panel rounded-3xl p-4 sm:p-6 mb-10 border border-cyan-500/25 shadow-2xl shadow-cyan-950/20 backdrop-blur-xl">
+        <div className="glass-panel rounded-3xl p-4 sm:p-6 mb-10 border border-[#2563EB]/25 shadow-2xl shadow-cyan-950/20 ">
           {/* Top Status & Metrics Row */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-800/80">
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-[#DCE8F8]">
             <div className="flex items-center gap-2.5">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2563EB] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#3B82F6]" />
               </span>
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#2563EB]">
                 Estimation Workflow
               </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-cyan-950/80 border border-cyan-500/30 text-cyan-300">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#EAF2FF] border border-[#2563EB]/30 text-[#2563EB]">
                 Step {completedCount} of {steps.length} Complete · {progressPercent}%
               </span>
             </div>
 
             <div className="flex items-center gap-3 text-xs">
-              <span className="text-slate-400 hidden sm:inline">Active Ballpark:</span>
-              <span className="font-bold text-white bg-slate-900/90 px-3 py-1 rounded-xl border border-cyan-500/30 text-cyan-300 font-mono shadow-sm">
+              <span className="text-[#7B8AA3] hidden sm:inline">Active Ballpark:</span>
+              <span className="font-bold text-[#0B1220] bg-white px-3 py-1 rounded-xl border border-[#2563EB]/30 text-[#2563EB] font-mono shadow-sm">
                 {calculation.budgetRangeStr}
               </span>
             </div>
@@ -273,7 +273,7 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
           {/* Stepper Bar with Connecting Track */}
           <div className="relative">
             {/* Horizontal Connecting Track for Desktop */}
-            <div className="absolute top-5 left-10 right-10 h-1 bg-slate-800/90 rounded-full hidden lg:block -z-0">
+            <div className="absolute top-5 left-10 right-10 h-1 bg-[#F1F7FF] rounded-full hidden lg:block -z-0">
               <div
                 className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-600 rounded-full transition-all duration-500 shadow-[0_0_12px_rgba(6,182,212,0.6)]"
                 style={{ width: `${progressPercent}%` }}
@@ -291,39 +291,39 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
                     title={`Jump to ${step.title}`}
                     className={`group relative flex flex-col items-center p-3 sm:p-3.5 rounded-2xl border text-center transition-all duration-200 cursor-pointer ${
                       step.isCompleted
-                        ? 'bg-slate-900/80 border-cyan-500/40 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-950/40 hover:-translate-y-0.5'
-                        : 'bg-slate-950/50 border-slate-800 text-slate-400 hover:border-slate-700'
+                        ? 'bg-white border-[#2563EB]/30 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-950/40 hover:-translate-y-0.5'
+                        : 'bg-white0 border-[#DCE8F8] text-[#7B8AA3] hover:border-[#60A5FA]'
                     }`}
                   >
                     {/* Step Icon / Number Indicator */}
                     <div
                       className={`relative w-10 h-10 rounded-xl flex items-center justify-center mb-2 transition-all ${
                         step.isCompleted
-                          ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/25 group-hover:scale-105'
-                          : 'bg-slate-800 text-slate-400 border border-slate-700'
+                          ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-[#0B1220] shadow-md shadow-cyan-500/25 group-hover:scale-105'
+                          : 'bg-[#F1F7FF] text-[#7B8AA3] border border-[#60A5FA]'
                       }`}
                     >
                       <Icon className="w-5 h-5" />
                       {step.isCompleted && (
-                        <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center text-[9px] font-bold shadow-sm">
+                        <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-[#0B1220] flex items-center justify-center text-[9px] font-bold shadow-sm">
                           ✓
                         </span>
                       )}
                     </div>
 
                     {/* Step Name */}
-                    <div className="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-1">
+                    <div className="text-xs font-bold text-[#0B1220] group-hover:text-[#2563EB] transition-colors line-clamp-1">
                       {step.title}
                     </div>
 
                     {/* Active Value Preview */}
-                    <div className="text-[11px] text-slate-400 truncate max-w-[120px] mt-0.5 group-hover:text-slate-300">
+                    <div className="text-[11px] text-[#7B8AA3] truncate max-w-[120px] mt-0.5 group-hover:text-[#475569]">
                       {step.subtitle}
                     </div>
 
                     {/* Status Pill */}
-                    <div className="mt-1.5 flex items-center gap-1 text-[10px] font-mono text-cyan-400 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <div className="mt-1.5 flex items-center gap-1 text-[10px] font-mono text-[#2563EB] font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
                       <span>{step.statusLabel}</span>
                     </div>
                   </button>
@@ -335,12 +335,12 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Controls (Left 7 Cols) */}
-          <div className="lg:col-span-7 space-y-8 bg-slate-900/60 p-6 sm:p-8 rounded-3xl border border-slate-800 backdrop-blur-md">
+          <div className="lg:col-span-7 space-y-8 bg-white p-6 sm:p-8 rounded-3xl border border-[#DCE8F8] ">
             {/* Step 1: Select Service */}
             <div id="estimator-step-1" className="scroll-mt-28">
               <div className="flex items-center justify-between mb-3">
-                <label className="text-sm font-bold text-white flex items-center gap-2">
-                  <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 text-xs flex items-center justify-center font-mono">
+                <label className="text-sm font-bold text-[#0B1220] flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#3B82F6]/20 text-[#2563EB] text-xs flex items-center justify-center font-mono">
                     1
                   </span>
                   <span>Select Primary Project Category</span>
@@ -354,12 +354,12 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
                     onClick={() => setSelectedService(srv.title)}
                     className={`p-3.5 rounded-2xl text-left border transition-all cursor-pointer ${
                       selectedService === srv.title
-                        ? 'bg-cyan-950/40 border-cyan-400 text-white shadow-md shadow-cyan-950/40'
-                        : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                        ? 'bg-[#EAF2FF] border-cyan-400 text-[#0B1220] shadow-md shadow-cyan-950/40'
+                        : 'bg-white/60 border-[#DCE8F8] text-[#475569] hover:border-[#60A5FA]'
                     }`}
                   >
                     <div className="text-xs font-bold">{srv.title}</div>
-                    <div className="text-[11px] text-slate-400 mt-1">From {srv.baseWeeks} weeks base</div>
+                    <div className="text-[11px] text-[#7B8AA3] mt-1">From {srv.baseWeeks} weeks base</div>
                   </button>
                 ))}
               </div>
@@ -368,8 +368,8 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
             {/* Step 2: Preferred Tech Stack */}
             <div id="estimator-step-2" className="scroll-mt-28">
               <div className="flex items-center justify-between mb-3">
-                <label className="text-sm font-bold text-white flex items-center gap-2">
-                  <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 text-xs flex items-center justify-center font-mono">
+                <label className="text-sm font-bold text-[#0B1220] flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#3B82F6]/20 text-[#2563EB] text-xs flex items-center justify-center font-mono">
                     2
                   </span>
                   <span>Select Preferred Technology Stack</span>
@@ -383,15 +383,15 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
                     onClick={() => setSelectedStack(stk.name)}
                     className={`p-3 rounded-2xl text-left border transition-all cursor-pointer flex items-center justify-between ${
                       selectedStack === stk.name
-                        ? 'bg-purple-950/40 border-purple-400 text-white shadow-md'
-                        : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                        ? 'bg-purple-950/40 border-purple-400 text-[#0B1220] shadow-md'
+                        : 'bg-white/60 border-[#DCE8F8] text-[#475569] hover:border-[#60A5FA]'
                     }`}
                   >
                     <div>
                       <div className="text-xs font-bold">{stk.name}</div>
-                      <div className="text-[10px] text-slate-400 mt-0.5">Architect-Approved</div>
+                      <div className="text-[10px] text-[#7B8AA3] mt-0.5">Architect-Approved</div>
                     </div>
-                    <span className="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-cyan-300 font-mono">
+                    <span className="text-[10px] px-2 py-0.5 rounded-md bg-[#F1F7FF] text-[#2563EB] font-mono">
                       {stk.badge}
                     </span>
                   </button>
@@ -402,13 +402,13 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
             {/* Step 3: Required Modules / Features */}
             <div id="estimator-step-3" className="scroll-mt-28">
               <div className="flex items-center justify-between mb-3">
-                <label className="text-sm font-bold text-white flex items-center gap-2">
-                  <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 text-xs flex items-center justify-center font-mono">
+                <label className="text-sm font-bold text-[#0B1220] flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#3B82F6]/20 text-[#2563EB] text-xs flex items-center justify-center font-mono">
                     3
                   </span>
                   <span>Select Add-on Features &amp; Integrations</span>
                 </label>
-                <span className="text-xs text-cyan-400">
+                <span className="text-xs text-[#2563EB]">
                   {selectedFeatures.length} selected
                 </span>
               </div>
@@ -422,13 +422,13 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
                       onClick={() => toggleFeature(feat.name)}
                       className={`p-3 rounded-2xl text-left border transition-all cursor-pointer flex items-start gap-2.5 ${
                         isChecked
-                          ? 'bg-slate-950 border-cyan-500/80 text-white shadow-sm'
-                          : 'bg-slate-950/40 border-slate-800/80 text-slate-400 hover:text-slate-200'
+                          ? 'bg-white border-[#2563EB]/80 text-[#0B1220] shadow-sm'
+                          : 'bg-white/40 border-[#DCE8F8] text-[#7B8AA3] hover:text-[#475569]'
                       }`}
                     >
                       <div
                         className={`w-4 h-4 rounded-md mt-0.5 flex items-center justify-center transition-colors ${
-                          isChecked ? 'bg-cyan-500 text-slate-950' : 'border border-slate-700 bg-slate-900'
+                          isChecked ? 'bg-[#3B82F6] text-[#0B1220]' : 'border border-[#60A5FA] bg-white'
                         }`}
                       >
                         {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
@@ -442,8 +442,8 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
 
             {/* Step 4: Urgency / Timeline */}
             <div id="estimator-step-4" className="scroll-mt-28">
-              <label className="text-sm font-bold text-white flex items-center gap-2 mb-3">
-                <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 text-xs flex items-center justify-center font-mono">
+              <label className="text-sm font-bold text-[#0B1220] flex items-center gap-2 mb-3">
+                <span className="w-5 h-5 rounded-full bg-[#3B82F6]/20 text-[#2563EB] text-xs flex items-center justify-center font-mono">
                   4
                 </span>
                 <span>Select Sprint Delivery Pace</span>
@@ -460,12 +460,12 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
                     onClick={() => setUrgency(u.id as any)}
                     className={`p-3 rounded-2xl text-center border transition-all cursor-pointer ${
                       urgency === u.id
-                        ? 'bg-cyan-950/60 border-cyan-400 text-white'
-                        : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700'
+                        ? 'bg-[#EAF2FF] border-cyan-400 text-[#0B1220]'
+                        : 'bg-white/60 border-[#DCE8F8] text-[#7B8AA3] hover:border-[#60A5FA]'
                     }`}
                   >
                     <div className="text-xs font-bold">{u.label}</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5">{u.desc}</div>
+                    <div className="text-[10px] text-[#7B8AA3] mt-0.5">{u.desc}</div>
                   </button>
                 ))}
               </div>
@@ -474,83 +474,83 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
 
           {/* Real-time Calculation Summary Card (Right 5 Cols) */}
           <div id="estimator-step-5" className="lg:col-span-5 sticky top-24 space-y-6 scroll-mt-28">
-            <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-b from-slate-900/90 to-slate-950 border-2 border-cyan-500/40 shadow-2xl shadow-cyan-950/40 backdrop-blur-xl">
-              <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-800">
+            <div className="rounded-3xl p-6 sm:p-8 bg-white border border-[#DCE8F8] shadow-[0_10px_30px_rgba(37,99,235,0.08)]">
+              <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#DCE8F8]">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#2563EB] animate-pulse" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#2563EB]">
                     Live Calculation
                   </span>
                 </div>
                 <button
                   onClick={copyEstimateSummary}
-                  className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 text-xs text-[#7B8AA3] hover:text-[#0B1220] transition-colors cursor-pointer"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied!' : 'Copy Summary'}</span>
                 </button>
               </div>
 
               {/* Budget Display */}
               <div className="mb-6">
-                <div className="text-xs text-slate-400 font-medium mb-1">
+                <div className="text-xs text-[#7B8AA3] font-medium mb-1">
                   Estimated Investment Range
                 </div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-white font-display tracking-tight text-glow">
+                <div className="text-3xl sm:text-4xl font-extrabold text-[#0B1220] font-display tracking-tight">
                   {calculation.budgetRangeStr}
                 </div>
-                <div className="text-[11px] text-slate-400 mt-1">
+                <div className="text-[11px] text-[#7B8AA3] mt-1">
                   *Includes architecture design, clean code development &amp; 30-day post-launch warranty.
                 </div>
               </div>
 
               {/* Metrics Grid */}
-              <div className="grid grid-cols-2 gap-3 mb-6 p-4 rounded-2xl bg-slate-950/80 border border-slate-800">
+              <div className="grid grid-cols-2 gap-3 mb-6 p-4 rounded-2xl bg-[#F8FBFF] border border-[#DCE8F8]">
                 <div>
-                  <div className="text-[11px] text-slate-400 flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-cyan-400" />
+                  <div className="text-[11px] text-[#7B8AA3] flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-[#2563EB]" />
                     <span>Estimated Timeline</span>
                   </div>
-                  <div className="text-base font-bold text-white mt-0.5">
+                  <div className="text-base font-bold text-[#0B1220] mt-0.5">
                     {calculation.timeline}
                   </div>
                 </div>
 
                 <div>
-                  <div className="text-[11px] text-slate-400 flex items-center gap-1">
-                    <Cpu className="w-3 h-3 text-purple-400" />
+                  <div className="text-[11px] text-[#7B8AA3] flex items-center gap-1">
+                    <Cpu className="w-3 h-3 text-[#2563EB]" />
                     <span>Sprint Dev Hours</span>
                   </div>
-                  <div className="text-base font-bold text-white mt-0.5">
+                  <div className="text-base font-bold text-[#0B1220] mt-0.5">
                     {calculation.estimatedHours}
                   </div>
                 </div>
               </div>
 
               {/* Specs Breakdown */}
-              <div className="space-y-2 mb-8 text-xs text-slate-300">
-                <div className="flex justify-between py-1 border-b border-slate-800/60">
-                  <span className="text-slate-400">Target Category:</span>
-                  <span className="font-semibold text-white truncate max-w-[200px]">{selectedService}</span>
+              <div className="space-y-2 mb-8 text-xs text-[#475569]">
+                <div className="flex justify-between py-1 border-b border-[#DCE8F8]/60">
+                  <span className="text-[#7B8AA3]">Target Category:</span>
+                  <span className="font-semibold text-[#0B1220] truncate max-w-[200px]">{selectedService}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800/60">
-                  <span className="text-slate-400">Chosen Stack:</span>
-                  <span className="font-mono text-cyan-300">{selectedStack}</span>
+                <div className="flex justify-between py-1 border-b border-[#DCE8F8]/60">
+                  <span className="text-[#7B8AA3]">Chosen Stack:</span>
+                  <span className="font-mono text-[#2563EB]">{selectedStack}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800/60">
-                  <span className="text-slate-400">Active Add-ons:</span>
-                  <span className="font-semibold text-white">{selectedFeatures.length} Modules</span>
+                <div className="flex justify-between py-1 border-b border-[#DCE8F8]/60">
+                  <span className="text-[#7B8AA3]">Active Add-ons:</span>
+                  <span className="font-semibold text-[#0B1220]">{selectedFeatures.length} Modules</span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-slate-400">Code Quality Standard:</span>
-                  <span className="text-emerald-400 font-semibold">Ttech Clean Code SLA</span>
+                  <span className="text-[#7B8AA3]">Code Quality Standard:</span>
+                  <span className="text-emerald-600 font-semibold">Ttech Clean Code SLA</span>
                 </div>
               </div>
 
               {/* Lock & Consult CTA */}
               <button
                 onClick={handleLockEstimate}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-sm shadow-xl shadow-cyan-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer group"
+                className="w-full py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm shadow-[0_8px_20px_rgba(37,99,235,0.3)] hover:shadow-[0_10px_25px_rgba(37,99,235,0.4)] transition-all flex items-center justify-center gap-2 cursor-pointer group"
               >
                 <span>Lock In Estimate &amp; Book Discovery</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -562,3 +562,4 @@ Guaranteed: Clean Code, 100% On-Time Delivery, 24/7 Support`;
     </motion.section>
   );
 };
+
