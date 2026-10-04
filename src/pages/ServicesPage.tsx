@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SEO } from '../components/SEO';
 import { ServicesSection } from '../components/ServicesSection';
 import { TechStackSection } from '../components/TechStackSection';
 import { ProjectEstimatorSection } from '../components/ProjectEstimatorSection';
@@ -54,7 +55,13 @@ export default function ServicesPage() {
   };
 
   return (
-    <main className="flex-1 pt-20">
+    <>
+      <SEO
+        title="Services | Ttech SOLUTIONS - Software Development & Tech Solutions"
+        description="Custom software development, SaaS platforms, web applications, .NET Core enterprise solutions, UI/UX design, and AI automation services. Get a free project estimate."
+        canonical="/services"
+      />
+      <main className="flex-1 pt-20">
       <ServicesSection
         onSelectServiceForQuote={handleSelectServiceForQuote}
         onOpenConsultation={handleOpenConsultation}
@@ -85,5 +92,6 @@ export default function ServicesPage() {
       />
       <Footer onOpenConsultation={handleOpenConsultation} />
     </main>
+    </>
   );
 }

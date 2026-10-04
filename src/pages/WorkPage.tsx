@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SEO } from '../components/SEO';
 import { PortfolioSection } from '../components/PortfolioSection';
 import { TestimonialsSection } from '../components/TestimonialsSection';
 import { CTASection } from '../components/CTASection';
@@ -13,7 +14,13 @@ export default function WorkPage() {
   };
 
   return (
-    <main className="flex-1 pt-20">
+    <>
+      <SEO
+        title="Portfolio & Case Studies | Ttech SOLUTIONS"
+        description="Explore our portfolio of successful software projects, SaaS platforms, enterprise applications, and UI/UX designs. Real client results and testimonials."
+        canonical="/work"
+      />
+      <main className="flex-1 pt-20">
       <PortfolioSection
         onSelectProjectForConsultation={(projName) => handleOpenConsultation(projName)}
       />
@@ -24,5 +31,6 @@ export default function WorkPage() {
       />
       <Footer onOpenConsultation={handleOpenConsultation} />
     </main>
+    </>
   );
 }

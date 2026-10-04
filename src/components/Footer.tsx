@@ -6,6 +6,9 @@ import {
   Heart,
   Mail,
   MessageSquare,
+  Facebook,
+  Instagram,
+  X,
 } from 'lucide-react';
 
 interface FooterProps {
@@ -48,12 +51,48 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
                 <span>+92 348 9763998</span>
               </a>
               <a
-                href="mailto:contact@ttechsolutions.dev"
+                href="mailto:teatech.solutionz@gmail.com"
                 className="p-2.5 rounded-xl bg-white border border-[#DCE8F8] text-[#475569] hover:text-[#2563EB] hover:border-[#2563EB]/30 transition-colors"
-                aria-label="Email: contact@ttechsolutions.dev"
+                aria-label="Email: teatech.solutionz@gmail.com"
               >
                 <Mail className="w-4 h-4" />
               </a>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="pt-4">
+              <h5 className="text-[10px] font-bold text-[#475569] uppercase tracking-wider mb-2.5">
+                Follow Us
+              </h5>
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://facebook.com/Ttechsolutionz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-white border border-[#DCE8F8] text-[#475569] hover:text-[#1877F2] hover:border-[#1877F2]/30 transition-colors"
+                  aria-label="Follow us on Facebook"
+                >
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://instagram.com/TtechSolutionz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-white border border-[#DCE8F8] text-[#475569] hover:text-[#E4405F] hover:border-[#E4405F]/30 transition-colors"
+                  aria-label="Follow us on Instagram"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://x.com/TtechSolutionz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-white border border-[#DCE8F8] text-[#475569] hover:text-[#000000] hover:border-[#000000]/30 transition-colors"
+                  aria-label="Follow us on X (Twitter)"
+                >
+                  <X className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
 

@@ -13,6 +13,7 @@ import {
   AlertCircle,
   Loader2,
   Calendar,
+  ArrowRight,
 } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
@@ -46,6 +47,8 @@ export const InquirySection: React.FC<InquirySectionProps> = ({
   const [submitting, setSubmitting] = useState(false);
   const [submittedId, setSubmittedId] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [showContactOptions, setShowContactOptions] = useState(false);
+  const [submittedData, setSubmittedData] = useState<ProjectInquiry | null>(null);
 
   useEffect(() => {
     if (initialService) setServiceType(initialService);
@@ -91,41 +94,140 @@ export const InquirySection: React.FC<InquirySectionProps> = ({
 
     let savedId = `ttech-${Date.now().toString().slice(-6)}`;
 
-    // 1. Save to Firebase Firestore
-    try {
-      const docRef = await addDoc(collection(db, 'inquiries'), {
-        ...inquiryPayload,
-        createdAt: serverTimestamp(),
-      });
-      savedId = docRef.id;
-    } catch (fbErr) {
-      console.warn('Firestore write warning, executing server-side backup:', fbErr);
-    }
-
-    // 2. Also send to server endpoint for redundancy
-    try {
-      await fetch('/api/inquiries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(inquiryPayload),
-      });
-    } catch (apiErr) {
-      console.warn('Server fallback inquiry ping:', apiErr);
-    }
-
-    // Confetti celebration
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
+    // Try Firebase and server calls in background (don't wait)
+    Promise.allSettled([
+      // Firebase attempt
+      (async () => {
+        try {
+          if (db) {
+            const docRef = await addDoc(collection(db, 'inquiries'), {
+              ...inquiryPayload,
+              createdAt: serverTimestamp(),
+            });
+            savedId = docRef.id;
+          }
+        } catch (fbErr) {
+          console.warn('Firestore write skipped:', fbErr);
+        }
+      })(),
+      // Server endpoint attempt
+      (async () => {
+        try {
+          await fetch('/api/inquiries', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(inquiryPayload),
+          });
+        } catch (apiErr) {
+          console.warn('Server fallback inquiry ping:', apiErr);
+        }
+      })()
+    ]).catch(() => {
+      // Ignore all errors - we just want to proceed
     });
 
-    setSubmittedId(savedId);
-    setSubmitting(false);
+    // Don't wait for backend - proceed immediately
+    setTimeout(() => {
+      // Confetti celebration
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+
+      setSubmittedId(savedId);
+      setSubmittedData(inquiryPayload);
+      setShowContactOptions(true);
+      setSubmitting(false);
+    }, 500); // Small delay for better UX
+  };
+
+  const generateWhatsAppMessage = () => {
+    if (!submittedData) return '';
+    
+    const message = `🎯 *New Project Consultation Request*
+━━━━━━━━━━━━━━━━━━━━
+📋 *Reference ID:* #${submittedId}
+
+👤 *Client Information:*
+• Name: ${submittedData.clientName}
+• Email: ${submittedData.email}
+• Phone: ${submittedData.phone}
+
+💼 *Project Details:*
+• Service Type: ${submittedData.serviceType}
+• Tech Stack: ${submittedData.preferredTech}
+• Budget Range: ${submittedData.budgetRange}
+• Timeline: ${submittedData.timeline}
+
+📝 *Project Description:*
+${submittedData.projectDescription}
+
+━━━━━━━━━━━━━━━━━━━━
+Looking forward to discussing this project!`;
+    
+    return encodeURIComponent(message);
+  };
+
+  const generateEmailBody = () => {
+    if (!submittedData) return '';
+    
+    const body = `New Project Consultation Request - Reference ID: #${submittedId}
+
+CLIENT INFORMATION:
+----------------------------------------
+Name: ${submittedData.clientName}
+Email: ${submittedData.email}
+Phone: ${submittedData.phone}
+
+PROJECT DETAILS:
+----------------------------------------
+Service Type: ${submittedData.serviceType}
+Preferred Tech Stack: ${submittedData.preferredTech}
+Budget Range: ${submittedData.budgetRange}
+Target Timeline: ${submittedData.timeline}
+
+PROJECT DESCRIPTION:
+----------------------------------------
+${submittedData.projectDescription}
+
+----------------------------------------
+
+This inquiry was submitted via the Ttech SOLUTIONS website consultation form.
+Please review and respond within 24 hours as per SLA.
+
+Best regards,
+Ttech SOLUTIONS Website Inquiry System`;
+    
+    return encodeURIComponent(body);
+  };
+
+  const handleWhatsAppSend = () => {
+    const message = generateWhatsAppMessage();
+    const whatsappUrl = `https://wa.me/923489763998?text=${message}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleEmailSend = () => {
+    if (!submittedData) return;
+    
+    const subject = encodeURIComponent(`New Project Consultation Request - ${submittedData.serviceType}`);
+    const body = generateEmailBody();
+    const mailtoUrl = `mailto:teatech.solutionz@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Try window.open first (works better on most systems)
+    const emailWindow = window.open(mailtoUrl, '_self');
+    
+    // Fallback to window.location if window.open didn't work
+    if (!emailWindow) {
+      window.location.href = mailtoUrl;
+    }
   };
 
   const handleResetForm = () => {
     setSubmittedId(null);
+    setSubmittedData(null);
+    setShowContactOptions(false);
     setClientName('');
     setEmail('');
     setPhone('');
@@ -182,7 +284,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({
               </a>
 
               <a
-                href="mailto:contact@ttechsolutions.dev?subject=New%20Project%20Inquiry%20-%20Ttech%20SOLUTIONS"
+                href="mailto:teatech.solutionz@gmail.com?subject=New%20Project%20Inquiry%20-%20Ttech%20SOLUTIONS"
                 className="p-4 rounded-2xl bg-white border border-[#DCE8F8] hover:border-[#2563EB]/50 transition-all flex items-center gap-4 group cursor-pointer"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#EAF2FF] border border-[#2563EB]/30 flex items-center justify-center text-[#2563EB] group-hover:scale-105 transition-transform">
@@ -191,7 +293,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({
                 <div>
                   <div className="text-xs text-[#7B8AA3]">Email Proposals &amp; RFPs</div>
                   <div className="text-sm font-bold text-[#0B1220] group-hover:text-[#2563EB] transition-colors">
-                    contact@ttechsolutions.dev
+                    teatech.solutionz@gmail.com
                   </div>
                   <div className="text-[11px] text-[#2563EB]">Formal NDA signed prior to code review</div>
                 </div>
@@ -217,8 +319,8 @@ export const InquirySection: React.FC<InquirySectionProps> = ({
 
           {/* Right Column: Form or Success Confirmation */}
           <div className="lg:col-span-7">
-            {submittedId ? (
-              <div className="rounded-3xl p-8 sm:p-10 bg-[#F8FBFF] border border-[#DCE8F8] shadow-2xl  text-center animate-in zoom-in-95 duration-300">
+            {submittedId && showContactOptions ? (
+              <div className="rounded-3xl p-8 sm:p-10 bg-[#F8FBFF] border border-[#DCE8F8] shadow-2xl text-center animate-in zoom-in-95 duration-300">
                 <div className="w-16 h-16 rounded-full bg-[#3B82F6]/20 border-2 border-cyan-400 text-[#2563EB] flex items-center justify-center mx-auto mb-6">
                   <Check className="w-8 h-8 stroke-[3]" />
                 </div>
@@ -246,22 +348,75 @@ export const InquirySection: React.FC<InquirySectionProps> = ({
                   <div><strong>Contact Email:</strong> {email}</div>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-center gap-3">
+                {/* Contact Method Selection */}
+                <div className="mb-8">
+                  <h4 className="text-base font-bold text-[#0B1220] mb-4">
+                    Choose Your Preferred Contact Method:
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                    {/* WhatsApp Option */}
+                    <button
+                      onClick={handleWhatsAppSend}
+                      className="group p-6 rounded-2xl bg-white border-2 border-[#DCE8F8] hover:border-emerald-500/50 hover:bg-emerald-50/50 transition-all cursor-pointer text-left"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-12 h-12 rounded-xl bg-emerald-950/50 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                          <MessageSquare className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-[#0B1220] group-hover:text-emerald-600 transition-colors">
+                            Send via WhatsApp
+                          </div>
+                          <div className="text-[10px] text-[#7B8AA3] font-mono">
+                            +92 348 9763998
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-xs text-[#475569] leading-relaxed mb-2">
+                        Instant messaging with our engineering team. Typical response time under 15 minutes.
+                      </p>
+                      <div className="flex items-center gap-1 text-emerald-600 text-xs font-semibold">
+                        <span>Open WhatsApp</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </button>
+
+                    {/* Email Option */}
+                    <button
+                      onClick={handleEmailSend}
+                      className="group p-6 rounded-2xl bg-white border-2 border-[#DCE8F8] hover:border-[#2563EB]/50 hover:bg-[#EAF2FF]/50 transition-all cursor-pointer text-left"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-12 h-12 rounded-xl bg-[#EAF2FF] border border-[#2563EB]/30 flex items-center justify-center text-[#2563EB] group-hover:scale-110 transition-transform">
+                          <Mail className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-[#0B1220] group-hover:text-[#2563EB] transition-colors">
+                            Send via Email
+                          </div>
+                          <div className="text-[10px] text-[#7B8AA3] break-all">
+                            teatech.solutionz@gmail.com
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-xs text-[#475569] leading-relaxed mb-2">
+                        Formal inquiry with detailed documentation. Response within 24 hours as per SLA.
+                      </p>
+                      <div className="flex items-center gap-1 text-[#2563EB] text-xs font-semibold">
+                        <span>Open Email</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-[#DCE8F8]">
                   <button
                     onClick={handleResetForm}
-                    className="px-5 py-2.5 rounded-xl bg-[#F1F7FF] hover:bg-[#EAF2FF] text-[#475569] text-xs font-semibold cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-[#F1F7FF] hover:bg-[#EAF2FF] text-[#475569] hover:text-[#0B1220] text-xs font-semibold cursor-pointer transition-colors"
                   >
                     Submit Another Inquiry
                   </button>
-                  <a
-                    href={`https://wa.me/923489763998?text=Hi%20Ttech%20SOLUTIONS,%20I%20just%20submitted%20inquiry%20%23${submittedId}%20for%20${encodeURIComponent(serviceType)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-[#0B1220] text-xs font-bold shadow-md shadow-emerald-600/30 flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Speed Up on WhatsApp (+92 348 9763998)</span>
-                  </a>
                 </div>
               </div>
             ) : (

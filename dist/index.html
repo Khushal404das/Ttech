@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <title>Ttech SOLUTIONS | Software, SAAS, Web &amp; UI/UX Development Agency</title>
+    <meta name="description" content="Ttech SOLUTIONS - Think. Transform. Trust. Modern, fast, secure custom software, web applications, SaaS, .NET enterprise solutions, UI/UX designs, and AI automation." />
+    <meta property="og:title" content="Ttech SOLUTIONS - Think. Transform. Trust." />
+    <meta property="og:description" content="Turn Your Ideas Into Reality. We build responsive, high-performing and scalable digital solutions tailored to your needs." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta name="theme-color" content="#FBFAFF" />
+    <meta name="keywords" content="software development, web development, SaaS, .NET, React, AI automation, UI/UX, enterprise software, Ttech Solutions" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
+    <script>
+      (function() {
+        try {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+          document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.style.colorScheme = 'light';
+        } catch(e) {}
+      })();
+    </script>
+    <script>
+      (function() {
+        // Prevent "Cannot set property fetch of #<Window> which has only a getter"
+        try {
+          var originalFetch = window.fetch ? window.fetch.bind(window) : undefined;
+          var currentFetch = originalFetch;
+
+          var desc = Object.getOwnPropertyDescriptor(window, 'fetch');
+          if (!desc || !desc.set) {
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function() {
+                return currentFetch || (originalFetch ? originalFetch : window.fetch);
+              },
+              set: function(fn) {
+                currentFetch = fn;
+              }
+            });
+          }
+        } catch (e) {
+          try {
+            var proto = Object.getPrototypeOf(window);
+            if (proto) {
+              var protoDesc = Object.getOwnPropertyDescriptor(proto, 'fetch');
+              if (!protoDesc || !protoDesc.set) {
+                var pFetch = window.fetch;
+                Object.defineProperty(proto, 'fetch', {
+                  configurable: true,
+                  enumerable: true,
+                  get: function() {
+                    return pFetch;
+                  },
+                  set: function(fn) {
+                    pFetch = fn;
+                  }
+                });
+              }
+            }
+          } catch (e2) {}
+        }
+
+        // Global capture-phase unhandled rejection handler (suppress WebSocket closed without opened in iframe preview)
+        window.addEventListener('unhandledrejection', function(event) {
+          var reason = event && event.reason;
+          var msg = (reason && (reason.message || reason.stack || String(reason))) || '';
+          if (
+            msg.indexOf('WebSocket closed without opened') !== -1 ||
+            msg.indexOf('failed to connect to websocket') !== -1 ||
+            msg.indexOf('WebSocket') !== -1 ||
+            msg.indexOf('websocket') !== -1
+          ) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+
+        // Global capture-phase error handler for fetch getter assignment & websocket errors
+        window.addEventListener('error', function(event) {
+          var msg = (event && (event.message || (event.error && event.error.message))) || '';
+          if (typeof msg === 'string') {
+            if (
+              msg.indexOf('Cannot set property fetch') !== -1 ||
+              (msg.indexOf('fetch') !== -1 && msg.indexOf('getter') !== -1) ||
+              msg.indexOf('WebSocket') !== -1 ||
+              msg.indexOf('websocket') !== -1 ||
+              msg.indexOf('closed without opened') !== -1
+            ) {
+              event.preventDefault();
+              event.stopImmediatePropagation();
+              return true;
+            }
+          }
+        }, true);
+
+        // Intercept Vite HMR WebSocket connections to prevent premature closed-without-opened rejections
+        if (typeof window !== 'undefined' && window.WebSocket) {
+          var RealWebSocket = window.WebSocket;
+          window.WebSocket = function(url, protocols) {
+            if (
+              protocols === 'vite-hmr' ||
+              (typeof url === 'string' && (url.indexOf('token=') !== -1 || url.indexOf('vite-hmr') !== -1))
+            ) {
+              var listeners = {};
+              var mockSocket = {
+                readyState: 1, // WebSocket.OPEN
+                CONNECTING: 0,
+                OPEN: 1,
+                CLOSING: 2,
+                CLOSED: 3,
+                send: function() {},
+                close: function() {
+                  mockSocket.readyState = 3;
+                },
+                addEventListener: function(type, listener) {
+                  if (!listeners[type]) listeners[type] = [];
+                  listeners[type].push(listener);
+                  if (type === 'open') {
+                    setTimeout(function() {
+                      try { listener({ type: 'open' }); } catch(err) {}
+                    }, 0);
+                  }
+                },
+                removeEventListener: function(type, listener) {
+                  if (listeners[type]) {
+                    listeners[type] = listeners[type].filter(function(l) { return l !== listener; });
+                  }
+                },
+                dispatchEvent: function() { return true; }
+              };
+              return mockSocket;
+            }
+            return new RealWebSocket(url, protocols);
+          };
+          window.WebSocket.prototype = RealWebSocket.prototype;
+          window.WebSocket.CONNECTING = RealWebSocket.CONNECTING;
+          window.WebSocket.OPEN = RealWebSocket.OPEN;
+          window.WebSocket.CLOSING = RealWebSocket.CLOSING;
+          window.WebSocket.CLOSED = RealWebSocket.CLOSED;
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-OlJP0sIq.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Bw_MoXtt.css">
+  </head>
+  <body class="bg-[#FBFAFF] text-[#4A4A63] antialiased selection:bg-[#F3EEFF] selection:text-[#5B2BC4]">
+    <div id="root"></div>
+  </body>
+</html>
