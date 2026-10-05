@@ -10,7 +10,6 @@ import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import WorkPage from './pages/WorkPage';
 import ContactPage from './pages/ContactPage';
-import AIConsultantPage from './pages/AIConsultantPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -24,16 +23,14 @@ export default function App() {
         page navigation instead of snapping on re-mount.
       */}
       <Route element={<Layout />}>
-        <Route path="/"               element={<HomePage />} />
-        <Route path="/services"       element={<ServicesPage />} />
-        <Route path="/work"           element={<WorkPage />} />
-        <Route path="/contact"        element={<ContactPage />} />
-        <Route path="/ai-consultant"  element={<AIConsultantPage />} />
-        <Route path="/chat"           element={<AIConsultantPage />} />
-        <Route path="/privacy"        element={<PrivacyPage />} />
-        <Route path="/terms"          element={<TermsPage />} />
-        <Route path="/404"            element={<NotFoundPage />} />
-        <Route path="*"               element={<NotFoundPage />} />
+        <Route path="/"         element={<HomePage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/work"     element={<WorkPage />} />
+        <Route path="/contact"  element={<ContactPage />} />
+        <Route path="/privacy"  element={<PrivacyPage />} />
+        <Route path="/terms"    element={<TermsPage />} />
+        <Route path="/404"      element={<NotFoundPage />} />
+        <Route path="*"         element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

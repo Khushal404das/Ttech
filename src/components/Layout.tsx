@@ -23,7 +23,6 @@ export const Layout: React.FC = () => {
     const p = location.pathname;
     if (p === '/services') return 'services';
     if (p === '/work')     return 'portfolio';
-    if (p === '/ai-consultant' || p === '/chat') return 'ai-consultant';
     if (p === '/contact')  return 'inquiry';
     return 'home';
   })();

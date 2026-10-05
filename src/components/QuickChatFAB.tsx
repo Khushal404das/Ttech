@@ -600,10 +600,10 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
               <div className="pr-2">
                 <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#2563EB] font-semibold mb-0.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                  <span>Online · Tech Architect</span>
+                  <span>Ttech AI Consultant · Online</span>
                 </div>
                 <p className="text-xs text-[#475569] font-medium leading-snug">
-                  Have a quick question about pricing, tech stack, or delivery?
+                  Have a quick question about architecture, pricing, or sprint roadmaps?
                 </p>
                 <button
                   onClick={() => {
@@ -612,7 +612,7 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
                   }}
                   className="mt-2 text-[11px] font-semibold text-[#2563EB] hover:text-[#1D4ED8] flex items-center gap-1 cursor-pointer transition-colors"
                 >
-                  <span>Chat with Us Live</span>
+                  <span>Ask AI Consultant</span>
                   <ArrowRight className="w-3 h-3" />
                 </button>
               </div>
@@ -626,7 +626,7 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
             setShowTeaser(false);
             setIsOpen(!isOpen);
           }}
-          aria-label={isOpen ? 'Close quick chat' : 'Open quick chat with technical advisor'}
+          aria-label={isOpen ? 'Close AI Consultant' : 'Open Ttech AI Consultant chatbot'}
           aria-expanded={isOpen}
           className={`group relative flex items-center justify-center rounded-2xl transition-all duration-300 cursor-pointer ${
             isOpen
@@ -659,7 +659,7 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Quick Technical Chat Advisor"
+          aria-label="Ttech AI Consultant"
           data-lenis-prevent="true"
           className={`fixed z-50 transition-all duration-300 flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/20 overflow-hidden ${
             isExpanded
@@ -676,14 +676,14 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-[#0B1220] font-display">Ttech Solutions</h3>
+                  <h3 className="text-sm font-bold text-[#0B1220] font-display">Ttech AI Consultant</h3>
                   <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#EAF2FF] border border-blue-200 text-[#2563EB] font-semibold uppercase">
-                    Advisor
+                    AI Consultant
                   </span>
                 </div>
                 <p className="text-[11px] text-[#7B8AA3] flex items-center gap-1.5">
                   <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-emerald-600 font-medium">Online Technical Advisor</span>
+                  <span className="text-emerald-600 font-medium">Principal Solutions Architect</span>
                 </p>
               </div>
             </div>

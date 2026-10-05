@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { TtechLogo } from './TtechLogo';
-import { Menu, X, ArrowRight, House, Briefcase, Code2, Mail, Bot, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowRight, House, Briefcase, Code2, Mail } from 'lucide-react';
 
 // Which nav item is active — driven by the current page
-export type ActivePage = 'home' | 'services' | 'portfolio' | 'ai-consultant' | 'inquiry' | 'privacy' | 'terms';
+export type ActivePage = 'home' | 'services' | 'portfolio' | 'inquiry' | 'privacy' | 'terms';
 
 interface NavbarProps {
   activePage: ActivePage;
@@ -13,11 +13,10 @@ interface NavbarProps {
 }
 
 const NAV_LINKS: { id: ActivePage; label: string; icon: React.ComponentType<{ className?: string }>; to: string }[] = [
-  { id: 'home',          label: 'Home',          icon: House,     to: '/'              },
-  { id: 'services',      label: 'Services',      icon: Briefcase, to: '/services'       },
-  { id: 'portfolio',     label: 'Work',          icon: Code2,     to: '/work'           },
-  { id: 'ai-consultant', label: 'AI Consultant', icon: Bot,       to: '/ai-consultant'  },
-  { id: 'inquiry',       label: 'Contact',       icon: Mail,      to: '/contact'        },
+  { id: 'home',      label: 'Home',     icon: House,     to: '/'        },
+  { id: 'services',  label: 'Services', icon: Briefcase, to: '/services' },
+  { id: 'portfolio', label: 'Work',     icon: Code2,     to: '/work'     },
+  { id: 'inquiry',   label: 'Contact',  icon: Mail,      to: '/contact'  },
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ activePage, onOpenConsultation }) => {
