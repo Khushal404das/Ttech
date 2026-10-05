@@ -660,6 +660,7 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
           role="dialog"
           aria-modal="true"
           aria-label="Quick Technical Chat Advisor"
+          data-lenis-prevent="true"
           className={`fixed z-50 transition-all duration-300 flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/20 overflow-hidden ${
             isExpanded
               ? 'inset-4 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[680px] sm:h-[720px] rounded-3xl'
@@ -746,9 +747,16 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
 
           {/* TAB 1: Real-Time Chat Experience */}
           {activeTab === 'chat' && (
-            <div className="flex-1 flex flex-col overflow-hidden min-h-0 bg-[#F8FBFF]">
+            <div
+              className="flex-1 flex flex-col overflow-hidden min-h-0 bg-[#F8FBFF]"
+              data-lenis-prevent="true"
+            >
               {/* Message List */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-3.5">
+              <div
+                className="flex-1 overflow-y-auto p-4 space-y-3.5 overscroll-contain"
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
+              >
                 {messages.map((msg) => {
                   const isUser = msg.role === 'user';
                   return (
@@ -923,7 +931,11 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
 
           {/* TAB 2: 20-Second Fast Lead Callback */}
           {activeTab === 'quick-lead' && (
-            <div className="flex-1 flex flex-col p-5 overflow-y-auto bg-white">
+            <div
+              className="flex-1 flex flex-col p-5 overflow-y-auto bg-white overscroll-contain"
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+            >
               <div className="mb-4">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-semibold mb-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />

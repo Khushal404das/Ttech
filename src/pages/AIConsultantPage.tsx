@@ -381,7 +381,11 @@ I am your dedicated **Principal Solutions Architect & Engineering Advisor** from
             </div>
 
             {/* Chat Messages Feed */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-[#FBFAFF]/50">
+            <div
+              className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-[#FBFAFF]/50 overscroll-contain"
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+            >
               {messages.map((m) => {
                 const isUser = m.role === 'user';
                 return (
