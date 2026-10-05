@@ -661,10 +661,10 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
           aria-modal="true"
           aria-label="Ttech AI Consultant"
           data-lenis-prevent="true"
-          className={`fixed z-50 transition-all duration-300 flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/20 overflow-hidden ${
+          className={`fixed z-50 transition-all duration-300 flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/25 overflow-hidden ${
             isExpanded
-              ? 'inset-4 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[680px] sm:h-[720px] rounded-3xl'
-              : 'bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[430px] h-[590px] max-h-[84vh] rounded-3xl'
+              ? 'bottom-3 sm:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[680px] h-[calc(100dvh-32px)] sm:h-[min(720px,calc(100dvh-48px))] max-h-[calc(100dvh-24px)] rounded-3xl'
+              : 'bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[430px] h-[min(590px,calc(100dvh-120px))] max-h-[84dvh] rounded-3xl'
           }`}
         >
           {/* Modal Header */}
