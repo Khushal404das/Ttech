@@ -185,7 +185,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
               </li>
               <li>
                 <Link to="/services" className="hover:text-[#60A5FA] transition-colors no-underline text-[#A7B0C2]">
-                  Process &amp; Pricing FAQ
+                  AI Technical Consultant
                 </Link>
               </li>
               <li>

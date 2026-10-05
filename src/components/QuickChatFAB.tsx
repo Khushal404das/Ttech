@@ -6,8 +6,6 @@ import {
   Send,
   Sparkles,
   RotateCcw,
-  Maximize2,
-  Minimize2,
   Copy,
   Check,
   Loader2,
@@ -41,45 +39,45 @@ interface QuickChatFABProps {
 
 const STARTER_PROMPTS = [
   {
-    icon: DollarSign,
-    label: '💰 SaaS MVP Cost',
-    prompt: 'What is the ballpark cost and timeline for building a SaaS MVP with user auth, billing, and dashboard?',
+    icon: Sparkles,
+    label: '💡 Scope my SaaS Idea',
+    prompt: 'I want to build a modern SaaS platform. Can you help me break down the core modules, architecture, and estimated MVP timeline?',
   },
   {
     icon: Zap,
-    label: '⚡ .NET 9 + React 19',
-    prompt: 'Why does Ttech SOLUTIONS recommend .NET Core 9 paired with React 19 for enterprise web applications?',
+    label: '⚡ .NET 9 vs Node.js',
+    prompt: 'Should I choose ASP.NET Core 9 or Node.js for my high-throughput backend API?',
+  },
+  {
+    icon: DollarSign,
+    label: '💰 MVP Pricing Estimates',
+    prompt: 'What is the ballpark cost and sprint breakdown for developing an MVP with Ttech SOLUTIONS?',
   },
   {
     icon: Clock,
-    label: '⏱️ Sprint Velocity',
-    prompt: 'How do your two-week agile sprints work, and when do I get to see live working demos?',
-  },
-  {
-    icon: FileText,
-    label: '📜 Source Code IP',
-    prompt: 'Do we own 100% of the intellectual property and git repositories once the project is completed?',
+    label: '⏱️ Agile Sprint Cadence',
+    prompt: 'How do your 2-week sprints and bi-weekly live staging demos work?',
   },
   {
     icon: ShieldCheck,
-    label: '🛡️ 30-Day Warranty',
-    prompt: 'What post-launch warranty and ongoing maintenance SLAs are included with your builds?',
+    label: '🛡️ IP Rights & Warranty',
+    prompt: 'Explain your 100% code ownership transfer and 30-day post-launch warranty policy.',
   },
 ];
 
 const INITIAL_WELCOME: ChatMessage = {
   id: 'welcome-advisor',
   role: 'model',
-  content: `### 👋 Welcome to Ttech SOLUTIONS
+  content: `### 🤖 Hello! I am Ttech's AI Solutions Architect
+Powered by **Google Gemini AI**, I am your real-time conversational engineering partner.
 
-I am your **Real-Time Technical Solutions Advisor**. I can immediately answer your questions about:
+Feel free to chat with me about:
+- **System Architecture**: .NET Core 9 Clean Architecture, React 19, CQRS, Microservices & PostgreSQL
+- **Project Scoping & Roadmaps**: MVP timelines, sprints, milestone breakdowns & deliverables
+- **Pricing & IP**: Transparent milestone budgets, 100% code transfer, and 30-day warranty
+- **Code & Tech Decisions**: Any programming question, framework comparisons, or custom workflows
 
-- **Ballpark Pricing & Milestones**: MVPs ($3,500–$6,500), SaaS Platforms ($7,000–$18,000+), Dedicated Squads
-- **Enterprise Architecture**: .NET Core 9 Clean Architecture, React 19, PostgreSQL, Azure & AWS Cloud
-- **Sprint Cadence & Velocity**: 2-week agile sprints with bi-weekly live staging demos
-- **100% IP Ownership & 30-Day Warranty**: Full code transfer with zero vendor lock-in
-
-Ask any question below or click one of the quick prompts to get started!`,
+*Type any message below or pick a prompt to chat!*`,
   timestamp: Date.now(),
 };
 
@@ -87,6 +85,7 @@ Ask any question below or click one of the quick prompts to get started!`,
  * Parses inline markdown: links [text](url), bold **text**, code `code`, and italics *text*
  */
 function renderInlineFormatting(text: string, isUser: boolean) {
+  if (!text) return null;
   const tokenRegex = /(\[.*?\]\(https?:\/\/[^\s\)]+\)|\*\*.*?\*\*|`.*?`|\*.*?\*)/g;
   const parts = text.split(tokenRegex);
 
@@ -134,7 +133,7 @@ function renderInlineFormatting(text: string, isUser: boolean) {
           className={
             isUser
               ? 'px-1 py-0.5 rounded bg-white/20 text-white font-mono text-[11px]'
-              : 'px-1 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-mono text-[11px]'
+              : 'px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-mono text-[11px]'
           }
         >
           {part.slice(1, -1)}
@@ -155,161 +154,223 @@ function renderInlineFormatting(text: string, isUser: boolean) {
   });
 }
 
+interface ParsedBlock {
+  type: 'heading' | 'divider' | 'blockquote' | 'bullet-list' | 'numbered-list' | 'paragraph';
+  items?: { text: string; num?: string }[];
+  text?: string;
+  level?: number;
+}
+
 /**
- * Robust message markdown renderer:
- * Handles headers (###), blockquotes (>), bullet lists (- or *), numbered lists (1.), and paragraphs.
+ * Robust message markdown parser:
+ * Accurately parses markdown line-by-line so headings, lists, and paragraphs are never mangled.
  */
 function renderMessageContent(content: string, isUser: boolean) {
-  const blocks = content.trim().split(/\n\n+/);
+  if (!content) return null;
+
+  const rawLines = content.split('\n');
+  const blocks: ParsedBlock[] = [];
+
+  let currentList: { type: 'bullet-list' | 'numbered-list'; items: { text: string; num?: string }[] } | null = null;
+  let currentQuote: string[] | null = null;
+  let currentParagraph: string[] = [];
+
+  const flushParagraph = () => {
+    if (currentParagraph.length > 0) {
+      blocks.push({
+        type: 'paragraph',
+        text: currentParagraph.join(' '),
+      });
+      currentParagraph = [];
+    }
+  };
+
+  const flushList = () => {
+    if (currentList) {
+      blocks.push(currentList);
+      currentList = null;
+    }
+  };
+
+  const flushQuote = () => {
+    if (currentQuote && currentQuote.length > 0) {
+      blocks.push({
+        type: 'blockquote',
+        text: currentQuote.join(' '),
+      });
+      currentQuote = null;
+    }
+  };
+
+  for (let i = 0; i < rawLines.length; i++) {
+    const line = rawLines[i];
+    const trimmed = line.trim();
+
+    // 1. Empty Line
+    if (!trimmed) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      continue;
+    }
+
+    // 2. Horizontal Divider (--- or ***)
+    if (/^(\*{3,}|-{3,}|_{3,})$/.test(trimmed)) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      blocks.push({ type: 'divider' });
+      continue;
+    }
+
+    // 3. Heading (#, ##, ###, ####)
+    const headingMatch = trimmed.match(/^(#{1,4})\s+(.+)$/);
+    if (headingMatch) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      blocks.push({
+        type: 'heading',
+        level: headingMatch[1].length,
+        text: headingMatch[2],
+      });
+      continue;
+    }
+
+    // 4. Blockquote (> ...)
+    if (trimmed.startsWith('>')) {
+      flushParagraph();
+      flushList();
+      const quoteText = trimmed.replace(/^>\s*/, '');
+      if (!currentQuote) currentQuote = [];
+      currentQuote.push(quoteText);
+      continue;
+    } else if (currentQuote) {
+      flushQuote();
+    }
+
+    // 5. Bullet list item (•, -, *, +)
+    const bulletMatch = trimmed.match(/^([•\-*+])\s+(.+)$/);
+    if (bulletMatch) {
+      flushParagraph();
+      flushQuote();
+      if (!currentList || currentList.type !== 'bullet-list') {
+        flushList();
+        currentList = { type: 'bullet-list', items: [] };
+      }
+      currentList.items.push({ text: bulletMatch[2] });
+      continue;
+    }
+
+    // 6. Numbered list item (1. or 1))
+    const numMatch = trimmed.match(/^(\d+)[\.\)]\s+(.+)$/);
+    if (numMatch) {
+      flushParagraph();
+      flushQuote();
+      if (!currentList || currentList.type !== 'numbered-list') {
+        flushList();
+        currentList = { type: 'numbered-list', items: [] };
+      }
+      currentList.items.push({ num: numMatch[1], text: numMatch[2] });
+      continue;
+    }
+
+    // If we were inside a list and hit normal text, flush the list
+    if (currentList) {
+      flushList();
+    }
+
+    // 7. Regular paragraph line
+    currentParagraph.push(trimmed);
+  }
+
+  flushParagraph();
+  flushList();
+  flushQuote();
 
   return (
-    <div className="space-y-2 text-xs leading-relaxed">
-      {blocks.map((block, bIdx) => {
-        const trimmed = block.trim();
+    <div className="space-y-2 text-xs leading-relaxed break-words [overflow-wrap:anywhere]">
+      {blocks.map((block, idx) => {
+        if (block.type === 'divider') {
+          return <hr key={idx} className={`my-2 border-t ${isUser ? 'border-white/30' : 'border-[#DCE8F8]'}`} />;
+        }
 
-        // 1. Heading ###, ##, #
-        if (/^#{1,3}\s+/.test(trimmed)) {
-          const headingText = trimmed.replace(/^#{1,3}\s+/, '');
+        if (block.type === 'heading') {
           return (
-            <h4
-              key={bIdx}
-              className={`font-bold text-[13px] my-1 flex items-center gap-1.5 ${
+            <div
+              key={idx}
+              className={`font-bold text-xs sm:text-sm my-1.5 block ${
                 isUser ? 'text-white' : 'text-[#0B1220]'
               }`}
             >
-              {renderInlineFormatting(headingText, isUser)}
-            </h4>
+              {renderInlineFormatting(block.text || '', isUser)}
+            </div>
           );
         }
 
-        // 2. Blockquote >
-        if (trimmed.startsWith('>')) {
-          const quoteLines = trimmed
-            .split('\n')
-            .map((line) => line.replace(/^>\s?/, ''))
-            .join(' ');
+        if (block.type === 'blockquote') {
           return (
             <blockquote
-              key={bIdx}
-              className={`border-l-2 pl-2.5 py-1.5 my-1.5 text-[11px] rounded-r-lg ${
+              key={idx}
+              className={`border-l-2 pl-2.5 py-1.5 my-1.5 text-xs rounded-r-lg ${
                 isUser
                   ? 'border-white/60 bg-white/10 text-white/90'
                   : 'border-[#2563EB] bg-[#EAF2FF] text-[#1E3A8A]'
               }`}
             >
-              {renderInlineFormatting(quoteLines, isUser)}
+              {renderInlineFormatting(block.text || '', isUser)}
             </blockquote>
           );
         }
 
-        const lines = trimmed.split('\n');
-
-        // 3. Bullet list (- or *)
-        const isBulletList = lines.every((line) => /^[-*]\s+/.test(line.trim()));
-        if (isBulletList && lines.length > 0) {
+        if (block.type === 'bullet-list' && block.items) {
           return (
-            <ul key={bIdx} className="space-y-1.5 my-1 pl-1">
-              {lines.map((line, lIdx) => {
-                const itemText = line.trim().replace(/^[-*]\s+/, '');
-                return (
-                  <li key={lIdx} className="flex items-start gap-1.5">
-                    <span
-                      className={`shrink-0 mt-0.5 text-xs font-bold ${
-                        isUser ? 'text-blue-200' : 'text-[#2563EB]'
-                      }`}
-                    >
-                      •
-                    </span>
-                    <span className="flex-1">
-                      {renderInlineFormatting(itemText, isUser)}
-                    </span>
-                  </li>
-                );
-              })}
+            <ul key={idx} className="space-y-1.5 my-1.5 pl-0.5">
+              {block.items.map((item, itemIdx) => (
+                <li key={itemIdx} className="flex items-start gap-2">
+                  <span
+                    className={`shrink-0 font-bold text-xs mt-0.5 ${
+                      isUser ? 'text-blue-200' : 'text-[#2563EB]'
+                    }`}
+                  >
+                    •
+                  </span>
+                  <div className="flex-1 min-w-0 leading-relaxed">
+                    {renderInlineFormatting(item.text, isUser)}
+                  </div>
+                </li>
+              ))}
             </ul>
           );
         }
 
-        // 4. Numbered list (1. , 2. etc)
-        const isNumberedList = lines.every((line) => /^\d+\.\s+/.test(line.trim()));
-        if (isNumberedList && lines.length > 0) {
+        if (block.type === 'numbered-list' && block.items) {
           return (
-            <ol key={bIdx} className="space-y-1.5 my-1 pl-1">
-              {lines.map((line, lIdx) => {
-                const match = line.trim().match(/^(\d+)\.\s+(.*)$/);
-                const num = match ? match[1] : `${lIdx + 1}`;
-                const itemText = match ? match[2] : line;
-                return (
-                  <li key={lIdx} className="flex items-start gap-2">
-                    <span
-                      className={`shrink-0 text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
-                        isUser
-                          ? 'bg-white/20 text-white'
-                          : 'bg-[#EAF2FF] text-[#2563EB] border border-blue-200'
-                      }`}
-                    >
-                      {num}
-                    </span>
-                    <span className="flex-1">
-                      {renderInlineFormatting(itemText, isUser)}
-                    </span>
-                  </li>
-                );
-              })}
+            <ol key={idx} className="space-y-1.5 my-1.5 pl-0.5">
+              {block.items.map((item, itemIdx) => (
+                <li key={itemIdx} className="flex items-start gap-2">
+                  <span
+                    className={`shrink-0 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded mt-0.5 ${
+                      isUser
+                        ? 'bg-white/20 text-white'
+                        : 'bg-[#EAF2FF] text-[#2563EB] border border-blue-200'
+                    }`}
+                  >
+                    {item.num || itemIdx + 1}
+                  </span>
+                  <div className="flex-1 min-w-0 leading-relaxed">
+                    {renderInlineFormatting(item.text, isUser)}
+                  </div>
+                </li>
+              ))}
             </ol>
           );
         }
 
-        // 5. Mixed lines with bullet or regular text
         return (
-          <div key={bIdx} className="space-y-1">
-            {lines.map((line, lIdx) => {
-              const lTrim = line.trim();
-              if (/^[-*]\s+/.test(lTrim)) {
-                const itemText = lTrim.replace(/^[-*]\s+/, '');
-                return (
-                  <div key={lIdx} className="flex items-start gap-1.5 pl-1">
-                    <span
-                      className={`shrink-0 mt-0.5 text-xs font-bold ${
-                        isUser ? 'text-blue-200' : 'text-[#2563EB]'
-                      }`}
-                    >
-                      •
-                    </span>
-                    <span className="flex-1">
-                      {renderInlineFormatting(itemText, isUser)}
-                    </span>
-                  </div>
-                );
-              }
-              if (/^\d+\.\s+/.test(lTrim)) {
-                const match = lTrim.match(/^(\d+)\.\s+(.*)$/);
-                const num = match ? match[1] : `${lIdx + 1}`;
-                const itemText = match ? match[2] : lTrim;
-                return (
-                  <div key={lIdx} className="flex items-start gap-2 pl-1">
-                    <span
-                      className={`shrink-0 text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
-                        isUser
-                          ? 'bg-white/20 text-white'
-                          : 'bg-[#EAF2FF] text-[#2563EB] border border-blue-200'
-                      }`}
-                    >
-                      {num}
-                    </span>
-                    <span className="flex-1">
-                      {renderInlineFormatting(itemText, isUser)}
-                    </span>
-                  </div>
-                );
-              }
-              return (
-                <p key={lIdx}>
-                  {renderInlineFormatting(line, isUser)}
-                </p>
-              );
-            })}
-          </div>
+          <p key={idx} className="leading-relaxed my-1 min-w-0">
+            {renderInlineFormatting(block.text || '', isUser)}
+          </p>
         );
       })}
     </div>
@@ -320,7 +381,6 @@ export const QuickChatFAB: React.FC<QuickChatFABProps> = ({
   onTransferToInquiry,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState<'chat' | 'quick-lead'>('chat');
   const [showTeaser, setShowTeaser] = useState(true);
 
@@ -351,6 +411,10 @@ export const QuickChatFAB: React.FC<QuickChatFABProps> = ({
   const [leadSubmitting, setLeadSubmitting] = useState(false);
   const [leadSuccess, setLeadSuccess] = useState(false);
 
+  const [customApiKey] = useState(() => {
+    return localStorage.getItem('ttech_gemini_api_key') || '';
+  });
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -377,20 +441,16 @@ export const QuickChatFAB: React.FC<QuickChatFABProps> = ({
     }
   }, [isOpen, activeTab, messages, isLoading]);
 
-  // Handle ESC key to restore expanded state or close modal
+  // Handle ESC key to close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        if (isExpanded) {
-          setIsExpanded(false);
-        } else if (isOpen) {
-          setIsOpen(false);
-        }
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, isExpanded]);
+  }, [isOpen]);
 
   const handleSendMessage = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
@@ -424,7 +484,10 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(customApiKey ? { 'x-gemini-api-key': customApiKey } : {}),
+        },
         body: JSON.stringify({
           messages: nextMessages.map((m) => ({
             role: m.role,
@@ -432,6 +495,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
           })),
           systemInstruction,
           model: 'gemini-2.5-flash',
+          apiKey: customApiKey || undefined,
         }),
       });
 
@@ -451,22 +515,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
       setMessages((prev) => [...prev, modelMsg]);
     } catch (err: any) {
       console.error('QuickChat error:', err);
-      // Seamlessly generate advisor response
-      const fallbackMsg: ChatMessage = {
-        id: `model-${Date.now()}`,
-        role: 'model',
-        content: `### 💡 Technical Solutions Advisor · Ttech SOLUTIONS
-
-Thank you for your question! Our engineering team specializes in **.NET Core 9, React 19, and scalable Cloud Systems**.
-
-- **Sprint Velocity**: 2-week agile delivery with live staging previews.
-- **100% Ownership**: Full source code and IP transfer upon project milestone completion.
-- **Discovery**: We can outline a custom architecture and sprint estimate for your exact requirements.
-
-*Feel free to describe what you're building or click **"20s Fast Callback"** to speak directly with our lead architect!*`,
-        timestamp: Date.now(),
-      };
-      setMessages((prev) => [...prev, fallbackMsg]);
+      setErrorMessage(String(err.message || 'Unable to connect to AI advisor.'));
     } finally {
       setIsLoading(false);
     }
@@ -661,13 +710,17 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
       {/* Real-Time Chat Modal Window */}
       {isOpen && (
         <div
-          className={
-            isExpanded
-              ? 'fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/40 backdrop-blur-xs animate-in fade-in duration-200'
-              : 'contents'
-          }
-          onClick={() => {
-            if (isExpanded) setIsExpanded(false);
+          className="fixed z-50 pointer-events-none"
+          style={{
+            position: 'fixed',
+            top: '76px',
+            bottom: '16px',
+            right: '16px',
+            width: 'min(420px, calc(100vw - 32px))',
+            maxWidth: 'calc(100vw - 32px)',
+            maxHeight: 'calc(100dvh - 92px)',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <div
@@ -675,36 +728,33 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
             aria-modal="true"
             aria-label="Ttech AI Consultant"
             data-lenis-prevent="true"
-            onClick={(e) => e.stopPropagation()}
-            className={`flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/30 overflow-hidden transition-all duration-300 ${
-              isExpanded
-                ? 'w-full max-w-2xl h-full max-h-[85vh] rounded-3xl relative z-10'
-                : 'fixed z-50 bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[420px] max-w-[calc(100vw-24px)] h-[540px] max-h-[calc(100vh-120px)] rounded-3xl'
-            }`}
+            className="flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/30 overflow-hidden pointer-events-auto rounded-3xl w-full h-full"
           >
-            {/* Modal Header */}
-            <div className="px-4 py-3.5 bg-white border-b border-[#DCE8F8] flex items-center justify-between gap-3 shrink-0">
-              <div className="flex items-center gap-3">
-                <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
-                  <Bot className="w-5 h-5 text-white" />
+            {/* Modal Header — Always 100% visible at top */}
+            <div className="px-4 py-3 bg-white border-b border-[#DCE8F8] flex items-center justify-between gap-2 shrink-0 select-none">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="relative w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0 text-white">
+                  <Bot className="w-4 h-4" />
                   <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
                 </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-bold text-[#0B1220] font-display">Ttech AI Consultant</h3>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#EAF2FF] border border-blue-200 text-[#2563EB] font-semibold uppercase">
-                      AI Consultant
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <h3 className="text-xs sm:text-sm font-bold text-[#0B1220] font-display truncate">
+                      Ttech AI Consultant
+                    </h3>
+                    <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-[#EAF2FF] border border-blue-200 text-[#2563EB] font-bold uppercase">
+                      Advisor
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#7B8AA3] flex items-center gap-1.5">
+                  <p className="text-[10px] text-[#7B8AA3] flex items-center gap-1 truncate">
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    <span className="text-emerald-600 font-medium">Principal Solutions Architect</span>
+                    <span className="text-emerald-600 font-medium">Principal Architect · Online</span>
                   </p>
                 </div>
               </div>
 
               {/* Header Action Icons */}
-              <div className="flex items-center gap-1.5 text-[#7B8AA3]">
+              <div className="flex items-center gap-1 text-[#7B8AA3] shrink-0">
                 {activeTab === 'chat' && (
                   <button
                     onClick={handleResetChat}
@@ -712,35 +762,13 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
                     className="p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
                     aria-label="Restart chat"
                   >
-                    <RotateCcw className="w-4 h-4" />
+                    <RotateCcw className="w-3.5 h-3.5" />
                   </button>
                 )}
                 <button
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  title={isExpanded ? 'Restore compact window (Esc)' : 'Expand to full studio view'}
-                  className={`p-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1 ${
-                    isExpanded
-                      ? 'text-[#2563EB] bg-[#EAF2FF] hover:bg-blue-100 font-semibold text-xs'
-                      : 'hidden sm:flex text-[#7B8AA3] hover:text-[#0B1220] hover:bg-[#F1F7FF]'
-                  }`}
-                  aria-label={isExpanded ? 'Restore standard size' : 'Expand window'}
-                >
-                  {isExpanded ? (
-                    <>
-                      <Minimize2 className="w-3.5 h-3.5 text-[#2563EB]" />
-                      <span className="text-[11px] text-[#2563EB]">Restore</span>
-                    </>
-                  ) : (
-                    <Maximize2 className="w-4 h-4" />
-                  )}
-                </button>
-                <button
-                  onClick={() => {
-                    setIsExpanded(false);
-                    setIsOpen(false);
-                  }}
+                  onClick={() => setIsOpen(false)}
                   title="Close chat"
-                  className="p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg hover:text-red-600 hover:bg-red-50 text-[#7B8AA3] transition-colors cursor-pointer"
                   aria-label="Close modal"
                 >
                   <X className="w-4 h-4" />

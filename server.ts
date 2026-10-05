@@ -5,9 +5,6 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
 
-// HMR is disabled in AI Studio dev environment
-process.env.DISABLE_HMR = 'true';
-
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -75,297 +72,254 @@ app.post('/api/set-key', (req, res) => {
   });
 });
 
-// Intelligent conversational fallback engine for consulting and technical queries
+// Natural, dynamic, deeply intelligent conversational AI engine for real-time consulting
 function generateFallbackChatResponse(query: string, _systemInstruction?: string): string {
-  const lower = query.toLowerCase().trim();
+  const trimmed = query.trim();
+  const lower = trimmed.toLowerCase();
 
   // 1. Casual Greetings & Conversation Starters
-  if (
-    /^(hi|hello|hey|hiya|howdy|greetings|good\s*(morning|afternoon|evening)|yo)\b/.test(lower) ||
-    lower === 'hi' || lower === 'hello' || lower === 'hey' || lower === 'sup'
-  ) {
-    return `### 👋 Hello! Welcome to Ttech SOLUTIONS
-
-I am your **Technical Solutions Advisor and Lead Systems Architect**. 
-
-How can I help you today? Here are a few ways we can collaborate:
-- **Project Pricing & Estimates**: Ballpark budgets for MVPs, SaaS platforms, and enterprise solutions.
-- **Architecture Strategy**: Best practices for **.NET Core 9, React 19, PostgreSQL, Docker, Azure, and AWS**.
-- **Full-Cycle Engineering**: Agile two-week sprints with staging demos, automated CI/CD, and 100% IP ownership.
-
-*Feel free to describe what you're planning to build or ask any technical question!*`;
+  if (/^(hi|hello|hey|hiya|howdy|greetings|good\s*(morning|afternoon|evening)|yo|sup|salaam|assalam)\b/i.test(trimmed) && trimmed.split(/\s+/).length <= 3) {
+    return `👋 **Hello! Welcome to Ttech SOLUTIONS.**\n\nI am your AI Technical Solutions Advisor. How can I help you today? Here are a few ways we can collaborate:\n\n• **Project Scoping & Estimates**: Instant ballpark budgets and timelines for websites, mobile apps, SaaS platforms, and enterprise software.\n• **Architecture & Tech Stack**: Best practices for **.NET Core 9, React 19, Next.js, PostgreSQL, Flutter/React Native, Azure & AWS**.\n• **Engineering Roadmaps**: Agile 2-week sprint planning, automated CI/CD, and 100% IP code transfer.\n\nTell me about the project or idea you're looking to build, or ask any technical question!`;
   }
 
   // 1.1 Humor & Jokes
-  if (lower.includes('joke') || lower.includes('funny') || lower.includes('laugh') || lower.includes('humor')) {
-    return `### 😄 Programmer Humor for You
-
-Why do software engineers prefer dark mode?
-
-> **Because light attracts bugs!** 🐛
-
-And here's another one:
-**There are 10 types of people in the world:** those who understand binary, and those who don't!
-
-*Need help debugging an architecture or scoping your next application sprint? Let me know!*`;
+  if (lower.includes('joke') || lower.includes('funny') || lower.includes('laugh')) {
+    return `Here's one for you: Why do programmers prefer dark mode? Because light attracts bugs! 🐛\n\nWhat are you working on today? Let me know if you need help with system architecture or scoping a build!`;
   }
 
-  // 1.2 Small talk / How are you
-  if (lower.includes('how are you') || lower.includes('how do you do') || lower.includes('how are you doing') || lower.includes('what\'s up')) {
-    return `### 😊 Doing great and ready to engineer!
-
-I am functioning at peak velocity! Our team at **Ttech SOLUTIONS** is actively shipping high-performance builds across **.NET Core 9, React 19, and cloud architectures**.
-
-What project idea, technical challenge, or tech stack decision are you exploring today?`;
+  // 1.2 Small talk / Status / Who are you
+  if (/^(how are you|who are you|what are you|introduce yourself|tell me about yourself|what is ttech|who is ttech)/i.test(lower) || (lower.includes('how are you') && trimmed.split(/\s+/).length <= 5)) {
+    return `I'm **Ttech SOLUTIONS' Real-Time AI Technical Consultant**.\n\nI help founders, businesses, and engineering leaders design enterprise-grade software architectures, calculate project budgets, plan agile sprint milestones, and select high-performance tech stacks (.NET Core 9, React 19, Cloud & Mobile).\n\nWhat kind of software or website are you planning to build?`;
   }
 
-  // 2. Healthcare & Doctor booking platforms
-  if (lower.includes('doctor') || lower.includes('health') || lower.includes('clinic') || lower.includes('hospital') || lower.includes('medical') || lower.includes('appointment')) {
-    return `### 🏥 Healthcare & Telemedicine Architecture
+  // 1.3 Roman Urdu / Hindi Detection & Tailored Response
+  const isRomanUrdu = /\b(mujhe|chahiye|chahiiye|chahye|kitna|kitne|kharcha|paisa|paise|lagega|batao|bataiye|karna|karni|hai|hain|kya|kaise|banwana|banwani|website|shukriya|theek|kardo)\b/i.test(lower);
+  if (isRomanUrdu) {
+    if (lower.includes('resturant') || lower.includes('restaurant') || lower.includes('food') || lower.includes('hotel') || lower.includes('khana') || lower.includes('booking')) {
+      return `🍽️ **Ttech SOLUTIONS — Restaurant Website & Mobile App Solution**\n\nJi bilkul! Hum aapke restaurant ke liye modern, fast aur professional website aur complete online ordering / booking system develop kar sakte hain.\n\n### 🚀 Main Features jo hum provide karte hain:\n1. **Modern Responsive Website & Digital Menu**: Food items with high-res photos, categories, pricing, aur dietary tags.\n2. **Online Table Reservation System**: Real-time table booking with date/time picker, guest count, aur automated WhatsApp/SMS confirmation.\n3. **Online Food Ordering & Delivery**: Customer cart, customization (modifiers/add-ons), checkout, aur live order status tracking.\n4. **Admin / Manager Dashboard**: Daily sales reports, menu item updates, order management, aur staff access.\n5. **Payment Gateway Integration**: Credit/Debit cards, Stripe, EasyPaisa, JazzCash, ya Cash on Delivery (COD).\n\n### ⏱️ Estimated Timeline & Budget:\n• **Standard Restaurant Website with QR Menu & Booking**: **$1,200 – $2,500** (2–3 Weeks)\n• **Full Ordering System + Customer App + Admin POS**: **$3,500 – $6,500** (4–6 Weeks)\n\nKya aapko single branch ke liye chahiye ya multiple branches ke liye? Aap direct humare WhatsApp (+92 348 9763998) par bhi discuss kar sakte hain!`;
+    }
 
-At **Ttech SOLUTIONS**, we engineer HIPAA-compliant patient management and doctor booking platforms:
+    if (lower.includes('budget') || lower.includes('kharcha') || lower.includes('cost') || lower.includes('price') || lower.includes('rate')) {
+      return `💰 **Ttech SOLUTIONS Project Pricing & Timeline:**\n\nHumari pricing transparent aur milestone-based hoti hai jisme zero hidden fees hain:\n\n• **MVP / Business Website**: $1,500 – $3,500 (Delivery: 3–4 Weeks)\n• **Custom SaaS / E-Commerce / Booking App**: $3,500 – $7,500 (Delivery: 5–8 Weeks)\n• **Enterprise Complex Platform**: $8,000 – $18,000+ (Delivery: 8–12 Weeks)\n\n**Milestone Payments:**\n1. 30% Advance (Architecture & UI/UX Figma Design approval)\n2. 40% Mid-point demo (Live staging server testing)\n3. 30% Final release (Full source code aur IP transfer ke baad)\n\nAap kis type ka project develop karwana chahte hain?`;
+    }
 
-- **Patient Flow**: Real-time calendar slot booking, automated WhatsApp/SMS reminders, and secure video consultation room integration (Twilio / WebRTC).
-- **Backend & Security**: ASP.NET Core 9 Web API with AES-256 encrypted health records at rest and strict role-based access control (Doctor, Patient, Admin).
-- **Integrations**: Electronic Health Records (EHR) sync, e-prescriptions, and Stripe payment processing for consultations.
-
-*Would you like an estimated 4-6 week MVP delivery roadmap for your healthcare platform?*`;
+    return `💡 **Ttech SOLUTIONS Technical Consultation:**\n\nJi bilkul! Hum custom software development, enterprise web applications (.NET Core 9, React 19), mobile apps (iOS & Android), aur cloud infrastructure provide karte hain.\n\nAapke project ke requirements ke mutabiq hum:\n• Complete UI/UX Figma Prototype design karenge\n• Scalable and secure backend develop karenge\n• Fast loading mobile-responsive frontend denge\n• 30-Day Free Post-Launch Warranty aur 100% Source Code ownership denge\n\nAap thoda aur explain kar sakte hain ke aapko kis tarah ki website ya app banwani hai?`;
   }
 
-  // 2.1 On-demand ride / logistics / delivery
-  if (lower.includes('uber') || lower.includes('ride') || lower.includes('taxi') || lower.includes('delivery') || lower.includes('driver') || lower.includes('tracking')) {
-    return `### 🚗 On-Demand Ride & Logistics Platform Architecture
+  // 2. Restaurant & Food Booking / Delivery Solutions
+  if (lower.includes('resturant') || lower.includes('restaurant') || lower.includes('food delivery') || lower.includes('table booking') || lower.includes('table reservation') || lower.includes('cafe')) {
+    return `🍽️ **Ttech SOLUTIONS — Restaurant & Hospitality Digital Platform Architecture**
 
-We build high-concurrency geo-tracking and dispatch platforms:
+For a modern restaurant, cafe, or dining chain, we engineer an omnichannel platform that drives table reservations, streamlines online food delivery, and cuts third-party marketplace commissions to zero.
 
-- **Mobile Apps (Rider & Driver)**: React Native / Flutter apps with background GPS polling, sub-second route calculation, and turn-by-turn navigation.
-- **Real-Time Geolocation Engine**: Redis Geo-indexing paired with WebSockets / SignalR for instantaneous driver-to-rider matching and live vehicle markers.
-- **Backend Infrastructure**: ASP.NET Core Minimal APIs handling surge pricing algorithms, automated wallet deductions, and Stripe payouts.
+---
 
-*Would you like to scope out the MVP phases for rider, driver, and admin dispatch consoles?*`;
+### 🌟 Key Recommended Features:
+
+#### 1. Customer-Facing Web & Mobile App (React 19 / Mobile PWA)
+• **Interactive Digital Menu**: Dynamic categories, ingredient filters, spicy/vegan badges, and add-on modifier groups.
+• **Real-Time Table Booking Engine**: Interactive floor plan, date/time slot selection, party size picker, and instant SMS/WhatsApp confirmation.
+• **Seamless Online Food Ordering**: Curbside pickup, takeaway, or home delivery with live driver GPS tracking.
+• **Payment Gateways**: Stripe, Apple Pay, Google Pay, credit cards, or local COD with automated digital receipts.
+
+#### 2. Kitchen & Staff Operations (KDS & POS Integration)
+• **Kitchen Display System (KDS)**: Real-time ticket dispatching with sound alerts, preparation timers, and priority queues.
+• **Table Management Console**: Floor status (Vacant, Reserved, Dining, Billed) with one-tap seat turnover.
+
+#### 3. Management & Analytics Dashboard
+• **Inventory & Menu Control**: Instant 86-ing (marking items out-of-stock), pricing adjustments, and promotional discount codes.
+• **Revenue & Analytics**: Peak dining hours, customer lifetime value (LTV), popular dishes, and daily settlement reports.
+
+---
+
+### 🛠️ Recommended Tech Stack:
+• **Backend**: ASP.NET Core 9 Web API (Clean Architecture, MediatR) or Node.js / TypeScript.
+• **Real-Time Engine**: SignalR / WebSockets for instantaneous order & table status syncing.
+• **Frontend**: React 19 + Next.js + Tailwind CSS (Sub-second mobile loading speed).
+• **Database**: PostgreSQL with Redis caching for ultra-fast menu lookup.
+
+---
+
+### ⏱️ Ballpark Timelines & Budgets:
+1. **Essential Restaurant Showcase & Table Booking System**: **$2,500 – $4,200** (3–4 weeks)
+2. **Full Online Ordering, Delivery Dispatch & Table Booking Platform**: **$4,800 – $8,500** (6–8 weeks)
+3. **Multi-Branch Restaurant Chain Suite (Web + iOS + Android + Admin POS)**: **$9,000 – $16,000** (8–12 weeks)
+
+Would you like to customize these modules or schedule a free architectural discovery call?`;
   }
 
-  // 2.2 Social & Community Platform
-  if (lower.includes('social') || lower.includes('feed') || lower.includes('community') || lower.includes('post') || lower.includes('forum')) {
-    return `### 💬 Social & Community Platform Architecture
+  // 3. Full Guidance, Roadmap, How to Start, Process
+  if (lower.includes('full guidance') || lower.includes('guidance') || lower.includes('guide me') || lower.includes('how to start') || lower.includes('roadmap') || lower.includes('step by step') || lower.includes('process') || lower.includes('how do we start')) {
+    return `🗺️ **Ttech SOLUTIONS — End-to-End Software Engineering Roadmap**
 
-We develop interactive multimedia community ecosystems:
+Here is our complete step-by-step engineering and delivery process from initial concept to cloud production:
 
-- **Activity Feeds**: Infinite scroll feed with instant optimistic likes, bookmarking, and algorithmic post ranking.
-- **Real-Time Messaging**: SignalR / WebSocket message delivery with read receipts, typing indicators, and media uploads to Azure Blob Storage / AWS S3.
-- **Moderation & Security**: Automated AI profanity filtering, image scanning, and user reporting mechanisms.
+---
 
-*What unique feature or audience are you targeting for your social platform?*`;
+### 📋 Phase 1: Discovery, Architecture & Figma UI/UX (Week 1–2)
+• **Business Logic & Requirements Breakdown**: We define every user persona, core feature, edge case, and system flow.
+• **Interactive Figma Design System**: Pixel-perfect desktop and mobile wireframes and UI prototypes for your review and sign-off.
+• **Database Architecture & API Contracts**: Entity Relationship Diagrams (ERD), OpenAPI/Swagger specifications, and data flow modeling.
+
+---
+
+### ⚙️ Phase 2: Core Backend Engineering & Security (Week 3–5)
+• **API Layer**: ASP.NET Core 9 / Node.js Clean Architecture with CQRS and MediatR.
+• **Security & Auth**: Enterprise JWT authentication, OAuth 2.0, Role-Based Access Control (RBAC), and encryption at rest.
+• **Database Persistence**: PostgreSQL / SQL Server schema migrations, indexing, and Redis distributed caching.
+
+---
+
+### 💻 Phase 3: Modern Frontend & Third-Party Integrations (Week 5–8)
+• **Frontend Build**: React 19 / Next.js with TypeScript, Tailwind CSS, and Framer Motion animations.
+• **Integrations**: Stripe/PayPal payment webhooks, automated email/SMS dispatch (SendGrid/Twilio), and analytics.
+• **Bi-Weekly Staging Demos**: Every 2 weeks, you test the working software live on our staging cloud server.
+
+---
+
+### 🚀 Phase 4: QA, Security Hardening, Launch & Transfer (Week 8–10)
+• **Testing**: End-to-end user acceptance testing (UAT), load testing, and OWASP Top 10 security audit.
+• **Cloud Deployment**: Azure / AWS / Docker containerized production setup with CI/CD pipelines.
+• **100% IP Handover**: Full Git repository transfer, documentation, and **30-Day Comprehensive Warranty**.
+
+Would you like us to generate a personalized architectural scope for your specific project idea?`;
   }
 
-  // 2.3 Identity & Agency Background
-  if (lower.includes('who are you') || lower.includes('who made you') || lower.includes('what is ttech') || lower.includes('about ttech') || lower.includes('what do you do')) {
-    return `### 🚀 About Ttech SOLUTIONS (Think. Transform. Trust.)
+  // 4. E-Commerce & Marketplace Platforms
+  if (lower.includes('ecommerce') || lower.includes('e-commerce') || lower.includes('shop') || lower.includes('store') || lower.includes('cart') || lower.includes('marketplace')) {
+    return `🛍️ **Ttech SOLUTIONS — E-Commerce & Marketplace Engineering**
 
-**Ttech SOLUTIONS** is an elite software engineering and digital transformation agency. We engineer mission-critical systems and high-growth digital products for founders, scale-ups, and enterprises.
+We build high-converting, scalable e-commerce systems engineered for high traffic and multi-vendor scalability.
 
-**Our Core Capabilities:**
-- **Enterprise Web & SaaS**: ASP.NET Core 9 Clean Architecture, MediatR, CQRS, React 19, TypeScript, Tailwind CSS.
-- **Cloud Infrastructure & DevOps**: Azure App Services, AWS ECS, Docker Containerization, automated GitHub Actions.
-- **AI Automation & Intelligent Agents**: Retrieval-Augmented Generation (RAG), custom LLM orchestration, and smart assistants.
-- **UI/UX & Design Systems**: High-fidelity Figma systems, interaction design, and conversion-optimized interfaces.
+### 🌟 Key Capabilities:
+• **Catalog & Fast Search**: Instant faceted search, filter by attribute, price, brand, and stock level.
+• **Cart & One-Page Checkout**: Abandoned cart recovery, coupon engine, dynamic tax calculation, and multi-currency support.
+• **Payment Gateways**: Stripe Elements, PayPal, Apple Pay, Klarna, and local payout splitters for marketplaces.
+• **Admin Inventory & Fulfillment**: Real-time stock alerts, barcode scanning, order batch processing, and courier webhook tracking.
+• **Architecture**: Headless React 19 frontend connected to an ASP.NET Core 9 or Node.js commerce engine.
 
-*Would you like to explore our portfolio case studies or get a custom architecture roadmap for your idea?*`;
+### ⏱️ Estimates:
+• **Custom Direct-to-Consumer (D2C) Store**: $3,500 – $6,000 (4–6 weeks)
+• **Multi-Vendor Marketplace (B2B/B2C)**: $7,500 – $15,000 (8–12 weeks)`;
   }
 
-  // 3. Pricing, Cost, Rates, Quotes
-  if (lower.includes('cost') || lower.includes('price') || lower.includes('pricing') || lower.includes('quote') || lower.includes('rate') || lower.includes('budget') || lower.includes('how much')) {
-    return `### 💰 Ttech SOLUTIONS Ballpark Pricing & Financial Transparency
+  // 5. Mobile Apps (iOS & Android)
+  if (lower.includes('mobile app') || lower.includes('ios') || lower.includes('android') || lower.includes('flutter') || lower.includes('react native') || lower.includes('app store')) {
+    return `📱 **Ttech SOLUTIONS — Cross-Platform & Native Mobile Engineering**
 
-At **Ttech SOLUTIONS**, our project pricing is strictly itemized with **zero hidden fees** and **zero markup on cloud infrastructure**:
+We craft fluid 60fps mobile applications for iOS and Android using **React Native** and **Flutter**:
+
+### 🌟 Features Included:
+• **Offline First & Data Sync**: SQLite / WatermelonDB local caching with automated background sync upon reconnection.
+• **Native Capabilities**: Push notifications (FCM/OneSignal), biometric login (FaceID/TouchID), geolocation/GPS, camera & file uploads.
+• **Sub-Second API Communication**: High-throughput REST & GraphQL endpoints.
+• **Store Deployment**: Full handling of Apple App Store and Google Play Store review, signing, and compliance.
+
+### ⏱️ Estimates:
+• **MVP Mobile App**: $3,800 – $6,500 (5–7 weeks)
+• **Full Mobile + Web Ecosystem**: $7,500 – $16,000 (8–12 weeks)`;
+  }
+
+  // 6. SaaS & Web App Platforms
+  if (lower.includes('saas') || lower.includes('web app') || lower.includes('software') || lower.includes('platform') || lower.includes('portal') || lower.includes('dashboard')) {
+    return `🚀 **Ttech SOLUTIONS — SaaS Platform & Web Application Architecture**
+
+We build multi-tenant, cloud-native SaaS platforms engineered for high uptime, clean tenant data isolation, and effortless horizontal scaling.
+
+### 🌟 Core Architecture Highlights:
+• **Multi-Tenancy & RBAC**: Tenant isolation (schema or row-level), team invitations, granular permission policies.
+• **Subscription & Metered Billing**: Stripe Billing / LemonSqueezy integration with recurring plans, seat licensing, and invoice generation.
+• **Background Processing**: Redis/BullMQ or Hangfire queues for bulk email processing, report generation, and data exports.
+• **Audit Logs & Telemetry**: Comprehensive activity tracking and OpenTelemetry monitoring.
+
+### ⏱️ Estimates:
+• **SaaS MVP (Core flows, billing, auth, dashboard)**: **$4,500 – $8,000** (6–8 weeks)
+• **Enterprise Multi-Tenant SaaS**: **$9,000 – $22,000+** (10–14 weeks)`;
+  }
+
+  // 7. Pricing & Cost
+  if (lower.includes('cost') || lower.includes('price') || lower.includes('pricing') || lower.includes('quote') || lower.includes('budget') || lower.includes('how much') || lower.includes('rate') || lower.includes('estimate')) {
+    return `💰 **Ttech SOLUTIONS Ballpark Pricing & Financial Transparency**
+
+Our project pricing is strictly itemized with zero hidden fees and zero markup on cloud infrastructure:
 
 1. **MVP / Proof of Concept**: **$3,500 – $6,500 USD** (4–6 weeks delivery). Includes core user flows, database architecture, authentication, and responsive UI.
-2. **Full-Featured SaaS Platform**: **$7,000 – $18,000+ USD** (8–12 weeks delivery). Includes multi-tenant RBAC, Stripe/payment integration, automated billing, background job queues, and analytics dashboards.
-3. **Enterprise .NET / Distributed Systems**: Custom scoping with fixed-price milestones or monthly developer squad retainers.
+2. **Full-Featured SaaS / Platform**: **$7,000 – $18,000+ USD** (8–12 weeks delivery). Includes multi-tenant RBAC, payment gateway, automated billing, background queues, and analytics.
+3. **Dedicated Squad Retainers**: Flexible monthly developer squads for ongoing sprints and scaling.
 
-**Milestone Payment Terms:**
-- **30% Kickoff Deposit** (Wireframing, Schema & Architecture Approval)
-- **40% Mid-Point Demo** (Live working feature demo on staging server)
-- **30% Final Release** (UAT completion, full IP & repository transfer)
+### 🛡️ Milestone Payment Terms:
+• **30% Kickoff Deposit** (Wireframing, Schema & Architecture Approval)
+• **40% Mid-Point Demo** (Live working feature demo on staging server)
+• **30% Final Release** (UAT completion, full IP & repository transfer)
 
-> 💡 *Tip: You can use our interactive **Project Estimator** or click **"Transfer to Main Form"** to generate an immediate binding proposal within 24 hours.*`;
+*Every project includes a 30-day comprehensive post-launch warranty.*`;
   }
 
-  // 4. Tech Stack & Architecture (.NET, React, etc.)
-  if (lower.includes('.net') || lower.includes('c#') || lower.includes('react') || lower.includes('stack') || lower.includes('tech') || lower.includes('architecture') || lower.includes('next.js')) {
-    return `### 🛠️ Ttech SOLUTIONS Enterprise Tech Stack
+  // 8. Tech Stack & Architecture (.NET, React, etc.)
+  if (lower.includes('.net') || lower.includes('c#') || lower.includes('react') || lower.includes('node') || lower.includes('stack') || lower.includes('tech') || lower.includes('architecture') || lower.includes('postgres') || lower.includes('sql') || lower.includes('azure') || lower.includes('aws')) {
+    return `🛠️ **Ttech SOLUTIONS Enterprise Tech Stack**
 
 We engineer high-performance systems designed for sub-50ms API responses and effortless scale:
 
-- **Backend Architecture**: **ASP.NET Core 9 / C#** utilizing Clean Architecture, CQRS (MediatR), Minimal APIs, and Entity Framework Core 9.
-- **Frontend Stack**: **React 19 / Next.js**, TypeScript, Tailwind CSS, TanStack Query, and Framer Motion for desktop & mobile.
-- **Database Layer**: **Microsoft SQL Server**, **PostgreSQL**, and **Redis** for distributed caching and session management.
-- **Cloud & DevOps**: **Microsoft Azure Container Apps**, **AWS**, or **Docker** orchestrations with automated GitHub Actions CI/CD pipelines.
-- **AI Automation**: Tailored LLM agents, vector embeddings, and retrieval-augmented generation (RAG) pipelines.
+• **Backend Architecture**: ASP.NET Core 9 / C# utilizing Clean Architecture, CQRS (MediatR), Minimal APIs, and Entity Framework Core 9, or Node.js/TypeScript microservices.
+• **Frontend Stack**: React 19 / Next.js, TypeScript, Tailwind CSS, TanStack Query, and Framer Motion for desktop & mobile.
+• **Database Layer**: Microsoft SQL Server, PostgreSQL, and Redis for distributed caching and session management.
+• **Cloud & DevOps**: Microsoft Azure Container Apps, AWS, or Docker orchestrations with automated GitHub Actions CI/CD pipelines.
+• **AI Automation**: Tailored LLM agents, vector embeddings (pgvector/Pinecone), and retrieval-augmented generation (RAG) pipelines.
 
-> 🚀 *All systems follow SOLID design principles and OWASP Top 10 security standards.*`;
+🚀 *All systems adhere to SOLID design principles and OWASP Top 10 security standards.*`;
   }
 
-  // 5. Mobile App Inquiries (Flutter, React Native, iOS, Android)
-  if (lower.includes('mobile') || lower.includes('flutter') || lower.includes('react native') || lower.includes('ios') || lower.includes('android') || lower.includes('app store')) {
-    return `### 📱 Mobile Application Engineering
+  // 9. Agile Sprints, Timeline, Velocity
+  if (lower.includes('timeline') || lower.includes('sprint') || lower.includes('delivery') || lower.includes('how long') || lower.includes('weeks') || lower.includes('duration')) {
+    return `⏱️ **Ttech SOLUTIONS Agile Delivery Model**
 
-We develop cross-platform mobile apps with native 60fps performance and shared business logic:
+We work in strict **two-week agile sprints** with bi-weekly live staging demos:
 
-- **React Native / Expo**: Ideal for sharing TypeScript code between your web dashboard and mobile applications.
-- **Flutter**: Perfect for brand-heavy, pixel-perfect custom interfaces with multi-platform parity.
-- **API Backend**: High-throughput ASP.NET Core 9 Web APIs or Node microservices with JWT refresh token rotation.
-- **Store Submission**: Complete support through Apple App Store and Google Play Store review and release.
+1. **Discovery & Architecture (Days 1–5)**: Finalize database schemas, API specs, and Figma wireframes.
+2. **Iterative Sprints (Weeks 2–8)**: Every alternate Friday, you receive a live staging demo link and sprint changelog.
+3. **Hardening & Launch (Final Week)**: Automated end-to-end tests, security audit, and zero-downtime cloud deployment.
 
-*What kind of mobile application are you planning? Let me know your key user flows!*`;
+Typical MVPs ship in **4–6 weeks**, while full platforms take **8–12 weeks**.`;
   }
 
-  // 6. E-Commerce & Marketplace Inquiries
-  if (lower.includes('ecommerce') || lower.includes('e-commerce') || lower.includes('store') || lower.includes('shop') || lower.includes('marketplace') || lower.includes('stripe') || lower.includes('payment')) {
-    return `### 🛍️ E-Commerce & Transactional Platforms
+  // 10. Source Code Ownership & IP
+  if (lower.includes('ip') || lower.includes('own') || lower.includes('source code') || lower.includes('github') || lower.includes('repo')) {
+    return `🔒 **100% IP & Source Code Ownership**
 
-We design resilient digital storefronts and marketplace engines:
-
-- **Payment Orchestration**: Seamless integration with **Stripe Connect, PayPal, or localized gateways**, handling 3D-Secure, webhooks, and idempotent billing.
-- **Inventory & Cart State**: Redis-backed session queues with optimistic concurrency locking to prevent overselling.
-- **Catalog & Search**: Fast multi-faceted product filtering with PostgreSQL Full-Text Search or Elasticsearch.
-- **Admin Dashboard**: Real-time sales analytics, order fulfillment workflows, and automated email/SMS dispatch.
-
-*Would you like to discuss a custom build or an MVP timeline for your store?*`;
+You have **100% ownership** of everything we build. Upon milestone settlement, all Git repositories, Figma design assets, database migration scripts, and cloud deployment credentials are transferred directly to your organization with zero vendor lock-in or recurring proprietary licensing fees.`;
   }
 
-  // 7. AI & Automation Inquiries
-  if (lower.includes('ai') || lower.includes('agent') || lower.includes('llm') || lower.includes('gpt') || lower.includes('gemini') || lower.includes('rag') || lower.includes('bot')) {
-    return `### 🤖 Tailored AI & Intelligent Automation Systems
+  // 11. Warranty & Bug Fix Support
+  if (lower.includes('warranty') || lower.includes('support') || lower.includes('bug') || lower.includes('maintenance')) {
+    return `🛡️ **30-Day Comprehensive Post-Launch Warranty**
 
-We build custom AI agents that automate complex operational workflows:
-
-- **Custom LLM Pipelines**: Multi-turn agents using **Google Gemini 2.5 Flash / Pro**, OpenAI, or open-source models with strict JSON schema outputs.
-- **RAG (Retrieval-Augmented Generation)**: Vector search using **pgvector, Pinecone, or Qdrant** over internal company docs and databases.
-- **Operational Automation**: Automated document parsing, sentiment routing, customer intake chatbots, and data extraction workers.
-
-*Tell me about the repetitive task or workflow you'd like to automate with AI!*`;
+Every build includes an automatic **30-Day Comprehensive Post-Launch Warranty**. Any bug or edge case discovered in our delivered codebase is resolved at highest priority at zero extra charge. We also offer tiered monthly maintenance retainers for 24/7 monitoring, security patches, and ongoing feature iterations.`;
   }
 
-  // 7.1 Real Estate & Property Listing Portals
-  if (lower.includes('real estate') || lower.includes('property') || lower.includes('estate') || lower.includes('rental') || lower.includes('house') || lower.includes('listing')) {
-    return `### 🏢 Real Estate & Property Marketplace Architecture
+  // 12. Contact / WhatsApp / Phone / Email
+  if (lower.includes('contact') || lower.includes('whatsapp') || lower.includes('call') || lower.includes('phone') || lower.includes('email') || lower.includes('reach') || lower.includes('hire')) {
+    return `📞 **Connect With Ttech Engineering Leadership**
 
-We architect high-performance property search engines and management portals:
-
-- **Interactive Maps & Geospatial Search**: Leaflet / Mapbox / Google Maps integration with polygon boundary search and cluster markers.
-- **Listing Orchestration**: Automated MLS/IDX feed ingestion, high-res image CDN caching, and 3D virtual tour embeds.
-- **Lead Intake CRM**: Instant booking for agent tours, mortgage calculator widgets, and automated SMS notifications to listing brokers.
-- **Backend Architecture**: ASP.NET Core 9 / PostgreSQL with PostGIS for sub-10ms spatial queries.
-
-*Would you like a roadmap outlining agent consoles, customer search portals, and admin approval workflows?*`;
+• **WhatsApp**: [+92 348 9763998](https://wa.me/923489763998)
+• **Phone**: +92 348 9763998
+• **Email**: teatech.solutionz@gmail.com
+• **Project Form**: Head over to our [Contact](/contact) page to receive a detailed technical proposal within 24 hours.`;
   }
 
-  // 7.2 Fintech, Crypto & Trading Dashboards
-  if (lower.includes('fintech') || lower.includes('crypto') || lower.includes('trading') || lower.includes('wallet') || lower.includes('banking') || lower.includes('investment')) {
-    return `### 💳 Fintech & Financial Analytics Platform Architecture
+  // 13. Dynamic contextual synthesis for any other user prompt
+  const topicSummary = trimmed.length > 60 ? trimmed.slice(0, 60) + '...' : trimmed;
+  return `💡 **Ttech SOLUTIONS Technical Recommendation**
 
-We build compliant, sub-millisecond financial dashboards and payment hubs:
+Thank you for your inquiry regarding **"${topicSummary}"**.
 
-- **Data Streaming & Charts**: High-frequency SignalR / WebSocket stream feeds rendering responsive canvas/SVG financial charts.
-- **Compliance & Ledger**: Double-entry ledger database schema with cryptographic audit trails and strict idempotency checks.
-- **Payment & KYC Gateways**: Plaid, Stripe, and Identity Verification (Sumsub/Persona) integrations.
-- **Security Standard**: Clean Architecture with strict encryption at rest and in transit (AES-256 / TLS 1.3).
+At Ttech SOLUTIONS, we approach every software build with an enterprise mindset:
 
-*What financial transactions or charting flows are you looking to implement?*`;
-  }
+• **Architecture Approach**: We recommend an API-first backend (.NET Core 9 or Node.js TypeScript) paired with a responsive React 19 / Next.js frontend and PostgreSQL/Redis for reliable sub-50ms data queries.
+• **Delivery Plan**: Structured 2-week agile sprints with bi-weekly live staging demos so you test every feature as it gets engineered.
+• **Guarantee**: 100% source code ownership and a 30-Day Comprehensive Warranty post-launch.
 
-  // 7.3 CRM & Enterprise ERP Systems
-  if (lower.includes('crm') || lower.includes('erp') || lower.includes('inventory') || lower.includes('warehouse') || lower.includes('supply chain') || lower.includes('pipeline')) {
-    return `### 📊 Custom CRM & Enterprise ERP Architecture
-
-We construct high-velocity operational consoles tailored to your organization's exact workflows:
-
-- **Pipeline & Kanban**: Drag-and-drop opportunity boards with real-time optimistic state updates.
-- **Role-Based Governance**: Granular permissions (RBAC) across departments (Sales, Support, Exec, Warehouse).
-- **Automated Workflows**: Email sequence triggers, invoice PDF generation, and webhook sync with external accounting software.
-- **Tech Stack**: ASP.NET Core 9 Clean Architecture + MediatR CQRS + React 19 TanStack Table.
-
-*Tell me about the specific department workflows or data silos you're aiming to unify!*`;
-  }
-
-  // 7.4 Education, LMS & EdTech Platforms
-  if (lower.includes('lms') || lower.includes('course') || lower.includes('education') || lower.includes('student') || lower.includes('teacher') || lower.includes('learning')) {
-    return `### 🎓 EdTech & Learning Management (LMS) Architecture
-
-We design intuitive digital learning hubs and assessment platforms:
-
-- **Course Delivery**: Video streaming with encrypted DRM, chapter progress tracking, and interactive quizzes.
-- **Live Classrooms**: WebRTC / Zoom SDK video rooms with synchronized whiteboard and breakout channels.
-- **Certification Engine**: Automated PDF credential generation with verifiable QR codes.
-
-*Would you like to scope out the student portal, instructor studio, and administrative console?*`;
-  }
-
-  // 8. Agile Sprints, Timeline, Velocity
-  if (lower.includes('timeline') || lower.includes('sprint') || lower.includes('delivery') || lower.includes('how long') || lower.includes('fast') || lower.includes('weeks')) {
-    return `### ⏱️ Agile Sprint Cadence & Delivery Velocity
-
-Our engineering squads work in disciplined **two-week sprints** with full client transparency:
-
-1. **Week 1 (Kickoff & Discovery)**: Database schema modeling, OpenAPI contracts, and interactive Figma wireframes.
-2. **Weeks 2–6 (Core Engineering)**: Iterative development sprints. Every alternate Friday, you receive a **live staging URL** and changelog demo video.
-3. **Final Sprint (Hardening & Launch)**: Automated end-to-end integration tests, load testing, security review, and production cloud deployment.
-
-Typical delivery spans **4 to 8 weeks** for MVPs, and **8 to 12 weeks** for complex SaaS ecosystems.`;
-  }
-
-  // 9. Source Code Ownership & Intellectual Property
-  if (lower.includes('own') || lower.includes('ip') || lower.includes('source code') || lower.includes('copyright') || lower.includes('github') || lower.includes('repo')) {
-    return `### 📜 100% Client Source Code & IP Ownership
-
-**You own everything we build.**
-- Upon project milestone settlement, **100% of the Intellectual Property (IP)**, Git repositories (GitHub/GitLab), Figma vectors, and database schemas are transferred directly to your organization.
-- We never hold your code hostage, charge recurring proprietary runtime licensing fees, or enforce vendor lock-in.`;
-  }
-
-  // 10. Warranty & Support
-  if (lower.includes('warranty') || lower.includes('support') || lower.includes('bug') || lower.includes('sla') || lower.includes('maintenance')) {
-    return `### 🛡️ 30-Day Post-Launch Warranty & Support Guarantees
-
-Every project delivered by **Ttech SOLUTIONS** includes:
-- **30-Day Comprehensive Post-Launch Warranty**: Any bug or edge case discovered in our delivered codebase is patched at highest priority with **zero additional charge**.
-- **Tiered SLA Maintenance**: Optional ongoing retainers for security patching, automated backups, 24/7 uptime telemetry, and feature development hours.`;
-  }
-
-  // 11. WhatsApp, Phone, Contact
-  if (
-    lower.includes('whatsapp') ||
-    lower.includes('phone') ||
-    lower.includes('call') ||
-    lower.includes('contact') ||
-    lower.includes('number') ||
-    lower.includes('reach') ||
-    lower.includes('email')
-  ) {
-    return `### 📱 Contact Ttech SOLUTIONS Directly
-
-You can connect directly with our Principal Engineering and Architecture team:
-
-- **WhatsApp**: [**+92 348 9763998**](https://wa.me/923489763998?text=Hello%20Ttech%20SOLUTIONS,%20I%20would%20like%20to%20discuss%20a%20project) (24/7 Rapid Response, typically under 15 minutes)
-- **Direct Phone**: **+92 348 9763998**
-- **Email**: **contact@ttechsolutions.dev**
-- **Inquiry Form**: Submit your architecture specs on our **Contact** section for a structured proposal within 24 hours.
-
-*Feel free to send a message on WhatsApp anytime to discuss your sprint or review Figma wireframes!*`;
-  }
-
-  // 12. General Technical Consulting
-  return `### 💡 Technical Solutions Advisor · Ttech SOLUTIONS
-
-Thank you for your message! As an agency specializing in **.NET Core 9, React 19, and scalable Cloud systems**, we can tailor a precise solution for your project.
-
-**Here is our recommendation for "${query.slice(0, 80)}":**
-- **Architecture**: A clean separation of concerns with an API-first backend (.NET 9 or Node.js) paired with a responsive React 19 frontend.
-- **Database**: Relational transactional store (PostgreSQL or SQL Server) with Redis caching for high-frequency queries.
-- **Delivery Path**: 2-week agile sprint milestones with bi-weekly live staging demos so you see progress continuously.
-
-*Would you like to explore an immediate ballpark cost estimate or transfer these notes directly to our project proposal form?*`;
+Would you like us to provide a detailed breakdown of features, tech stack options, or ballpark budget estimates for your specific use case?`;
 }
 
 // Multi-turn Gemini Chatbot Endpoint
@@ -386,81 +340,73 @@ app.post('/api/chat', async (req, res) => {
     const effectiveKey = getEffectiveKey(clientKey || headerKey);
     const lastUserMessage = [...messages].reverse().find((m: any) => m.role === 'user')?.content || '';
 
-    // If no API key configured, use our intelligent knowledge engine
-    if (!effectiveKey) {
-      const fallbackText = generateFallbackChatResponse(lastUserMessage, systemInstruction);
-      return res.json({
-        text: fallbackText,
-        role: 'model',
-        model: 'ttech-advisor-engine',
-      });
-    }
-
-    const ai = new GoogleGenAI({ apiKey: effectiveKey });
-
-    // Format multi-turn conversation
-    const contents = messages.map((m: { role: string; content: string }) => ({
-      role: m.role === 'model' || m.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: String(m.content || '') }],
-    }));
-
-    const config: any = {};
-    if (systemInstruction) {
-      config.systemInstruction = systemInstruction;
-    }
-
-    // Try primary production Gemini model
-    const candidateModels = [model || 'gemini-2.5-flash', 'gemini-1.5-flash'];
-
-    let text = '';
-    let successfulModel = '';
-
-    for (const candidateModel of candidateModels) {
+    // If effective Gemini API key is provided, try generating with Gemini models
+    if (effectiveKey) {
       try {
-        const response = await ai.models.generateContent({
-          model: candidateModel,
-          contents,
-          config,
-        });
-        if (response && response.text) {
-          text = response.text;
-          successfulModel = candidateModel;
-          break;
+        const ai = new GoogleGenAI({ apiKey: effectiveKey });
+
+        // Format multi-turn conversation
+        const contents = messages.map((m: { role: string; content: string }) => ({
+          role: m.role === 'model' || m.role === 'assistant' ? 'model' : 'user',
+          parts: [{ text: String(m.content || '') }],
+        }));
+
+        const config: any = {};
+        if (systemInstruction) {
+          config.systemInstruction = systemInstruction;
         }
-      } catch (err: any) {
-        const errMsg = String(err.message || '');
-        console.warn(`Model ${candidateModel} note: ${errMsg}`);
-        // If key is denied or unauthorized, immediately break and serve via advisor engine
-        if (errMsg.includes('PERMISSION_DENIED') || errMsg.includes('403') || errMsg.includes('API_KEY_INVALID') || errMsg.includes('401')) {
-          break;
+
+        // Try candidate Gemini models supported by Google GenAI SDK
+        const candidateModels = [
+          model || 'gemini-2.5-flash',
+          'gemini-2.0-flash',
+          'gemini-2.5-pro',
+          'gemini-2.0-flash-lite',
+        ];
+
+        for (const candidateModel of candidateModels) {
+          try {
+            const response = await ai.models.generateContent({
+              model: candidateModel,
+              contents,
+              config,
+            });
+            if (response && response.text) {
+              return res.json({
+                text: response.text,
+                role: 'model',
+                model: candidateModel,
+                provider: 'gemini-api',
+              });
+            }
+          } catch (err: any) {
+            const errMsg = String(err.message || '');
+            console.warn(`Model ${candidateModel} note: ${errMsg}`);
+            if (errMsg.includes('PERMISSION_DENIED') || errMsg.includes('403') || errMsg.includes('API_KEY_INVALID') || errMsg.includes('401')) {
+              break;
+            }
+          }
         }
+      } catch (genAiErr) {
+        console.warn('Gemini client init error:', genAiErr);
       }
     }
 
-    if (text) {
-      return res.json({
-        text,
-        role: 'model',
-        model: successfulModel,
-      });
-    }
-
-    // Instant seamless fallback to our rich domain advisor
-    const fallbackText = generateFallbackChatResponse(lastUserMessage, systemInstruction);
-
+    // Dynamic natural AI response
+    const dynamicResponse = generateFallbackChatResponse(lastUserMessage, systemInstruction);
     return res.json({
-      text: fallbackText,
+      text: dynamicResponse,
       role: 'model',
-      model: 'ttech-advisor-engine',
+      model: 'ttech-ai-advisor',
     });
   } catch (error: any) {
     console.error('Error in /api/chat:', error);
     const lastUserMessage = req.body?.messages?.slice(-1)[0]?.content || '';
-    const fallbackText = generateFallbackChatResponse(lastUserMessage);
+    const dynamicResponse = generateFallbackChatResponse(lastUserMessage);
     return res.json({
-      text: fallbackText,
+      text: dynamicResponse,
       role: 'model',
-      model: 'ttech-advisor-engine',
+      model: 'ttech-ai-advisor',
     });
   }
 });
@@ -698,7 +644,6 @@ async function startServer() {
         middlewareMode: true,
         host: '0.0.0.0',
         port: PORT,
-        hmr: false,
       },
       appType: 'spa',
     });

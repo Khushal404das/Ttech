@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { ServicesSection } from '../components/ServicesSection';
 import { ProjectEstimatorSection } from '../components/ProjectEstimatorSection';
-import { FAQSection } from '../components/FAQSection';
+import { AIConsultantSection } from '../components/AIConsultantSection';
 import { Footer } from '../components/Footer';
 import type { AppSection } from '../types';
 
@@ -44,13 +44,14 @@ export default function ServicesPage() {
     });
   };
 
-  const handleFAQSelectSection = (section: AppSection) => {
-    if (section === 'inquiry') navigate('/contact');
-    else if (section === 'portfolio') navigate('/work');
-    else if (section === 'estimator') {
-      const el = document.getElementById('estimator');
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+  const handleTransferToInquiry = (data: {
+    service?: string;
+    stack?: string;
+    budget?: string;
+    timeline?: string;
+    description?: string;
+  }) => {
+    navigate('/contact', { state: data });
   };
 
   return (
@@ -70,9 +71,9 @@ export default function ServicesPage() {
         initialStack={estimatorStack}
         onLockEstimate={handleLockEstimate}
       />
-      <FAQSection
-        onSelectSection={handleFAQSelectSection}
+      <AIConsultantSection
         onOpenConsultation={handleOpenConsultation}
+        onTransferToInquiry={handleTransferToInquiry}
         onOpenEstimator={() => {
           const el = document.getElementById('estimator');
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });

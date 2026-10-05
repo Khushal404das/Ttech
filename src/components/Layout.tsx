@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { AnimatedBackground } from './AnimatedBackground';
 import { ScrollExperience } from './ScrollExperience';
@@ -44,9 +45,34 @@ export const Layout: React.FC = () => {
           onOpenConsultation={handleOpenConsultation}
         />
 
-        {/* Page content swaps here */}
+        {/* Page content swaps smoothly with clean fade & subtle slide animation */}
         <div data-page className="flex min-h-0 flex-1 flex-col">
-          <Outlet />
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{
+                duration: 0.28,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              onAnimationComplete={() => {
+                if (!location.hash) {
+                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+                  document.documentElement.scrollTop = 0;
+                  document.body.scrollTop = 0;
+                  const lenis = (window as any).__lenis;
+                  if (lenis) {
+                    lenis.scrollTo(0, { immediate: true, force: true });
+                  }
+                }
+              }}
+              className="flex min-h-0 flex-1 flex-col"
+            >
+              <Outlet />
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         <QuickChatFAB
