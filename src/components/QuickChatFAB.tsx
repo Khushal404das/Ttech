@@ -663,8 +663,8 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
           data-lenis-prevent="true"
           className={`fixed z-50 transition-all duration-300 flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/25 overflow-hidden ${
             isExpanded
-              ? 'bottom-3 sm:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[680px] h-[calc(100dvh-32px)] sm:h-[min(720px,calc(100dvh-48px))] max-h-[calc(100dvh-24px)] rounded-3xl'
-              : 'bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[430px] h-[min(590px,calc(100dvh-120px))] max-h-[84dvh] rounded-3xl'
+              ? 'top-4 sm:top-6 bottom-4 sm:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[660px] max-w-[calc(100vw-24px)] rounded-3xl'
+              : 'bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[420px] max-w-[calc(100vw-24px)] h-[520px] max-h-[calc(100vh-120px)] rounded-3xl'
           }`}
         >
           {/* Modal Header */}
