@@ -1,0 +1,22 @@
+# Ttech SOLUTIONS - Robots.txt
+# Website: Ttech SOLUTIONS - Software Development Agency
+# Updated: 2026
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /admin
+Disallow: /dashboard
+
+# Sitemap location (update with production domain)
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl-delay for considerate crawling
+Crawl-delay: 1
+
+# Block common bad bots
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+Crawl-delay: 10

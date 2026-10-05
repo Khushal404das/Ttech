@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+/* =========================================================================
+   CENTRAL DESIGN TOKENS — LIGHT WHITE + BLUE THEME
+   ========================================================================= */
+@theme {
+  --color-page: #F8FBFF;
+  --color-surface: #FFFFFF;
+  --color-tint: #F1F7FF;
+  --color-border: #DCE8F8;
+
+  --color-primary: #2563EB;
+  --color-primary-dark: #1E40AF;
+  --color-primary-light: #60A5FA;
+  --color-accent-tint: #EAF2FF;
+
+  --color-heading: #0B1220;
+  --color-body: #475569;
+  --color-muted: #7B8AA3;
+  --color-on-primary: #FFFFFF;
+
+  --shadow-card: 0 10px 30px rgba(37, 99, 235, 0.10);
+  --shadow-primary-btn: 0 8px 20px rgba(37, 99, 235, 0.35);
+}
+
+:root {
+  /* Backgrounds */
+  --bg-page: #F8FBFF;
+  --bg-surface: #FFFFFF;
+  --bg-tint: #F1F7FF;
+  --border-color: #DCE8F8;
+
+  /* Accents */
+  --primary: #2563EB;
+  --primary-dark: #1E40AF;
+  --primary-light: #60A5FA;
+  --accent-tint: #EAF2FF;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(90deg, #3B82F6, #1D4ED8);
+  --gradient-glow: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+
+  /* Text */
+  --text-heading: #0B1220;
+  --text-body: #475569;
+  --text-muted: #7B8AA3;
+  --text-on-primary: #FFFFFF;
+
+  /* Shadows */
+  --shadow-card: 0 10px 30px rgba(37, 99, 235, 0.10);
+  --shadow-primary-btn: 0 8px 20px rgba(37, 99, 235, 0.35);
+
+  /* Single Dark Banner Tokens */
+  --dark-banner-bg: #0A0D1A;
+  --dark-banner-glow: rgba(59, 130, 246, 0.25);
+  --dark-banner-highlight: #60A5FA;
+  --dark-banner-body: #9AA3B8;
+
+  /* Typography */
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+}
+
+/* =========================================================================
+   BASE STYLES
+   ========================================================================= */
+@layer base {
+  html, body {
+    background-color: var(--bg-page);
+    color: var(--text-body);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    color-scheme: light;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-display);
+    color: var(--text-heading);
+    font-feature-settings: "ss01" 1, "cv02" 1;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-code);
+  }
+
+  ::selection {
+    background: var(--accent-tint);
+    color: var(--primary-dark);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+}
+
+/* =========================================================================
+   UTILITY TOKEN CLASSES
+   ========================================================================= */
+.bg-page { background-color: var(--bg-page) !important; }
+.bg-surface { background-color: var(--bg-surface) !important; }
+.bg-tint { background-color: var(--bg-tint) !important; }
+.bg-accent-tint { background-color: var(--accent-tint) !important; }
+
+.text-heading { color: var(--text-heading) !important; }
+.text-body { color: var(--text-body) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.text-primary { color: var(--primary) !important; }
+.text-primary-dark { color: var(--primary-dark) !important; }
+.text-primary-light { color: var(--primary-light) !important; }
+
+.border-token { border-color: var(--border-color) !important; }
+
+.bg-gradient-blue {
+  background: var(--gradient-primary);
+}
+
+.text-gradient-blue {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+.shadow-primary-btn {
+  box-shadow: var(--shadow-primary-btn);
+}
+
+/* =========================================================================
+   PANELS & CARDS (LIGHT BLUE THEME)
+   ========================================================================= */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 14px 34px -10px rgba(37, 99, 235, 0.15);
+}
+
+.card-substrate {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+}
+
+.chip-substrate {
+  background: var(--accent-tint);
+  color: var(--primary-dark);
+  border: 1px solid var(--border-color);
+}
+
+/* =========================================================================
+   ANIMATIONS & KEYFRAMES
+   ========================================================================= */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(4deg); }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@keyframes electric-steam {
+  0% { stroke-dashoffset: 40; opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.3; }
+}
+
+.animate-steam {
+  stroke-dasharray: 8 4;
+  animation: electric-steam 2.5s linear infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+/* =========================================================================
+   ANIMATED SKY & DRIFTING CLOUDS
+   ========================================================================= */
+@keyframes sky-pan {
+  0%, 100% { transform: scale(1.04) translate(0%, 0%); }
+  50% { transform: scale(1.07) translate(-1.5%, -1%); }
+}
+
+.animate-sky-pan {
+  animation: sky-pan 24s ease-in-out infinite;
+}
+
+@keyframes drift-right-1 {
+  0% { transform: translateX(-20vw); }
+  100% { transform: translateX(120vw); }
+}
+
+@keyframes drift-right-2 {
+  0% { transform: translateX(-30vw); }
+  100% { transform: translateX(130vw); }
+}
+
+@keyframes drift-right-3 {
+  0% { transform: translateX(-15vw); }
+  100% { transform: translateX(115vw); }
+}
+
+@keyframes drift-right-4 {
+  0% { transform: translateX(-40vw); }
+  100% { transform: translateX(140vw); }
+}
+
+.animate-drift-right-1 {
+  animation: drift-right-1 45s linear infinite;
+}
+
+.animate-drift-right-2 {
+  animation: drift-right-2 65s linear infinite;
+}
+
+.animate-drift-right-3 {
+  animation: drift-right-3 55s linear infinite;
+}
+
+.animate-drift-right-4 {
+  animation: drift-right-4 85s linear infinite;
+}
+
+/* =========================================================================
+   SCROLLBAR
+   ========================================================================= */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-page); }
+::-webkit-scrollbar-thumb { background: #BFDBFE; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
