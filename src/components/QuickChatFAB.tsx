@@ -6,8 +6,6 @@ import {
   Send,
   Sparkles,
   RotateCcw,
-  Maximize2,
-  Minimize2,
   Copy,
   Check,
   Loader2,
@@ -320,7 +318,6 @@ export const QuickChatFAB: React.FC<QuickChatFABProps> = ({
   onTransferToInquiry,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState<'chat' | 'quick-lead'>('chat');
   const [showTeaser, setShowTeaser] = useState(true);
 
@@ -661,11 +658,7 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
           aria-modal="true"
           aria-label="Ttech AI Consultant"
           data-lenis-prevent="true"
-          className={`fixed z-50 transition-all duration-300 flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/25 overflow-hidden ${
-            isExpanded
-              ? 'top-4 sm:top-6 bottom-4 sm:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[660px] max-w-[calc(100vw-24px)] rounded-3xl'
-              : 'bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[420px] max-w-[calc(100vw-24px)] h-[520px] max-h-[calc(100vh-120px)] rounded-3xl'
-          }`}
+          className="fixed z-50 bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[420px] max-w-[calc(100vw-24px)] h-[540px] max-h-[calc(100vh-120px)] rounded-3xl flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/25 overflow-hidden transition-all duration-300"
         >
           {/* Modal Header */}
           <div className="px-4 py-3.5 bg-white border-b border-[#DCE8F8] flex items-center justify-between gap-3 shrink-0">
@@ -700,14 +693,6 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
                   <RotateCcw className="w-4 h-4" />
                 </button>
               )}
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                title={isExpanded ? 'Restore compact size' : 'Expand window'}
-                className="hidden sm:block p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
-                aria-label={isExpanded ? 'Minimize size' : 'Maximize size'}
-              >
-                {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-              </button>
               <button
                 onClick={() => setIsOpen(false)}
                 title="Close chat"
