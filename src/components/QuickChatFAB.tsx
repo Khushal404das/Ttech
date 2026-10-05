@@ -6,6 +6,8 @@ import {
   Send,
   Sparkles,
   RotateCcw,
+  Maximize2,
+  Minimize2,
   Copy,
   Check,
   Loader2,
@@ -318,6 +320,7 @@ export const QuickChatFAB: React.FC<QuickChatFABProps> = ({
   onTransferToInquiry,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState<'chat' | 'quick-lead'>('chat');
   const [showTeaser, setShowTeaser] = useState(true);
 
@@ -374,16 +377,20 @@ export const QuickChatFAB: React.FC<QuickChatFABProps> = ({
     }
   }, [isOpen, activeTab, messages, isLoading]);
 
-  // Handle ESC key to close modal
+  // Handle ESC key to restore expanded state or close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
+      if (e.key === 'Escape') {
+        if (isExpanded) {
+          setIsExpanded(false);
+        } else if (isOpen) {
+          setIsOpen(false);
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, isExpanded]);
 
   const handleSendMessage = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
@@ -654,55 +661,92 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
       {/* Real-Time Chat Modal Window */}
       {isOpen && (
         <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Ttech AI Consultant"
-          data-lenis-prevent="true"
-          className="fixed z-50 bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[420px] max-w-[calc(100vw-24px)] h-[540px] max-h-[calc(100vh-120px)] rounded-3xl flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/25 overflow-hidden transition-all duration-300"
+          className={
+            isExpanded
+              ? 'fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/40 backdrop-blur-xs animate-in fade-in duration-200'
+              : 'contents'
+          }
+          onClick={() => {
+            if (isExpanded) setIsExpanded(false);
+          }}
         >
-          {/* Modal Header */}
-          <div className="px-4 py-3.5 bg-white border-b border-[#DCE8F8] flex items-center justify-between gap-3 shrink-0">
-            <div className="flex items-center gap-3">
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
-                <Bot className="w-5 h-5 text-white" />
-                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-[#0B1220] font-display">Ttech AI Consultant</h3>
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#EAF2FF] border border-blue-200 text-[#2563EB] font-semibold uppercase">
-                    AI Consultant
-                  </span>
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Ttech AI Consultant"
+            data-lenis-prevent="true"
+            onClick={(e) => e.stopPropagation()}
+            className={`flex flex-col bg-white border border-[#DCE8F8] shadow-2xl shadow-blue-950/30 overflow-hidden transition-all duration-300 ${
+              isExpanded
+                ? 'w-full max-w-2xl h-full max-h-[85vh] rounded-3xl relative z-10'
+                : 'fixed z-50 bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[420px] max-w-[calc(100vw-24px)] h-[540px] max-h-[calc(100vh-120px)] rounded-3xl'
+            }`}
+          >
+            {/* Modal Header */}
+            <div className="px-4 py-3.5 bg-white border-b border-[#DCE8F8] flex items-center justify-between gap-3 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
+                  <Bot className="w-5 h-5 text-white" />
+                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
                 </div>
-                <p className="text-[11px] text-[#7B8AA3] flex items-center gap-1.5">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-emerald-600 font-medium">Principal Solutions Architect</span>
-                </p>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-bold text-[#0B1220] font-display">Ttech AI Consultant</h3>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#EAF2FF] border border-blue-200 text-[#2563EB] font-semibold uppercase">
+                      AI Consultant
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-[#7B8AA3] flex items-center gap-1.5">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span className="text-emerald-600 font-medium">Principal Solutions Architect</span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Header Action Icons */}
+              <div className="flex items-center gap-1.5 text-[#7B8AA3]">
+                {activeTab === 'chat' && (
+                  <button
+                    onClick={handleResetChat}
+                    title="Clear chat history"
+                    className="p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
+                    aria-label="Restart chat"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                  </button>
+                )}
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  title={isExpanded ? 'Restore compact window (Esc)' : 'Expand to full studio view'}
+                  className={`p-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1 ${
+                    isExpanded
+                      ? 'text-[#2563EB] bg-[#EAF2FF] hover:bg-blue-100 font-semibold text-xs'
+                      : 'hidden sm:flex text-[#7B8AA3] hover:text-[#0B1220] hover:bg-[#F1F7FF]'
+                  }`}
+                  aria-label={isExpanded ? 'Restore standard size' : 'Expand window'}
+                >
+                  {isExpanded ? (
+                    <>
+                      <Minimize2 className="w-3.5 h-3.5 text-[#2563EB]" />
+                      <span className="text-[11px] text-[#2563EB]">Restore</span>
+                    </>
+                  ) : (
+                    <Maximize2 className="w-4 h-4" />
+                  )}
+                </button>
+                <button
+                  onClick={() => {
+                    setIsExpanded(false);
+                    setIsOpen(false);
+                  }}
+                  title="Close chat"
+                  className="p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
+                  aria-label="Close modal"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
             </div>
-
-            {/* Header Action Icons */}
-            <div className="flex items-center gap-1.5 text-[#7B8AA3]">
-              {activeTab === 'chat' && (
-                <button
-                  onClick={handleResetChat}
-                  title="Clear chat history"
-                  className="p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
-                  aria-label="Restart chat"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                </button>
-              )}
-              <button
-                onClick={() => setIsOpen(false)}
-                title="Close chat"
-                className="p-1.5 rounded-lg hover:text-[#0B1220] hover:bg-[#F1F7FF] transition-colors cursor-pointer"
-                aria-label="Close modal"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
 
           {/* Sub-Navigation Tabs: Quick Chat vs Instant Callback */}
           <div className="grid grid-cols-2 p-1.5 bg-[#F8FBFF] border-b border-[#DCE8F8] text-xs font-semibold text-center shrink-0 gap-1.5">
@@ -1070,6 +1114,7 @@ Thank you for your question! Our engineering team specializes in **.NET Core 9, 
               )}
             </div>
           )}
+          </div>
         </div>
       )}
     </>
