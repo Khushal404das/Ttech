@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Bot,
   User,
@@ -398,9 +398,6 @@ export const AIConsultantSection: React.FC<AIConsultantSectionProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const [customApiKey] = useState(() => {
-    return localStorage.getItem('ttech_gemini_api_key') || '';
-  });
 
   // Fast Lead Capture Tab
   const [activeSideTab, setActiveSideTab] = useState<'architecture' | 'callback'>('architecture');
@@ -457,7 +454,6 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(customApiKey ? { 'x-gemini-api-key': customApiKey } : {}),
         },
         body: JSON.stringify({
           messages: nextMessages.map((m) => ({
@@ -466,7 +462,6 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
           })),
           systemInstruction,
           model: 'gemini-2.5-flash',
-          apiKey: customApiKey || undefined,
         }),
       });
 
@@ -608,7 +603,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="flex justify-center mb-4">
-            <ShimmerBadge text="🤖 Real-Time Technical Advisor" variant="brand" />
+            <ShimmerBadge>🤖 Real-Time Technical Advisor</ShimmerBadge>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0B1220] tracking-tight font-display">
             Ask Our <span className="text-[#2563EB]">AI Solutions Architect</span>
@@ -645,7 +640,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
         {/* Main Interactive Studio Grid (Chat Window + Architecture Panel) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* LEFT: Live Embedded Chat Terminal (7 cols) */}
-          <div className="lg:col-span-7 bg-white rounded-3xl border border-[#DCE8F8] shadow-xl shadow-blue-950/5 overflow-hidden flex flex-col h-[620px]">
+          <div className="lg:col-span-7 bg-white rounded-3xl border border-[#DCE8F8] shadow-xl shadow-blue-950/5 overflow-hidden flex flex-col h-[min(620px,80svh)] lg:h-[620px]">
             {/* Chat Terminal Header */}
             <div className="px-5 py-4 bg-[#F8FBFF] border-b border-[#DCE8F8] flex items-center justify-between">
               <div className="flex items-center gap-3">

@@ -12,7 +12,7 @@ export default function NotFoundPage() {
         description="The page you're looking for doesn't exist. Return to Ttech SOLUTIONS homepage or contact us for assistance."
         noindex={true}
       />
-      <main className="flex-1 min-h-screen bg-[#F8FBFF] flex items-center justify-center px-4">
+      <main className="flex-1 min-h-[100svh] bg-[#F8FBFF] flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -30,7 +30,7 @@ export default function NotFoundPage() {
             <Search className="w-16 h-16 text-[#2563EB]" />
           </motion.div>
           
-          <h1 className="text-8xl sm:text-9xl font-extrabold text-[#2563EB] font-display mb-4">
+          <h1 className="text-7xl sm:text-9xl font-extrabold text-[#2563EB] font-display mb-4">
             404
           </h1>
           

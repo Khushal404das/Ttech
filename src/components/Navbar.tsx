@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll } from 'motion/react';
 import { TtechLogo } from './TtechLogo';
 import { Menu, X, ArrowRight, House, Briefcase, Code2, Mail } from 'lucide-react';
 
@@ -22,16 +22,15 @@ const NAV_LINKS: { id: ActivePage; label: string; icon: React.ComponentType<{ cl
 export const Navbar: React.FC<NavbarProps> = ({ activePage, onOpenConsultation }) => {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Progress bar is driven by a motion value, so scrolling no longer
+  // re-renders the whole header on every scroll event.
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -51,16 +50,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, onOpenConsultation }
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 bg-[#0B1528] border-b transition-[box-shadow,border-color] duration-300 py-3 sm:py-3.5 ${
         isScrolled
-          ? 'bg-[#0B1528]/95 backdrop-blur-xl border-b border-[#1E293B] shadow-[0_4px_25px_rgba(0,0,0,0.35)] py-2.5 sm:py-3'
-          : 'bg-[#0B1528] border-b border-[#1E293B]/70 shadow-[0_4px_20px_rgba(0,0,0,0.25)] py-3 sm:py-3.5'
+          ? 'border-[#1E293B] shadow-[0_4px_25px_rgba(0,0,0,0.35)]'
+          : 'border-[#1E293B]/70 shadow-[0_4px_20px_rgba(0,0,0,0.25)]'
       }`}
     >
       {/* Scroll progress bar */}
       <motion.div
         className="absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#93C5FD]"
-        style={{ scaleX: scrollProgress / 100 }}
+        style={{ scaleX: scrollYProgress }}
         aria-hidden="true"
       />
 
@@ -137,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, onOpenConsultation }
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            className="lg:hidden mt-3 px-4 pt-2 pb-5 bg-[#0B1528]/98 backdrop-blur-2xl border-b border-[#223354] shadow-2xl"
+            className="lg:hidden mt-3 px-4 pt-2 pb-5 bg-[#0B1528] border-b border-[#223354] shadow-2xl max-h-[calc(100svh-4.5rem)] overflow-y-auto"
             initial={{ opacity: 0, height: 0, y: -8 }}
             animate={{ opacity: 1, height: 'auto', y: 0 }}
             exit={{ opacity: 0, height: 0, y: -8 }}

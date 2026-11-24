@@ -16,7 +16,9 @@ export const OrganizationStructuredData: React.FC = () => {
       "https://linkedin.com/company/ttech-solutionz",
       "https://www.instagram.com/ttechsolutionz/",
       "https://www.facebook.com/profile.php?id=61594013625946",
-      "https://x.com/TtechSolutionz"
+      "https://x.com/TtechSolutionz",
+      "https://www.threads.com/@ttechsolutionz",
+      "https://www.tiktok.com/@ttechsolutionz"
     ],
     "priceRange": "$$",
     "serviceType": [

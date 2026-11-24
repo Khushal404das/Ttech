@@ -3,16 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import HomePage from './pages/HomePage';
-import ServicesPage from './pages/ServicesPage';
-import WorkPage from './pages/WorkPage';
-import ContactPage from './pages/ContactPage';
-import PrivacyPage from './pages/PrivacyPage';
-import TermsPage from './pages/TermsPage';
-import NotFoundPage from './pages/NotFoundPage';
+
+// Home is bundled with the app so the first screen paints fast; every other
+// page is split into its own chunk and only downloaded when visited.
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const WorkPage = lazy(() => import('./pages/WorkPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 export default function App() {
   return (

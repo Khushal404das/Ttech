@@ -13,7 +13,10 @@ export function ScrollExperience() {
     }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    // Phones/tablets already scroll smoothly with native momentum; running
+    // Lenis there only adds a permanent animation loop and scroll jitter.
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (prefersReducedMotion || isTouch) return;
 
     const lenis = new Lenis({
       lerp: 0.1,

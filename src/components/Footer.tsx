@@ -1,16 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TtechLogo } from './TtechLogo';
+import { SocialLinks } from './SocialLinks';
 import {
   ArrowUp,
   Heart,
   Mail,
   MessageSquare,
   Phone,
-  Facebook,
-  Instagram,
-  Linkedin,
-  X,
 } from 'lucide-react';
 
 interface FooterProps {
@@ -74,44 +71,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
               <h5 className="text-[10px] font-bold text-[#D8DEE9] uppercase tracking-wider mb-2.5">
                 Follow Us
               </h5>
-              <div className="flex items-center gap-2">
-                <a
-                  href="https://linkedin.com/company/ttech-solutionz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#D8DEE9] hover:text-[#0A66C2] hover:border-[#0A66C2]/30 transition-colors"
-                  aria-label="Follow us on LinkedIn"
-                >
-                  <Linkedin className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://www.facebook.com/profile.php?id=61594013625946"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#D8DEE9] hover:text-[#1877F2] hover:border-[#1877F2]/30 transition-colors"
-                  aria-label="Follow us on Facebook"
-                >
-                  <Facebook className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://www.instagram.com/ttechsolutionz/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#D8DEE9] hover:text-[#E4405F] hover:border-[#E4405F]/30 transition-colors"
-                  aria-label="Follow us on Instagram"
-                >
-                  <Instagram className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://x.com/TtechSolutionz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#D8DEE9] hover:text-white hover:border-white/30 transition-colors"
-                  aria-label="Follow us on X (Twitter)"
-                >
-                  <X className="w-4 h-4" />
-                </a>
-              </div>
+              <SocialLinks variant="dark" />
             </div>
           </div>
 

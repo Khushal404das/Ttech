@@ -66,6 +66,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const spotlight = useMotionTemplate`radial-gradient(640px circle at ${pointerX}% ${pointerY}%, rgba(96, 165, 250, 0.18), transparent 70%)`;
   const word = useTypewriter(TYPEWRITER_WORDS);
 
+  // Scroll-linked parallax/fade only on desktop — on phones it fights with
+  // touch scrolling and looks like flicker.
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px) and (pointer: fine)');
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
     if (event.pointerType === 'touch') return;
     const bounds = event.currentTarget.getBoundingClientRect();
@@ -76,7 +87,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden border-b border-[#DCE8F8] bg-[#F8FBFF] min-h-screen flex items-center"
+      className="relative overflow-hidden border-b border-[#DCE8F8] bg-[#F8FBFF] min-h-[100svh] flex items-center"
       onPointerMove={handlePointerMove}
       onPointerLeave={() => {
         pointerX.set(50);
@@ -86,10 +97,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Animated Sky and Floating Clouds Background with Drifting Cloud Layers & Parallax */}
       <SkyCloudsBackground />
 
-      <motion.div className="pointer-events-none absolute inset-0 z-0" style={{ background: spotlight }} aria-hidden="true" />
+      <motion.div className="pointer-events-none absolute inset-0 z-0 hidden lg:block" style={{ background: spotlight }} aria-hidden="true" />
       <motion.div
-        className="relative z-10 mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8 pt-32 pb-24"
-        style={{ y, opacity }}
+        className="relative z-10 mx-auto w-full max-w-6xl px-4 text-center sm:px-6 lg:px-8 pt-28 pb-24 sm:pt-32"
+        style={isDesktop ? { y, opacity } : undefined}
       >
         {/* Shimmer badge pill (Magic UI / 21st.dev style) */}
         <motion.div
@@ -105,13 +116,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
         {/* Main heading */}
         <motion.h1
-          className="mx-auto max-w-5xl font-display text-4xl font-extrabold leading-[1.06] tracking-[-0.04em] text-[#0B1220] sm:text-6xl lg:text-7xl xl:text-8xl mb-6"
+          className="mx-auto max-w-5xl font-display text-[2.1rem] font-extrabold leading-[1.06] tracking-[-0.04em] text-[#0B1220] sm:text-6xl lg:text-7xl xl:text-8xl mb-6"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
         >
           We Build{' '}
-          <span className="relative inline-block">
+          {/* Reserve two lines so the typewriter never changes the hero's height (that was the "jumping") */}
+          <span className="relative flex min-h-[2.12em] items-center justify-center">
             <span className="bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] bg-clip-text text-transparent">
               {word}
               <motion.span
@@ -121,8 +133,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               />
             </span>
           </span>
-          <br />
-          <span className="text-[#0B1220]">That Scale.</span>
+          <span className="block text-[#0B1220]">That Scale.</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -235,7 +246,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}

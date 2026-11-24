@@ -191,7 +191,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-140px)] min-h-[600px] bg-white/60 rounded-2xl border border-[#DCE8F8] overflow-hidden shadow-2xl animate-in fade-in duration-200">
+    <div className="flex flex-col h-[calc(100svh-140px)] min-h-[480px] sm:min-h-[600px] bg-white/60 rounded-2xl border border-[#DCE8F8] overflow-hidden shadow-2xl animate-in fade-in duration-200">
       {/* Top Bar: Persona Selection & System Instruction Toggle */}
       <div className="border-b border-[#DCE8F8] bg-white/70 p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">

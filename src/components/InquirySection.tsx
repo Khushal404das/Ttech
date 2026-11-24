@@ -19,6 +19,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import confetti from 'canvas-confetti';
 import type { ProjectInquiry } from '../types';
+import { SocialLinks } from './SocialLinks';
 
 interface InquirySectionProps {
   initialService?: string;
@@ -377,6 +378,13 @@ Ttech SOLUTIONS Website Inquiry System`;
                   <div className="text-[11px] text-[#2563EB]">Formal NDA signed prior to code review</div>
                 </div>
               </a>
+
+              {/* Social profiles */}
+              <div className="p-4 rounded-2xl bg-white border border-[#DCE8F8] shadow-sm">
+                <div className="text-xs text-[#7B8AA3]">Follow Us</div>
+                <div className="text-sm font-bold text-[#0B1220] mb-3">See our latest work &amp; updates</div>
+                <SocialLinks variant="light" />
+              </div>
             </div>
 
             {/* Guarantees */}

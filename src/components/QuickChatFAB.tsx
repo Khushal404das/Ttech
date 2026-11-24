@@ -40,44 +40,44 @@ interface QuickChatFABProps {
 const STARTER_PROMPTS = [
   {
     icon: Sparkles,
-    label: '💡 Scope my SaaS Idea',
-    prompt: 'I want to build a modern SaaS platform. Can you help me break down the core modules, architecture, and estimated MVP timeline?',
+    label: '🌐 I need a website',
+    prompt: 'I need a website for my business.',
   },
   {
     icon: Zap,
-    label: '⚡ .NET 9 vs Node.js',
-    prompt: 'Should I choose ASP.NET Core 9 or Node.js for my high-throughput backend API?',
+    label: '📱 Build a mobile app',
+    prompt: 'I want to build a mobile app.',
   },
   {
     icon: DollarSign,
-    label: '💰 MVP Pricing Estimates',
-    prompt: 'What is the ballpark cost and sprint breakdown for developing an MVP with Ttech SOLUTIONS?',
+    label: '💰 How much will it cost?',
+    prompt: 'How much does a project cost?',
   },
   {
     icon: Clock,
-    label: '⏱️ Agile Sprint Cadence',
-    prompt: 'How do your 2-week sprints and bi-weekly live staging demos work?',
+    label: '🗺️ How do we start?',
+    prompt: 'How do we start a project with you?',
   },
   {
     icon: ShieldCheck,
-    label: '🛡️ IP Rights & Warranty',
-    prompt: 'Explain your 100% code ownership transfer and 30-day post-launch warranty policy.',
+    label: '🛡️ Ownership & support',
+    prompt: 'Do I own the source code, and what support do I get after launch?',
   },
 ];
 
 const INITIAL_WELCOME: ChatMessage = {
   id: 'welcome-advisor',
   role: 'model',
-  content: `### 🤖 Hello! I am Ttech's AI Solutions Architect
-Powered by **Google Gemini AI**, I am your real-time conversational engineering partner.
+  content: `### 👋 Hi! I'm Ttech's AI Consultant
+I help businesses choose the right software solution — and plan its features, cost and timeline.
 
-Feel free to chat with me about:
-- **System Architecture**: .NET Core 9 Clean Architecture, React 19, CQRS, Microservices & PostgreSQL
-- **Project Scoping & Roadmaps**: MVP timelines, sprints, milestone breakdowns & deliverables
-- **Pricing & IP**: Transparent milestone budgets, 100% code transfer, and 30-day warranty
-- **Code & Tech Decisions**: Any programming question, framework comparisons, or custom workflows
+I can help you with:
+- **Your idea**: the right solution for your business — website, online store, mobile app, SaaS or custom software
+- **Scope & strategy**: what to build first (MVP) and what can wait
+- **Cost & timeline**: realistic budgets and delivery times
+- **How we work**: getting started, payments, code ownership & support
 
-*Type any message below or pick a prompt to chat!*`,
+*Tell me about your business and what you'd like to build, or tap a quick question below.*`,
   timestamp: Date.now(),
 };
 
@@ -382,12 +382,27 @@ export const QuickChatFAB: React.FC<QuickChatFABProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'chat' | 'quick-lead'>('chat');
-  const [showTeaser, setShowTeaser] = useState(true);
+  // Teaser bubble: desktop only (on phones it covered page content), shown
+  // after a short delay, and not again once dismissed in this visit.
+  const [showTeaser, setShowTeaserState] = useState(false);
+  const setShowTeaser = (v: boolean) => {
+    setShowTeaserState(v);
+    if (!v) {
+      try { sessionStorage.setItem('ttech_chat_teaser_dismissed', '1'); } catch { /* ignore */ }
+    }
+  };
+  useEffect(() => {
+    let dismissed = false;
+    try { dismissed = sessionStorage.getItem('ttech_chat_teaser_dismissed') === '1'; } catch { /* ignore */ }
+    if (dismissed || !window.matchMedia('(min-width: 1024px)').matches) return;
+    const t = setTimeout(() => setShowTeaserState(true), 4000);
+    return () => clearTimeout(t);
+  }, []);
 
   // Chat state
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     try {
-      const saved = localStorage.getItem('ttech_quick_chat_history');
+      const saved = localStorage.getItem('ttech_quick_chat_history_v2');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) return parsed;
@@ -411,9 +426,6 @@ export const QuickChatFAB: React.FC<QuickChatFABProps> = ({
   const [leadSubmitting, setLeadSubmitting] = useState(false);
   const [leadSuccess, setLeadSuccess] = useState(false);
 
-  const [customApiKey] = useState(() => {
-    return localStorage.getItem('ttech_gemini_api_key') || '';
-  });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -421,7 +433,7 @@ export const QuickChatFAB: React.FC<QuickChatFABProps> = ({
   // Sync to local storage
   useEffect(() => {
     try {
-      localStorage.setItem('ttech_quick_chat_history', JSON.stringify(messages));
+      localStorage.setItem('ttech_quick_chat_history_v2', JSON.stringify(messages));
     } catch {
       // ignore
     }
@@ -486,7 +498,6 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(customApiKey ? { 'x-gemini-api-key': customApiKey } : {}),
         },
         body: JSON.stringify({
           messages: nextMessages.map((m) => ({
@@ -495,7 +506,6 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
           })),
           systemInstruction,
           model: 'gemini-2.5-flash',
-          apiKey: customApiKey || undefined,
         }),
       });
 
@@ -525,7 +535,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
     setMessages([INITIAL_WELCOME]);
     setErrorMessage(null);
     try {
-      localStorage.removeItem('ttech_quick_chat_history');
+      localStorage.removeItem('ttech_quick_chat_history_v2');
     } catch {
       // ignore
     }
@@ -632,7 +642,11 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
   return (
     <>
       {/* Floating Action Button & Teaser Bubble Container */}
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2 pointer-events-auto select-none">
+      <div
+        data-chat-fab
+        className={`fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-50 flex-col items-end gap-2 pointer-events-auto select-none ${isOpen ? 'hidden sm:flex' : 'flex'}`}
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
         {/* Initial Teaser Bubble (Dismissible) */}
         {!isOpen && showTeaser && (
           <div className="relative max-w-xs bg-white/95 backdrop-blur-md border border-[#DCE8F8] p-3.5 rounded-2xl shadow-xl shadow-blue-900/10 text-left animate-in fade-in slide-in-from-bottom-3 duration-300">
@@ -921,7 +935,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
                       onClick={handleTransferToMainForm}
                       className="text-[#2563EB] hover:underline normal-case font-sans font-medium"
                     >
-                      Transfer to Main Form &rarr;
+                      Send chat to project form &rarr;
                     </button>
                   )}
                 </div>

@@ -21,6 +21,14 @@ export const CookieConsentBanner: React.FC = () => {
     }
   }, []);
 
+  // Let other fixed widgets (chat button) know the banner is on screen
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isVisible) root.setAttribute('data-cookie-banner', 'open');
+    else root.removeAttribute('data-cookie-banner');
+    return () => root.removeAttribute('data-cookie-banner');
+  }, [isVisible]);
+
   const handleAccept = () => {
     try {
       localStorage.setItem(STORAGE_KEY, 'accepted');

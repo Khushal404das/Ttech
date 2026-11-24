@@ -70,8 +70,24 @@
     background-color: var(--bg-page);
     color: var(--text-body);
     font-family: var(--font-body);
-    overflow-x: hidden;
     color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* `clip` stops sideways scrolling without creating a scroll container
+     (overflow-x: hidden on html+body caused scroll jitter on iOS). */
+  body {
+    overflow-x: hidden; /* fallback for older Safari */
+    overflow-x: clip;
+  }
+
+  img, svg, video, canvas {
+    max-width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6, .font-display {
@@ -252,6 +268,53 @@
 
 .animate-drift-right-4 {
   animation: drift-right-4 85s linear infinite;
+}
+
+/* Hero sky image: small WebP on phones, larger WebP elsewhere (JPG fallback) */
+.sky-bg {
+  background-position: 50% 30%;
+  background-image: url('/sky-clouds-bg.jpg');
+  background-image: image-set(url('/sky-clouds-bg-mobile.webp') type('image/webp'), url('/sky-clouds-bg.jpg') type('image/jpeg'));
+}
+@media (min-width: 768px) {
+  .sky-bg {
+    background-image: image-set(url('/sky-clouds-bg.webp') type('image/webp'), url('/sky-clouds-bg.jpg') type('image/jpeg'));
+  }
+}
+
+/* =========================================================================
+   MOBILE PERFORMANCE
+   backdrop-filter and large blur filters are very expensive on phone GPUs
+   and are the usual cause of flicker while scrolling. Panels are already
+   ~95% opaque, so dropping the blur on small/touch screens is invisible.
+   ========================================================================= */
+@media (max-width: 1023px), (pointer: coarse) {
+  .glass-panel,
+  [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  [class*="blur-3xl"]:not([class*="backdrop-blur"]),
+  [class*="blur-[1"]:not([class*="backdrop-blur"]) {
+    filter: blur(40px);
+  }
+
+  .animate-marquee {
+    will-change: transform;
+  }
+}
+
+/* On phones the cookie banner spans the full width at the bottom, so hide
+   the chat button until the visitor has made a choice. */
+@media (max-width: 639px) {
+  html[data-cookie-banner="open"] [data-chat-fab] {
+    opacity: 0;
+    pointer-events: none !important;
+  }
+}
+[data-chat-fab] {
+  transition: opacity 0.2s ease;
 }
 
 /* =========================================================================
