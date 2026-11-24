@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll } from 'motion/react';
 import { TtechLogo } from './TtechLogo';
+import { BookCallButton } from './BookCallButton';
 import { Menu, X, ArrowRight, House, Briefcase, Code2, Mail } from 'lucide-react';
 
 // Which nav item is active — driven by the current page
@@ -23,6 +25,42 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, onOpenConsultation }
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const location = useLocation();
+
+  // Close the drawer whenever the page changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // While the drawer is open: lock page scroll, close on Escape, manage focus
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    (window as any).__lenis?.stop?.();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    const focusTimer = setTimeout(() => closeButtonRef.current?.focus(), 50);
+    // Close if the screen becomes wide enough for the desktop nav
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const onWide = () => {
+      if (mq.matches) setMobileMenuOpen(false);
+    };
+    mq.addEventListener('change', onWide);
+    const menuButton = menuButtonRef.current;
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      (window as any).__lenis?.start?.();
+      window.removeEventListener('keydown', onKey);
+      mq.removeEventListener('change', onWide);
+      clearTimeout(focusTimer);
+      menuButton?.focus();
+    };
+  }, [mobileMenuOpen]);
   // Progress bar is driven by a motion value, so scrolling no longer
   // re-renders the whole header on every scroll event.
   const { scrollYProgress } = useScroll();
@@ -103,14 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, onOpenConsultation }
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-2.5 shrink-0">
-            <button
-              onClick={openConsultation}
-              className="group relative flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#2563EB] hover:bg-[#1D4ED8] shadow-[0_8px_20px_rgba(37,99,235,.4)] hover:shadow-[0_10px_25px_rgba(37,99,235,.55)] transition-all cursor-pointer overflow-hidden border border-blue-400/20"
-            >
-              <span className="relative z-10 text-white">Let&apos;s Build Together</span>
-              <ArrowRight className="w-3.5 h-3.5 relative z-10 group-hover:translate-x-0.5 transition-transform text-white" />
-              <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </button>
+            <BookCallButton variant="compact" label="Book a free call" />
           </div>
 
           {/* Mobile actions */}
@@ -122,79 +153,113 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, onOpenConsultation }
               Contact
             </button>
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              ref={menuButtonRef}
+              onClick={() => setMobileMenuOpen(true)}
               className="p-2 rounded-xl bg-[#131D33] border border-[#223354] text-white hover:bg-[#1E2D4A] cursor-pointer shadow-sm"
-              aria-label="Toggle Menu"
+              aria-label="Open menu"
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+              <Menu className="w-5 h-5 text-white" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile dropdown */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            className="lg:hidden mt-3 px-4 pt-2 pb-5 bg-[#0B1528] border-b border-[#223354] shadow-2xl max-h-[calc(100svh-4.5rem)] overflow-y-auto"
-            initial={{ opacity: 0, height: 0, y: -8 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -8 }}
-            transition={{ duration: 0.22, ease: 'easeOut' }}
-          >
-            <div className="grid grid-cols-2 gap-2 mb-4">
-              {NAV_LINKS.map((link) => {
-                const isActive = activePage === link.id;
-                const Icon = link.icon;
-                return (
-                  <Link
-                    key={link.id}
-                    to={link.to}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-2 p-2.5 rounded-xl text-xs font-medium text-left transition-colors no-underline ${
-                      isActive
-                        ? 'bg-[#2563EB] text-white border border-blue-400 font-semibold'
-                        : 'bg-[#131D33] text-white hover:bg-[#1E2D4A] border border-[#223354]'
-                    }`}
-                  >
-                    <Icon className="w-4 h-4 text-white" />
-                    <span className="text-white">{link.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
-
-            <div className="flex flex-col gap-2 pt-2 border-t border-[#223354]">
-              <button
-                type="button"
-                onClick={openConsultation}
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] text-white text-xs font-bold shadow-[0_8px_20px_rgba(37,99,235,.35)] cursor-pointer"
-              >
-                <span className="text-white">Ready to Build? Let&apos;s Talk</span>
-                <ArrowRight className="w-4 h-4 text-white" />
-              </button>
-
-              <div className="flex items-center justify-center gap-4 pt-2 text-[11px] text-[#A7B0C2]">
-                <Link
-                  to="/privacy"
+      {/* Mobile side drawer (rendered on <body> so nothing can sit on top of it) */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <div className="lg:hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Site menu">
+                {/* Backdrop */}
+                <motion.div
+                  className="absolute inset-0 bg-[#020617]/60"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-white transition-colors"
+                />
+
+                {/* Panel */}
+                <motion.nav
+                  className="absolute right-0 top-0 flex h-full w-[82%] max-w-[320px] flex-col bg-[#0B1528] border-l border-[#223354] shadow-2xl"
+                  style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
+                  initial={{ x: '100%' }}
+                  animate={{ x: 0 }}
+                  exit={{ x: '100%' }}
+                  transition={{ type: 'tween', duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  Privacy Policy
-                </Link>
-                <span>·</span>
-                <Link
-                  to="/terms"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-white transition-colors"
-                >
-                  Terms &amp; Conditions
-                </Link>
+                  {/* Drawer header */}
+                  <div className="flex items-center justify-between px-5 py-4 border-b border-[#223354]">
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#A7B0C2]">Menu</span>
+                    <button
+                      ref={closeButtonRef}
+                      type="button"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="p-2 rounded-xl bg-[#131D33] border border-[#223354] text-white hover:bg-[#1E2D4A] cursor-pointer"
+                      aria-label="Close menu"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Links — one column */}
+                  <ul className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+                    {NAV_LINKS.map((link) => {
+                      const isActive = activePage === link.id;
+                      const Icon = link.icon;
+                      return (
+                        <li key={link.id}>
+                          <Link
+                            to={link.to}
+                            onClick={() => setMobileMenuOpen(false)}
+                            aria-current={isActive ? 'page' : undefined}
+                            className={`flex items-center gap-3 rounded-xl px-4 py-3.5 text-[15px] font-semibold no-underline transition-colors ${
+                              isActive
+                                ? 'bg-[#2563EB] text-white'
+                                : 'text-[#D8DEE9] hover:bg-[#131D33] hover:text-white'
+                            }`}
+                          >
+                            <Icon className="w-5 h-5 shrink-0" />
+                            <span>{link.label}</span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+
+                  {/* Bottom: CTA + legal */}
+                  <div className="px-4 pt-4 pb-5 border-t border-[#223354] space-y-3">
+                    <BookCallButton
+                      variant="dark"
+                      className="w-full !py-3"
+                      onClick={() => setMobileMenuOpen(false)}
+                    />
+                    <button
+                      type="button"
+                      onClick={openConsultation}
+                      className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] text-white text-sm font-bold shadow-[0_8px_20px_rgba(37,99,235,.35)] cursor-pointer"
+                    >
+                      <span>Ready to Build? Let&apos;s Talk</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                    <div className="flex items-center justify-center gap-3 text-xs text-[#A7B0C2]">
+                      <Link to="/privacy" onClick={() => setMobileMenuOpen(false)} className="hover:text-white transition-colors">
+                        Privacy Policy
+                      </Link>
+                      <span aria-hidden="true">·</span>
+                      <Link to="/terms" onClick={() => setMobileMenuOpen(false)} className="hover:text-white transition-colors">
+                        Terms &amp; Conditions
+                      </Link>
+                    </div>
+                  </div>
+                </motion.nav>
               </div>
-            </div>
-          </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </header>
   );
 };

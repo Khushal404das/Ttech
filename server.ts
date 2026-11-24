@@ -1,9 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
+import { existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
 import { advisorReply, SYSTEM_PROMPT } from './chat-advisor';
+import { handleInquiry, inquiryStatus } from './inquiries';
 
 dotenv.config();
 
@@ -32,6 +34,7 @@ app.get('/api/health', (_req, res) => {
   res.json({
     status: 'ok',
     configured: Boolean(getEffectiveKey()),
+    inquiryEmail: inquiryStatus().emailConfigured,
     timestamp: new Date().toISOString(),
   });
 });
@@ -317,25 +320,8 @@ Output ONLY raw valid JSON. Do not include markdown code ticks.`;
 });
 
 // Direct Inquiries submission endpoint
-app.post('/api/inquiries', (req, res) => {
-  const { clientName, email, serviceType, budgetRange, projectDescription } = req.body;
-  if (!clientName || !email) {
-    return res.status(400).json({ error: 'Name and email are required.' });
-  }
-  // Log received inquiry
-  console.log('New client inquiry received at Ttech SOLUTIONS:', {
-    clientName,
-    email,
-    serviceType,
-    budgetRange,
-    projectDescription: (projectDescription || '').slice(0, 100),
-    timestamp: new Date().toISOString()
-  });
-  return res.json({
-    success: true,
-    message: 'Inquiry received successfully. Our engineering team will review and reply within 24 hours.'
-  });
-});
+// Contact-form & callback inquiries: saved to data/inquiries.jsonl and emailed (see inquiries.ts)
+app.post('/api/inquiries', handleInquiry);
 
 // Vite Middleware for Dev / Static serving for Prod
 async function startServer() {
@@ -351,9 +337,22 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.resolve(__dirname, 'dist')));
-    app.get('*', (_req, res) => {
-      res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+    const distDir = path.resolve(__dirname, 'dist');
+    // Hashed build assets never change, so let browsers cache them for a year
+    app.use('/assets', express.static(path.join(distDir, 'assets'), { immutable: true, maxAge: '1y' }));
+    // redirect:false so /services is NOT redirected to /services/
+    app.use(express.static(distDir, { redirect: false, index: 'index.html' }));
+    app.get('*', (req, res) => {
+      // Pre-rendered pages: dist/<route>/index.html (see scripts/prerender.mjs)
+      const route = req.path.replace(/\/+$/, '');
+      const prerendered = path.join(distDir, route, 'index.html');
+      if (route && prerendered.startsWith(distDir + path.sep) && existsSync(prerendered)) {
+        return res.sendFile(prerendered);
+      }
+      // Anything else: plain app shell (the app shows its own 404 page)
+      const shell = path.join(distDir, 'app-shell.html');
+      const known = route === '' || route === '/404';
+      res.status(known ? 200 : 404).sendFile(existsSync(shell) ? shell : path.join(distDir, 'index.html'));
     });
   }
 

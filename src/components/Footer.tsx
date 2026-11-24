@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { TtechLogo } from './TtechLogo';
 import { SocialLinks } from './SocialLinks';
+import { LANDING_PAGES } from '../data/landingPages';
 import {
   ArrowUp,
   Heart,
@@ -81,23 +82,21 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
               Core Services
             </h4>
             <ul className="space-y-2.5 text-xs">
-              {[
-                'Software Development (.NET)',
-                'Web Applications & SAAS',
-                'Website Development',
-                'Full Stack Development',
-                'AI Automation & Agents',
-                'UI/UX Design & Figma to Web',
-              ].map((service) => (
-                <li key={service}>
+              {LANDING_PAGES.map((page) => (
+                <li key={page.slug}>
                   <Link
-                    to="/services"
+                    to={`/${page.slug}`}
                     className="hover:text-[#60A5FA] transition-colors no-underline text-[#A7B0C2]"
                   >
-                    {service}
+                    {page.navLabel}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link to="/services" className="font-medium text-[#60A5FA] no-underline hover:text-[#93C5FD]">
+                  All services →
+                </Link>
+              </li>
             </ul>
           </div>
 

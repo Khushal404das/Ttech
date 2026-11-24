@@ -18,7 +18,7 @@ export const SEO: React.FC<SEOProps> = ({
   ogType = 'website',
   noindex = false,
 }) => {
-  const siteUrl = 'https://yourdomain.com'; // Update with production domain
+  const siteUrl = 'https://ttechsolutionz.dev';
   const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 

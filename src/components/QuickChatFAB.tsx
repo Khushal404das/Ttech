@@ -584,6 +584,7 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
       budgetRange: 'Quick Chat Callback Request',
       timeline: 'Fast Track (Immediate Discovery)',
       preferredTech: '.NET 9 / React 19 / Modern Fullstack',
+      source: 'Chat callback request',
       projectDescription: `[Quick Chat Modal Fast Callback]\nContact: ${leadContact}\nNeed: ${leadNotes.trim() || 'Fast consultation requested via live chat widget.'}`,
     };
 
@@ -598,21 +599,22 @@ Keep answers concise, clear, and structured with clean markdown bullet points. A
         return null;
       });
 
-      // 2. Also try Firestore sync in parallel if configured
+      // Only show success when the server confirms it received the request
+      if (!serverRes || !serverRes.ok) {
+        throw new Error('Server did not confirm the callback request.');
+      }
+
+      // 2. Optional Firestore copy in the background (never blocks the visitor)
       try {
         if (db) {
-          await addDoc(collection(db, 'inquiries'), {
+          addDoc(collection(db, 'inquiries'), {
             ...inquiryPayload,
             status: 'new',
             createdAt: serverTimestamp(),
-          });
+          }).catch((firestoreErr) => console.info('Firestore optional sync skipped:', firestoreErr?.message));
         }
       } catch (firestoreErr) {
         console.info('Firestore optional sync skipped:', firestoreErr);
-      }
-
-      if (serverRes && !serverRes.ok) {
-        throw new Error('Server returned an error processing your inquiry.');
       }
 
       // Trigger celebration confetti

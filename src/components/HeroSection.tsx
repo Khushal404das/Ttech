@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
 import { ArrowRight, CheckCircle2, Zap, Shield, Globe, Code2, Sparkles, Cpu } from 'lucide-react';
 import { MagneticButton } from './ui/MagneticButton';
+import { BookCallButton } from './BookCallButton';
 import { ShimmerBadge } from './ui/ShimmerBadge';
 import { SpotlightCard } from './ui/SpotlightCard';
 import { SkyCloudsBackground } from './SkyCloudsBackground';
@@ -153,22 +154,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
         >
-          <MagneticButton
-            onClick={onOpenConsultation}
-            className="group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] px-8 py-4 text-sm font-bold text-white shadow-[0_8px_20px_rgba(37,99,235,.35)] hover:shadow-[0_12px_28px_rgba(37,99,235,.45)] sm:w-auto cursor-pointer"
-          >
-            <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            <span className="relative">Start Your Project</span>
-            <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </MagneticButton>
+          <BookCallButton className="w-full px-8 sm:w-auto" />
 
           <MagneticButton
-            onClick={onOpenEstimator}
+            onClick={onOpenConsultation}
             className="group inline-flex w-full items-center justify-center gap-2.5 rounded-2xl border border-[#DCE8F8] bg-white px-8 py-4 text-sm font-semibold text-[#0B1220] shadow-sm transition-all hover:border-[#2563EB] hover:bg-[#F1F7FF] sm:w-auto cursor-pointer"
           >
-            <span>Estimate Project Cost</span>
+            <span>Start Your Project</span>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </MagneticButton>
         </motion.div>
+        <motion.p
+          className="mt-4 text-xs text-[#7B8AA3]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
+        >
+          Not sure about budget?{' '}
+          <button type="button" onClick={onOpenEstimator} className="cursor-pointer font-semibold text-[#2563EB] underline-offset-2 hover:underline">
+            Estimate your project cost
+          </button>
+        </motion.p>
 
         {/* Live Delivery Signal Bar */}
         <motion.div

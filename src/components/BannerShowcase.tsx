@@ -256,7 +256,7 @@ return <CyberCanvas renderState={state} />;`,
                       <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                     </div>
                     <div className="text-[10px] font-mono text-[#7B8AA3] bg-white px-3 py-0.5 rounded-md border border-[#DCE8F8]">
-                      https://ttechsolutions.com/{currentService.id}
+                      https://ttechsolutionz.dev/{currentService.id}
                     </div>
                     <span className="text-[10px] font-mono text-emerald-400 font-semibold flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />

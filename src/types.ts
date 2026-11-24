@@ -46,7 +46,9 @@ export interface CaseStudy {
   id: string;
   title: string;
   client: string;
-  category: 'SaaS & WebApps' | 'Enterprise .NET' | 'UI/UX Design' | 'E-Commerce' | 'AI Automation';
+  category: 'AI & Computer Vision' | 'Automation' | 'AI Automation' | 'Web Apps' | 'SaaS & WebApps' | 'Enterprise .NET' | 'UI/UX Design' | 'E-Commerce';
+  /** Optional links shown on the card and in the details view */
+  links?: { label: string; href: string; kind: 'github' | 'live' }[];
   tagline: string;
   description: string;
   metrics: { label: string; value: string }[];

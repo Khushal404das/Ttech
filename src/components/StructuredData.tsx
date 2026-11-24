@@ -1,5 +1,12 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+
+/** JSON-LD for Google. "<" is escaped so the JSON can never close the script tag. */
+export const JsonLd: React.FC<{ data: unknown }> = ({ data }) => (
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }}
+  />
+);
 
 export const OrganizationStructuredData: React.FC = () => {
   const structuredData = {
@@ -7,8 +14,8 @@ export const OrganizationStructuredData: React.FC = () => {
     "@type": "ProfessionalService",
     "name": "Ttech SOLUTIONS",
     "alternateName": "Ttech Solutionz",
-    "url": "https://yourdomain.com",
-    "logo": "https://yourdomain.com/logo.png",
+    "url": "https://ttechsolutionz.dev",
+    "logo": "https://ttechsolutionz.dev/logo.png",
     "description": "Enterprise-grade software development agency specializing in SaaS platforms, web applications, .NET Core solutions, React development, and UI/UX design.",
     "telephone": "+92-348-9763998",
     "email": "teatech.solutionz@gmail.com",
@@ -39,13 +46,8 @@ export const OrganizationStructuredData: React.FC = () => {
     "foundingDate": "2020"
   };
 
-  return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(structuredData)}
-      </script>
-    </Helmet>
-  );
+  // Rendered inline (not via Helmet) so it is also present in the pre-rendered HTML
+  return <JsonLd data={structuredData} />;
 };
 
 export const WebsiteStructuredData: React.FC = () => {
@@ -53,24 +55,19 @@ export const WebsiteStructuredData: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Ttech SOLUTIONS",
-    "url": "https://yourdomain.com",
+    "url": "https://ttechsolutionz.dev",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://yourdomain.com/?s={search_term_string}"
+        "urlTemplate": "https://ttechsolutionz.dev/?s={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
   };
 
-  return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(structuredData)}
-      </script>
-    </Helmet>
-  );
+  // Rendered inline (not via Helmet) so it is also present in the pre-rendered HTML
+  return <JsonLd data={structuredData} />;
 };
 
 export const ServiceStructuredData: React.FC<{ service: { name: string; description: string; url: string } }> = ({ service }) => {
@@ -82,7 +79,7 @@ export const ServiceStructuredData: React.FC<{ service: { name: string; descript
     "provider": {
       "@type": "Organization",
       "name": "Ttech SOLUTIONS",
-      "url": "https://yourdomain.com"
+      "url": "https://ttechsolutionz.dev"
     },
     "areaServed": {
       "@type": "GeoCircle",
@@ -91,11 +88,6 @@ export const ServiceStructuredData: React.FC<{ service: { name: string; descript
     "url": service.url
   };
 
-  return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(structuredData)}
-      </script>
-    </Helmet>
-  );
+  // Rendered inline (not via Helmet) so it is also present in the pre-rendered HTML
+  return <JsonLd data={structuredData} />;
 };

@@ -20,6 +20,7 @@ import { db } from '../lib/firebase';
 import confetti from 'canvas-confetti';
 import type { ProjectInquiry } from '../types';
 import { SocialLinks } from './SocialLinks';
+import { BookCallButton } from './BookCallButton';
 
 interface InquirySectionProps {
   initialService?: string;
@@ -159,14 +160,16 @@ export const InquirySection: React.FC<InquirySectionProps> = ({
         body: JSON.stringify({
           ...inquiryPayload,
           website_hp: honeypot,
+          source: 'Contact page form',
         }),
-      }).catch((err) => {
-        console.warn('Backend API submission warning:', err);
-        return { ok: true };
-      });
+      }).catch(() => null);
 
-      if (serverRes && !serverRes.ok) {
-        const errorData = await (serverRes as Response).json().catch(() => ({}));
+      // Only show success when the server confirms it received the inquiry
+      if (!serverRes) {
+        throw new Error('Could not reach our server. Please check your connection, or contact us on WhatsApp or email below.');
+      }
+      if (!serverRes.ok) {
+        const errorData = await serverRes.json().catch(() => ({}));
         throw new Error((errorData as any).error || 'Server rejected the submission.');
       }
 
@@ -316,12 +319,12 @@ Ttech SOLUTIONS Website Inquiry System`;
                 <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
                 <span>Let&apos;s Build Together</span>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0B1220] tracking-tight font-display mb-4">
+              <h1 className="text-3xl sm:text-5xl font-extrabold text-[#0B1220] tracking-tight font-display mb-4">
                 Ready to Turn Your Ideas Into{' '}
                 <span className="bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] bg-clip-text text-transparent">
                   Reality?
                 </span>
-              </h2>
+              </h1>
               <p className="text-[#475569] text-sm sm:text-base leading-relaxed">
                 Whether you have complete Figma mockups or just a bold software concept, our Principal Engineers will assess your architecture, provide sprint timelines, and help you launch with confidence.
               </p>
@@ -329,6 +332,16 @@ Ttech SOLUTIONS Website Inquiry System`;
 
             {/* Direct Contact Cards */}
             <div className="space-y-3">
+              {/* Book a call — the quickest way to start */}
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-[#1D4ED8] to-[#0B1528] text-white shadow-[0_16px_32px_rgba(37,99,235,0.25)]">
+                <div className="text-xs font-semibold uppercase tracking-wider text-[#93C5FD]">Fastest way to start</div>
+                <div className="mt-1 font-display text-lg font-bold text-white">Prefer to talk it through?</div>
+                <p className="mt-1 text-sm text-[#D8DEE9]">
+                  Book a free 30-minute call — honest advice, a recommended approach and a ballpark budget.
+                </p>
+                <BookCallButton variant="dark" className="mt-4 w-full !py-3" />
+              </div>
+
               <a
                 href="tel:+923489763998"
                 className="p-4 rounded-2xl bg-white border border-[#DCE8F8] hover:border-[#2563EB]/50 transition-all flex items-center gap-4 group cursor-pointer shadow-sm"

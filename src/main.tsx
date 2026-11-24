@@ -1,5 +1,5 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx';
@@ -36,7 +36,7 @@ if (typeof window !== 'undefined') {
   }, true);
 }
 
-createRoot(document.getElementById('root')!).render(
+const app = (
   <StrictMode>
     <HelmetProvider>
       <BrowserRouter>
@@ -45,5 +45,14 @@ createRoot(document.getElementById('root')!).render(
         </ThemeProvider>
       </BrowserRouter>
     </HelmetProvider>
-  </StrictMode>,
+  </StrictMode>
 );
+
+const container = document.getElementById('root')!;
+// Production pages are pre-rendered (scripts/prerender.mjs): reuse that HTML
+// instead of rebuilding it. In development the root is empty, so render fresh.
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app);
+} else {
+  createRoot(container).render(app);
+}
