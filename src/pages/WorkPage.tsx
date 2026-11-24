@@ -17,7 +17,7 @@ export default function WorkPage() {
     <>
       <SEO
         title="Our Work & Projects | Ttech SOLUTIONS"
-        description="Projects built by Ttech SOLUTIONS: MovieFlix (live at movieflix.stream), a hands-free social media autopilot, CIRO agentic AI automation, MCVT multi-camera vehicle tracking, the Nikkah Junction matchmaking platform and a YouTube auto-uploader."
+        description="Projects built by Ttech SOLUTIONS: MovieFlix (live at movieflix.stream), a hands-free social media autopilot, CIRO agentic AI automation, MCVT multi-camera vehicle tracking, the Nikkah Junction matchmaking platform and a live weather app."
         canonical="/work"
       />
       <main className="flex-1 pt-20">

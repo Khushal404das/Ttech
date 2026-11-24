@@ -306,7 +306,7 @@ export const LANDING_PAGES: LandingPage[] = [
       },
       {
         q: 'Can you show automations you have built?',
-        a: 'Yes — see our case studies: Social Autopilot (daily social media on autopilot), CIRO (AI agents for crisis response), MCVT (AI vehicle tracking) and the YouTube Auto-Uploader.',
+        a: 'Yes — see our case studies: Social Autopilot (daily social media on autopilot), CIRO (AI agents for crisis response) and MCVT (AI vehicle tracking across multiple cameras).',
       },
     ],
     relatedProjects: ['social-autopilot', 'mcvt-system', 'ciro-ai'],

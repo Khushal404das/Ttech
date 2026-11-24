@@ -338,6 +338,14 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distDir = path.resolve(__dirname, 'dist');
+    // Pages that were removed or renamed → permanent redirects
+    const REDIRECTS: Record<string, string> = {
+      '/work/youtube-auto-uploader': '/work',
+    };
+    app.use((req, res, next) => {
+      const target = REDIRECTS[req.path.replace(/\/+$/, '')];
+      return target ? res.redirect(301, target) : next();
+    });
     // Hashed build assets never change, so let browsers cache them for a year
     app.use('/assets', express.static(path.join(distDir, 'assets'), { immutable: true, maxAge: '1y' }));
     // redirect:false so /services is NOT redirected to /services/

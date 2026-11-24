@@ -4,7 +4,7 @@
  * numbers come only from the projects themselves (e.g. MCVT's demo run).
  */
 
-export type ProjectCategory = 'AI & Computer Vision' | 'Automation' | 'Web Apps';
+export type ProjectCategory = 'AI & Computer Vision' | 'Automation' | 'Web & Desktop Apps';
 
 export interface ProjectLink {
   label: string;
@@ -43,7 +43,7 @@ export const PROJECTS: Project[] = [
     title: 'MovieFlix — Movie & Series Streaming Platform',
     shortTitle: 'MovieFlix',
     client: 'Live product',
-    category: 'Web Apps',
+    category: 'Web & Desktop Apps',
     tagline: 'A fast movie & series platform that works on the web, Android and iPhone from one codebase.',
     seoDescription:
       'Case study: how Ttech SOLUTIONS built MovieFlix (movieflix.stream), a Next.js movie and series platform with per-title SEO pages, accounts and installable Android & iOS apps.',
@@ -186,8 +186,10 @@ export const PROJECTS: Project[] = [
       'Credibility agent: checks reports against ground-truth data such as traffic and weather',
       'Classification agent: identifies the incident type (e.g. flooding vs. a burst water main)',
       'Resource Allocation agent: recommends which units to send, based on distance and capacity',
+      'Live Signal Feed: every signal scored for credibility, location confidence and urgency',
       'Live map, incident feed and real-time unit tracking',
       '"Agent Trace" explains every recommendation step by step',
+      'Secure sign-in to the command centre, with a demo account for walkthroughs',
     ],
     results: [
       'From raw signals to a recommended response in one dashboard',
@@ -201,6 +203,23 @@ export const PROJECTS: Project[] = [
       { label: 'Explainability', value: 'Agent Trace' },
     ],
     technologies: ['Flutter', 'Dart', 'Firebase', 'Open-Meteo API', 'Agentic AI'],
+    image: { src: '/projects/ciro-cover.webp', alt: 'CIRO mobile app: sign-in screen and Live Signal Feed', background: '#0E1A30' },
+    gallery: [
+      {
+        src: '/projects/ciro-signals.webp',
+        alt: 'CIRO Live Signal Feed with live Islamabad weather, agent status and scored traffic incidents',
+        caption: 'Live Signal Feed — live weather, agent status and incidents scored for credibility, location and urgency',
+        width: 720,
+        height: 1505,
+      },
+      {
+        src: '/projects/ciro-login.webp',
+        alt: 'CIRO secure sign-in screen for the command centre',
+        caption: 'Secure sign-in to the command centre, with request-access and demo account options',
+        width: 720,
+        height: 1505,
+      },
+    ],
     accent: 'from-[#78350F] via-[#D97706] to-[#0B1220]',
     // Live demo (ciro-ai-two.vercel.app) currently returns 404 — add it back once redeployed.
     links: [{ label: 'GitHub', href: 'https://github.com/Khushal404das/CIRO-AI', kind: 'github' }],
@@ -211,7 +230,7 @@ export const PROJECTS: Project[] = [
     title: 'Nikkah Junction — Matchmaking Platform',
     shortTitle: 'Nikkah Junction',
     client: 'Team project',
-    category: 'Web Apps',
+    category: 'Web & Desktop Apps',
     tagline: 'A secure matrimonial platform with verified profiles, smart match suggestions and private messaging.',
     seoDescription:
       'Case study: Nikkah Junction, a PHP & MySQL matrimonial web platform with admin-verified profiles, compatibility-based matching, private messaging and email verification.',
@@ -247,43 +266,47 @@ export const PROJECTS: Project[] = [
     relatedService: 'web-development-company-pakistan',
   },
   {
-    slug: 'youtube-auto-uploader',
-    title: 'YouTube Auto-Uploader',
-    shortTitle: 'YouTube Auto-Uploader',
-    client: 'In-house automation',
-    category: 'Automation',
-    tagline: 'Drop a video in a folder and it is published to YouTube with its title, description and tags — on schedule.',
+    slug: 'weather-app',
+    title: 'Weather App — Live Weather & City Comparison',
+    shortTitle: 'Weather App',
+    client: 'In-house project',
+    category: 'Web & Desktop Apps',
+    tagline: 'Check live weather for any city and compare the coldest cities in Pakistan on a live chart.',
     seoDescription:
-      'Case study: a Python automation that watches a folder and uploads every new video to YouTube with its title, description and tags on a daily schedule, using the YouTube Data API.',
+      'Case study: a Python desktop weather app using the OpenWeatherMap API, Tkinter and Matplotlib to show live weather for any city and chart the 10 coldest cities in Pakistan.',
     problem:
-      'Uploading videos one by one — typing titles, descriptions and tags for each — is slow and easy to forget. YouTube’s daily upload limit for API apps makes bulk uploading even harder to manage by hand.',
+      'Checking the weather usually means opening a browser and jumping between sites, and comparing several cities at once is even harder. The goal was a small, fast app that shows the key numbers for any city instantly and compares cities across Pakistan at a glance.',
     solution:
-      'We built a small background tool that watches a folder and uploads every new video through the official YouTube Data API. It waits until each file has finished saving, applies the right title, description, tags and category, and keeps a record so nothing is uploaded twice. A daily scheduled run uploads the next batch automatically.',
+      'We built a lightweight desktop app in Python. It requests live data from the OpenWeatherMap API and shows the conditions, temperature, humidity and pressure for any city typed in. One click fetches the current temperature for ten major Pakistani cities, sorts them and draws a bar chart with Matplotlib right inside the app window, so comparisons take seconds.',
     features: [
-      'Watches a folder and picks up new videos automatically',
-      'Per-video titles, descriptions, tags and category from a simple config file',
-      'Only uploads files once they have finished saving',
-      'Remembers every upload, so nothing is ever posted twice',
-      'Handles YouTube’s daily quota by pausing and resuming automatically',
-      'Daily scheduled run with Windows Task Scheduler',
+      'Live weather for any city: conditions, temperature, humidity and pressure',
+      'One-click comparison of 10 major Pakistani cities, sorted coldest first',
+      'Bar chart drawn inside the app with Matplotlib',
+      'Clear error message when a city name is missing or not found',
+      'Simple, phone-style layout that is easy to read',
     ],
     results: [
-      'Videos go live on schedule with zero manual steps',
-      'No duplicate uploads',
-      'Recovers on its own when YouTube’s daily limit is reached',
+      'Weather for any city in one step, without opening a browser',
+      'Ten cities compared in a single click, with a live chart',
+      'Always-current data straight from the OpenWeatherMap API',
     ],
     highlights: [
-      { label: 'Uploads', value: 'Automatic' },
-      { label: 'Schedule', value: 'Daily batch' },
-      { label: 'Duplicates', value: 'Never' },
+      { label: 'Data', value: 'Live API' },
+      { label: 'Cities compared', value: '10' },
+      { label: 'Platform', value: 'Desktop' },
     ],
-    technologies: ['Python', 'YouTube Data API v3', 'OAuth 2.0', 'Windows Task Scheduler'],
-    accent: 'from-[#7F1D1D] via-[#DC2626] to-[#0B1220]',
-    links: [],
-    relatedService: 'ai-automation-services',
+    technologies: ['Python', 'Tkinter', 'Matplotlib', 'Requests', 'OpenWeatherMap API'],
+    image: {
+      src: '/projects/weather-app-cover.webp',
+      alt: 'Weather App showing live Islamabad weather and a chart of the 10 coldest cities in Pakistan',
+      background: '#4A9BE0',
+    },
+    accent: 'from-[#0369A1] via-[#0EA5E9] to-[#0B1220]',
+    links: [{ label: 'GitHub', href: 'https://github.com/Khushal404das/weather-app', kind: 'github' }],
+    relatedService: 'web-development-company-pakistan',
   },
 ];
 
-export const PROJECT_CATEGORIES: ('All' | ProjectCategory)[] = ['All', 'AI & Computer Vision', 'Automation', 'Web Apps'];
+export const PROJECT_CATEGORIES: ('All' | ProjectCategory)[] = ['All', 'AI & Computer Vision', 'Automation', 'Web & Desktop Apps'];
 
 export const getProject = (slug: string) => PROJECTS.find((p) => p.slug === slug);

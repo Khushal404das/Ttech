@@ -130,7 +130,12 @@ export default function CaseStudyPage() {
           {project.gallery && project.gallery.length > 0 && (
             <section className="mt-6">
               <h2 className="font-display text-xl font-bold text-[#0B1220]">Screens</h2>
-              <div className="mt-4 grid gap-5">
+              {/* Phone screenshots (all portrait) sit side by side on wider screens */}
+              <div
+                className={`mt-4 grid gap-5 ${
+                  project.gallery.length > 1 && project.gallery.every((g) => g.height > g.width) ? 'sm:grid-cols-2' : ''
+                }`}
+              >
                 {project.gallery.map((shot) => (
                   <figure key={shot.src} className="overflow-hidden rounded-3xl border border-[#DCE8F8] bg-white">
                     <div className="bg-[#F1F5F9]">

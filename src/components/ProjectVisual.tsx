@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bot, Clapperboard, Cpu, HeartHandshake, Upload, Workflow } from 'lucide-react';
+import { Bot, Clapperboard, CloudSun, Cpu, HeartHandshake, Workflow } from 'lucide-react';
 import type { Project } from '../data/projects';
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -8,7 +8,7 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   'mcvt-system': Cpu,
   'ciro-ai': Bot,
   'nikkah-junction': HeartHandshake,
-  'youtube-auto-uploader': Upload,
+  'weather-app': CloudSun,
 };
 
 /** Screenshot when the project has one, otherwise a branded cover. */
