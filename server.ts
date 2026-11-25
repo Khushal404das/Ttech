@@ -348,12 +348,15 @@ async function startServer() {
     });
     // Hashed build assets never change, so let browsers cache them for a year
     app.use('/assets', express.static(path.join(distDir, 'assets'), { immutable: true, maxAge: '1y' }));
+    // A missing script/style file must be a real 404 — never the HTML page —
+    // so the browser reports it and the app can reload to the new build.
+    app.use('/assets', (_req, res) => res.status(404).type('text/plain').send('Not found'));
     // redirect:false so /services is NOT redirected to /services/
     app.use(express.static(distDir, { redirect: false, index: 'index.html' }));
     app.get('*', (req, res) => {
-      // Pre-rendered pages: dist/<route>/index.html (see scripts/prerender.mjs)
+      // Pre-rendered pages: dist/<route>.html (see scripts/prerender.mjs)
       const route = req.path.replace(/\/+$/, '');
-      const prerendered = path.join(distDir, route, 'index.html');
+      const prerendered = path.join(distDir, `${route}.html`);
       if (route && prerendered.startsWith(distDir + path.sep) && existsSync(prerendered)) {
         return res.sendFile(prerendered);
       }

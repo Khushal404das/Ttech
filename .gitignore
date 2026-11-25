@@ -11,3 +11,7 @@ firebase-applet-config.json
 
 # Saved contact-form inquiries (private)
 /data/
+
+# Cloudflare local dev
+.wrangler/
+.dev.vars*

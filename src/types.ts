@@ -55,8 +55,6 @@ export interface CaseStudy {
   technologies: string[];
   architecturePreview: string;
   demoType: 'dashboard' | 'ecommerce' | 'api' | 'ui';
-  testimonialQuote?: string;
-  clientRole?: string;
 }
 
 export interface TechStackCategory {

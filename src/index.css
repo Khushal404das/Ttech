@@ -317,6 +317,18 @@
   transition: opacity 0.2s ease;
 }
 
+/* Page change: a short slide-in. Opacity is deliberately NOT animated —
+   browsers pause animations in background tabs, and a paused fade would
+   leave the page invisible (the old "blank screen until refresh" bug).
+   If this slide is paused, the content is simply 6px lower, still visible. */
+@keyframes page-enter {
+  from { transform: translateY(6px); }
+  to { transform: none; }
+}
+.page-enter {
+  animation: page-enter 0.22s ease-out both;
+}
+
 /* =========================================================================
    SCROLLBAR
    ========================================================================= */

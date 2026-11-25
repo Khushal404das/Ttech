@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { PortfolioSection } from '../components/PortfolioSection';
-import { TestimonialsSection } from '../components/TestimonialsSection';
 import { CTASection } from '../components/CTASection';
 import { Footer } from '../components/Footer';
 
@@ -24,7 +23,6 @@ export default function WorkPage() {
       <PortfolioSection
         onSelectProjectForConsultation={(projName) => handleOpenConsultation(projName)}
       />
-      <TestimonialsSection />
       <CTASection
         onOpenConsultation={handleOpenConsultation}
         onOpenEstimator={() => navigate('/services')}

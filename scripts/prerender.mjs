@@ -25,6 +25,11 @@ if (!template.includes('<div id="root"></div>')) {
 
 // Plain SPA shell for any URL we did not pre-render (e.g. the 404 page)
 fs.writeFileSync(path.join(dist, 'app-shell.html'), template);
+// Static hosts (Cloudflare Pages, Netlify) serve 404.html with a real 404
+// status for unknown URLs. Without it they answer EVERY missing file —
+// including old script files after a deploy — with the home page, which
+// broke page loading. The app shell shows the site's own "not found" page.
+fs.writeFileSync(path.join(dist, '404.html'), template);
 
 const { render, routes } = await import(pathToFileURL(ssrEntry).href);
 
@@ -52,9 +57,12 @@ for (const { path: route } of routes) {
     .replace('</head>', `    ${headTags}\n  </head>`)
     .replace('<div id="root"></div>', `<div id="root">${body}</div>`);
 
-  const outDir = route === '/' ? dist : path.join(dist, route.slice(1));
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), page);
+  // "/" → dist/index.html, "/services" → dist/services.html.
+  // Hosts (Cloudflare, Express below) serve services.html at /services with
+  // no trailing-slash redirect, matching the canonical URLs.
+  const outFile = route === '/' ? path.join(dist, 'index.html') : path.join(dist, `${route.slice(1)}.html`);
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
+  fs.writeFileSync(outFile, page);
   const title = (headTags.match(/<title>([\s\S]*?)<\/title>/) || [])[1];
   console.log(`prerendered ${route.padEnd(10)} ${(page.length / 1024).toFixed(0).padStart(4)} KB  ${title}`);
 }

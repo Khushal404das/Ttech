@@ -1,7 +1,8 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
 import { Navbar } from './Navbar';
+import { PageErrorBoundary } from './PageErrorBoundary';
+import { lazyWithRetry } from '../utils/lazyWithRetry';
 import { AnimatedBackground } from './AnimatedBackground';
 import { ScrollExperience } from './ScrollExperience';
 import { CookieConsentBanner } from './CookieConsentBanner';
@@ -10,9 +11,20 @@ import type { ActivePage } from './Navbar';
 
 // The chat widget pulls in Firebase + confetti (a large chunk). Load it after
 // the page has painted so it doesn't slow down the first view on mobile.
-const QuickChatFAB = lazy(() =>
+const QuickChatFAB = lazyWithRetry(() =>
   import('./QuickChatFAB').then((m) => ({ default: m.QuickChatFAB })),
 );
+
+/** The chat widget is optional: if it fails to load, just don't show it. */
+class ChatBoundary extends React.Component<{ children: React.ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
 
 function useIdleMount(delay = 1500) {
   const [ready, setReady] = useState(false);
@@ -67,31 +79,31 @@ export const Layout: React.FC = () => {
           onOpenConsultation={handleOpenConsultation}
         />
 
-        {/* Page content swaps with a short fade */}
+        {/*
+          Page content. The new page fades in with plain CSS. We deliberately
+          do NOT wait for an exit animation of the old page: when that
+          animation stalled (e.g. in a throttled background tab) the new page
+          never mounted and visitors saw a blank screen until they refreshed.
+        */}
         <div data-page className="flex min-h-0 flex-1 flex-col">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={location.pathname}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="flex min-h-0 flex-1 flex-col"
-            >
+          <div key={location.pathname} className="page-enter flex min-h-0 flex-1 flex-col">
+            <PageErrorBoundary resetKey={location.pathname}>
               <Suspense fallback={<PageFallback />}>
                 <Outlet />
               </Suspense>
-            </motion.div>
-          </AnimatePresence>
+            </PageErrorBoundary>
+          </div>
         </div>
 
         {showChat && (
-          <Suspense fallback={null}>
-            <QuickChatFAB
-              onTransferToInquiry={(data) => navigate('/contact', { state: data })}
-              onOpenEstimator={() => navigate('/services')}
-            />
-          </Suspense>
+          <ChatBoundary>
+            <Suspense fallback={null}>
+              <QuickChatFAB
+                onTransferToInquiry={(data) => navigate('/contact', { state: data })}
+                onOpenEstimator={() => navigate('/services')}
+              />
+            </Suspense>
+          </ChatBoundary>
         )}
 
         {/* Global Analytics & Privacy Consent */}

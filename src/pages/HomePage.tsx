@@ -6,7 +6,7 @@ import { HeroSection } from '../components/HeroSection';
 import { StatsSection } from '../components/StatsSection';
 import { ProcessSection } from '../components/ProcessSection';
 import { CTASection } from '../components/CTASection';
-import { TestimonialsSection } from '../components/TestimonialsSection';
+import { RecentWorkSection } from '../components/RecentWorkSection';
 import { Footer } from '../components/Footer';
 
 export default function HomePage() {
@@ -32,12 +32,12 @@ export default function HomePage() {
           onExploreStack={handleExploreStack}
         />
         <StatsSection />
+        <RecentWorkSection />
         <ProcessSection />
         <CTASection
           onOpenConsultation={handleOpenConsultation}
           onOpenEstimator={handleOpenEstimator}
         />
-        <TestimonialsSection />
         <Footer onOpenConsultation={handleOpenConsultation} />
       </main>
     </>
