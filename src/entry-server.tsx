@@ -12,14 +12,44 @@ import { ThemeProvider } from './context/ThemeContext';
 import { PROJECTS } from './data/projects';
 import { LANDING_PAGES } from './data/landingPages';
 
+export { PROJECTS, LANDING_PAGES };
+
+type Route = {
+  path: string;
+  priority: number;
+  changefreq: 'weekly' | 'monthly' | 'yearly';
+  /** Images on the page, listed in the sitemap for Google Images */
+  images?: { src: string; title: string }[];
+};
+
+const projectImages = (p: (typeof PROJECTS)[number]) => [
+  ...(p.image ? [{ src: p.image.src, title: p.image.alt }] : []),
+  ...(p.gallery || []).map((g) => ({ src: g.src, title: g.alt })),
+];
+
 /** Every page to pre-render and list in sitemap.xml */
-export const routes: { path: string; priority: number; changefreq: 'weekly' | 'monthly' | 'yearly' }[] = [
-  { path: '/', priority: 1.0, changefreq: 'weekly' },
+export const routes: Route[] = [
+  { path: '/', priority: 1.0, changefreq: 'weekly', images: [{ src: '/og-image.jpg', title: 'Ttech SOLUTIONS — websites, apps, SaaS and AI automation' }] },
   { path: '/services', priority: 0.9, changefreq: 'monthly' },
-  { path: '/work', priority: 0.9, changefreq: 'weekly' },
+  {
+    path: '/work',
+    priority: 0.9,
+    changefreq: 'weekly',
+    images: PROJECTS.filter((p) => p.image).map((p) => ({ src: p.image!.src, title: p.image!.alt })),
+  },
   { path: '/contact', priority: 0.8, changefreq: 'monthly' },
-  ...LANDING_PAGES.map((p) => ({ path: `/${p.slug}`, priority: 0.9, changefreq: 'monthly' as const })),
-  ...PROJECTS.map((p) => ({ path: `/work/${p.slug}`, priority: 0.7, changefreq: 'monthly' as const })),
+  ...LANDING_PAGES.map((p) => ({
+    path: `/${p.slug}`,
+    priority: 0.9,
+    changefreq: 'monthly' as const,
+    images: [{ src: `/og/${p.slug}.jpg`, title: p.h1 }],
+  })),
+  ...PROJECTS.map((p) => ({
+    path: `/work/${p.slug}`,
+    priority: 0.7,
+    changefreq: 'monthly' as const,
+    images: projectImages(p),
+  })),
   { path: '/privacy', priority: 0.3, changefreq: 'yearly' },
   { path: '/terms', priority: 0.3, changefreq: 'yearly' },
 ];

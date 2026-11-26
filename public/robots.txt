@@ -1,22 +1,14 @@
-# Ttech SOLUTIONS - Robots.txt
-# Website: Ttech SOLUTIONS - Software Development Agency
-# Updated: 2026
+# Ttech SOLUTIONS — https://ttechsolutionz.dev
 
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /*.json$
-Disallow: /admin
-Disallow: /dashboard
+Disallow: /app-shell
 
-# Sitemap location
-Sitemap: https://ttechsolutionz.dev/sitemap.xml
-
-# Crawl-delay for considerate crawling
-Crawl-delay: 1
-
-# Block common bad bots
+# Heavy SEO-tool crawlers: allowed, but asked to go slowly
 User-agent: AhrefsBot
 User-agent: SemrushBot
 User-agent: DotBot
 Crawl-delay: 10
+
+Sitemap: https://ttechsolutionz.dev/sitemap.xml

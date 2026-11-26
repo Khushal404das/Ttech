@@ -19,8 +19,8 @@ export default function HomePage() {
   return (
     <>
       <SEO
-        title="Ttech SOLUTIONS | Software, SAAS, Web & UI/UX Development Agency"
-        description="Think. Transform. Trust. Enterprise-grade software development, SaaS platforms, .NET Core solutions, React web applications, and professional UI/UX design services."
+        title="Ttech SOLUTIONS | Web, App, SaaS & AI Development Agency"
+        description="Software agency in Pakistan building fast websites, mobile apps, SaaS platforms and AI automation for clients worldwide. Fixed quotes, full code ownership."
         canonical="/"
       />
       <OrganizationStructuredData />

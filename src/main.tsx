@@ -48,6 +48,33 @@ const app = (
   </StrictMode>
 );
 
+/**
+ * Keep exactly one of each SEO tag in <head>. On pre-rendered pages whose
+ * code loads lazily, React adds its own <title>/<meta>/<link rel=canonical>
+ * next to the pre-rendered copies instead of reusing them. The newest copy
+ * (React's, always current for the page) wins; older duplicates are removed.
+ */
+function dedupeHeadTags() {
+  const keyOf = (el: Element): string | null => {
+    if (el.tagName === 'TITLE') return 'title';
+    if (el.tagName === 'META') {
+      const k = el.getAttribute('name') || el.getAttribute('property');
+      return k ? `meta:${k}` : null;
+    }
+    if (el.tagName === 'LINK' && el.getAttribute('rel') === 'canonical') return 'canonical';
+    return null;
+  };
+  const latest = new Map<string, Element>();
+  for (const el of Array.from(document.head.children)) {
+    const key = keyOf(el);
+    if (!key) continue;
+    const previous = latest.get(key);
+    if (previous) previous.remove();
+    latest.set(key, el);
+  }
+}
+new MutationObserver(dedupeHeadTags).observe(document.head, { childList: true });
+
 const container = document.getElementById('root')!;
 // Production pages are pre-rendered (scripts/prerender.mjs): reuse that HTML
 // instead of rebuilding it. In development the root is empty, so render fresh.

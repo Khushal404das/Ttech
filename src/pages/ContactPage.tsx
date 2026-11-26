@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { BreadcrumbStructuredData } from '../components/StructuredData';
 import { InquirySection } from '../components/InquirySection';
 import { Footer } from '../components/Footer';
 
@@ -29,6 +30,7 @@ export default function ContactPage() {
         description="Ready to build your software project? Contact Ttech SOLUTIONS for a free consultation. Expert software development, SaaS, and web application services."
         canonical="/contact"
       />
+      <BreadcrumbStructuredData items={[{ name: 'Contact', path: '/contact' }]} />
       <main className="flex-1 pt-20">
       <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
         <Link

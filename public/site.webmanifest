@@ -1,0 +1,15 @@
+{
+  "name": "Ttech SOLUTIONS",
+  "short_name": "Ttech",
+  "description": "Websites, apps, SaaS and AI automation — Think. Transform. Trust.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F8FBFF",
+  "theme_color": "#0B1528",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

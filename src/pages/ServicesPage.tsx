@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { BreadcrumbStructuredData } from '../components/StructuredData';
 import { ServicesSection } from '../components/ServicesSection';
 import { ProjectEstimatorSection } from '../components/ProjectEstimatorSection';
 import { AIConsultantSection } from '../components/AIConsultantSection';
@@ -57,10 +58,11 @@ export default function ServicesPage() {
   return (
     <>
       <SEO
-        title="Services | Ttech SOLUTIONS - Software Development & Tech Solutions"
-        description="Custom software development, SaaS platforms, web applications, .NET Core enterprise solutions, UI/UX design, and AI automation services. Get a free project estimate."
+        title="Services: Websites, Apps, SaaS & AI | Ttech SOLUTIONS"
+        description="Websites, e-commerce, mobile apps, SaaS platforms, custom business software, UI/UX design and AI automation. Get a free project estimate."
         canonical="/services"
       />
+      <BreadcrumbStructuredData items={[{ name: 'Services', path: '/services' }]} />
       <main className="flex-1 pt-20">
       <ServicesSection
         onSelectServiceForQuote={handleSelectServiceForQuote}

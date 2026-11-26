@@ -5,7 +5,7 @@ import { SEO } from '../components/SEO';
 import { Footer } from '../components/Footer';
 import { BookCallButton } from '../components/BookCallButton';
 import { ProjectVisual } from '../components/ProjectVisual';
-import { JsonLd } from '../components/StructuredData';
+import { BreadcrumbStructuredData, JsonLd, ORG_ID } from '../components/StructuredData';
 import { LANDING_PAGES, type LandingPage as LandingPageData } from '../data/landingPages';
 import { getProject, type Project } from '../data/projects';
 
@@ -26,7 +26,13 @@ export default function LandingPage({ page }: { page: LandingPageData }) {
 
   return (
     <>
-      <SEO title={page.seoTitle} description={page.seoDescription} canonical={`/${page.slug}`} />
+      <SEO
+        title={page.seoTitle}
+        description={page.seoDescription}
+        canonical={`/${page.slug}`}
+        ogImage={`/og/${page.slug}.jpg`}
+        ogImageAlt={page.h1}
+      />
       <JsonLd
         data={{
           '@context': 'https://schema.org',
@@ -35,10 +41,12 @@ export default function LandingPage({ page }: { page: LandingPageData }) {
           description: page.seoDescription,
           serviceType: page.navLabel,
           url: `${SITE}/${page.slug}`,
-          areaServed: [{ '@type': 'Country', name: 'Pakistan' }, 'Worldwide'],
-          provider: { '@type': 'ProfessionalService', name: 'Ttech SOLUTIONS', url: SITE, telephone: '+92-348-9763998' },
+          areaServed: [{ '@type': 'Country', name: 'Pakistan' }, { '@type': 'Place', name: 'Worldwide' }],
+          provider: { '@type': 'ProfessionalService', '@id': ORG_ID, name: 'Ttech SOLUTIONS', url: `${SITE}/` },
+          offers: { '@type': 'Offer', priceCurrency: 'USD', description: `Typical investment ${page.pricing.range} · ${page.pricing.timeline}` },
         }}
       />
+      <BreadcrumbStructuredData items={[{ name: 'Services', path: '/services' }, { name: page.navLabel, path: `/${page.slug}` }]} />
       <JsonLd
         data={{
           '@context': 'https://schema.org',

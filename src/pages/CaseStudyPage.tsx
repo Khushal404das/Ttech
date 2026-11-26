@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink, Lightbulb, Target, Wrench } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { BreadcrumbStructuredData, CaseStudyStructuredData } from '../components/StructuredData';
 import { Footer } from '../components/Footer';
 import { BookCallButton } from '../components/BookCallButton';
 import { ProjectVisual } from '../components/ProjectVisual';
@@ -30,8 +31,18 @@ export default function CaseStudyPage() {
         title={`${project.shortTitle} Case Study | Ttech SOLUTIONS`}
         description={project.seoDescription}
         canonical={`/work/${project.slug}`}
-        ogImage={project.image?.src}
+        ogImage={`/og/work-${project.slug}.jpg`}
+        ogImageAlt={`${project.shortTitle} case study by Ttech SOLUTIONS`}
         ogType="article"
+      />
+      <BreadcrumbStructuredData items={[{ name: 'Work', path: '/work' }, { name: project.shortTitle, path: `/work/${project.slug}` }]} />
+      <CaseStudyStructuredData
+        name={project.title}
+        description={project.seoDescription}
+        path={`/work/${project.slug}`}
+        image={`/og/work-${project.slug}.jpg`}
+        keywords={project.technologies}
+        sameAs={project.links.map((l) => l.href)}
       />
       <main className="flex-1 bg-[#F8FBFF] pt-24 pb-16">
         <article className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">

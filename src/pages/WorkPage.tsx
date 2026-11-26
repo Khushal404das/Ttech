@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { BreadcrumbStructuredData } from '../components/StructuredData';
 import { PortfolioSection } from '../components/PortfolioSection';
 import { CTASection } from '../components/CTASection';
 import { Footer } from '../components/Footer';
@@ -16,9 +17,10 @@ export default function WorkPage() {
     <>
       <SEO
         title="Our Work & Projects | Ttech SOLUTIONS"
-        description="Projects built by Ttech SOLUTIONS: MovieFlix (live at movieflix.stream), a hands-free social media autopilot, CIRO agentic AI automation, MCVT multi-camera vehicle tracking, the Nikkah Junction matchmaking platform and a live weather app."
+        description="Case studies from Ttech SOLUTIONS: MovieFlix, a social media autopilot, CIRO AI agents, MCVT vehicle tracking, Nikkah Junction and a weather app."
         canonical="/work"
       />
+      <BreadcrumbStructuredData items={[{ name: 'Work', path: '/work' }]} />
       <main className="flex-1 pt-20">
       <PortfolioSection
         onSelectProjectForConsultation={(projName) => handleOpenConsultation(projName)}

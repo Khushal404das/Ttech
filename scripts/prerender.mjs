@@ -29,9 +29,14 @@ fs.writeFileSync(path.join(dist, 'app-shell.html'), template);
 // status for unknown URLs. Without it they answer EVERY missing file —
 // including old script files after a deploy — with the home page, which
 // broke page loading. The app shell shows the site's own "not found" page.
-fs.writeFileSync(path.join(dist, '404.html'), template);
+// The 404 page must never be indexed by search engines
+fs.writeFileSync(
+  path.join(dist, '404.html'),
+  template.replace('</head>', `    <meta name="robots" content="noindex" />
+  </head>`),
+);
 
-const { render, routes } = await import(pathToFileURL(ssrEntry).href);
+const { render, routes, PROJECTS, LANDING_PAGES } = await import(pathToFileURL(ssrEntry).href);
 
 // React 19 emits <title>/<meta>/<link> from react-helmet-async first in the output
 const HEAD_TAGS = /^(?:<title\b[^>]*>[\s\S]*?<\/title>|<meta\b[^>]*\/?>|<link\b[^>]*\/?>)+/;
@@ -67,25 +72,68 @@ for (const { path: route } of routes) {
   console.log(`prerendered ${route.padEnd(10)} ${(page.length / 1024).toFixed(0).padStart(4)} KB  ${title}`);
 }
 
-// sitemap.xml generated from the same route list, so it never goes stale
+// sitemap.xml generated from the same route list, so it never goes stale.
+// Includes <image:image> entries so screenshots can appear in Google Images.
+const xml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const today = new Date().toISOString().slice(0, 10);
+let imageCount = 0;
 const urls = routes
-  .map(
-    (r) => `  <url>
+  .map((r) => {
+    const images = (r.images || [])
+      .map((img) => {
+        imageCount++;
+        return `
+    <image:image>
+      <image:loc>${SITE_URL}${xml(img.src)}</image:loc>
+      <image:title>${xml(img.title)}</image:title>
+    </image:image>`;
+      })
+      .join('');
+    return `  <url>
     <loc>${SITE_URL}${r.path}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${r.changefreq}</changefreq>
-    <priority>${r.priority.toFixed(1)}</priority>
-  </url>`,
-  )
+    <priority>${r.priority.toFixed(1)}</priority>${images}
+  </url>`;
+  })
   .join(`
 `);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls}
 </urlset>
 `;
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap);
-console.log(`sitemap.xml: ${routes.length} URLs`);
+console.log(`sitemap.xml: ${routes.length} URLs, ${imageCount} images`);
+
+// llms.txt — a plain-text guide to the site for AI assistants and AI search
+// (ChatGPT, Perplexity, Google AI Overviews). Proposed standard: llmstxt.org
+const llms = `# Ttech SOLUTIONS
+
+> Software development agency (Think. Transform. Trust.) based in Pakistan, working with clients worldwide. We build business websites, e-commerce stores, mobile apps, SaaS platforms, custom business software and AI automation. Fixed written quotes, milestone payments (30/40/30), 100% source-code ownership and 30 days of free bug fixes after launch.
+
+Contact: WhatsApp +92 348 9763998 · teatech.solutionz@gmail.com · ${SITE_URL}/contact
+
+## Services
+
+${LANDING_PAGES.map((p) => `- [${p.h1}](${SITE_URL}/${p.slug}): ${p.seoDescription} Typical investment ${p.pricing.range}, ${p.pricing.timeline}.`).join(`
+`)}
+- [All services](${SITE_URL}/services)
+
+## Case studies
+
+${PROJECTS.map((p) => `- [${p.title}](${SITE_URL}/work/${p.slug}): ${p.tagline} Built with ${p.technologies.join(', ')}.`).join(`
+`)}
+
+## Company
+
+- [Home](${SITE_URL}/)
+- [Work](${SITE_URL}/work)
+- [Contact / free 30-minute consultation](${SITE_URL}/contact)
+- [Privacy policy](${SITE_URL}/privacy)
+- [Terms and conditions](${SITE_URL}/terms)
+`;
+fs.writeFileSync(path.join(dist, 'llms.txt'), llms);
+console.log(`llms.txt: ${LANDING_PAGES.length} services, ${PROJECTS.length} case studies`);
 
 fs.rmSync(path.join(root, 'dist-ssr'), { recursive: true, force: true });

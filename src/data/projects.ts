@@ -46,7 +46,7 @@ export const PROJECTS: Project[] = [
     category: 'Web & Desktop Apps',
     tagline: 'A fast movie & series platform that works on the web, Android and iPhone from one codebase.',
     seoDescription:
-      'Case study: how Ttech SOLUTIONS built MovieFlix (movieflix.stream), a Next.js movie and series platform with per-title SEO pages, accounts and installable Android & iOS apps.',
+      'How Ttech built MovieFlix (movieflix.stream): a Next.js movie & series platform with per-title SEO pages, sign-in and Android & iOS apps.',
     problem:
       'Movie fans jump between slow, cluttered sites to find something to watch, check the trailer and see the cast — and most of those sites are painful to use on a phone. The goal was one fast, clean platform that feels like an app on every device and can be found on Google title by title.',
     solution:
@@ -87,7 +87,7 @@ export const PROJECTS: Project[] = [
     category: 'Automation',
     tagline: 'An n8n workflow that writes, designs and publishes branded posts and videos twice a day — automatically.',
     seoDescription:
-      'Case study: an n8n + AI automation that writes, designs and publishes branded posts twice a day and weekly reels to Facebook, Instagram, X and TikTok (LinkedIn-ready), with Telegram reports.',
+      'An n8n + AI automation that writes, designs and posts branded content twice a day to Facebook, Instagram, X and TikTok, with Telegram reports.',
     problem:
       'Posting consistently on Facebook, Instagram, X, LinkedIn and TikTok takes hours every week — writing captions, designing images, cutting videos and uploading to each platform. Small teams skip days, and their pages go quiet exactly when they need to look active.',
     solution:
@@ -139,7 +139,7 @@ export const PROJECTS: Project[] = [
     category: 'AI & Computer Vision',
     tagline: 'Follows any vehicle across a whole camera network — detect, track, re-identify and replay its full journey.',
     seoDescription:
-      'Case study: MCVT, an AI traffic-surveillance system using YOLOv8, DeepSORT and ResNet re-identification to follow a vehicle across multiple CCTV cameras and auto-stitch its journey video.',
+      'MCVT: AI vehicle tracking across multiple CCTV cameras with YOLOv8, DeepSORT and ResNet re-identification, plus auto-stitched journey videos.',
     problem:
       'Finding where one vehicle went across a network of CCTV cameras normally means watching hours of footage, camera by camera, and guessing when it appears in the next one. It is slow, tiring and easy to miss.',
     solution:
@@ -176,7 +176,7 @@ export const PROJECTS: Project[] = [
     category: 'Automation',
     tagline: 'An agentic AI command centre that turns live signals into classified incidents and response plans.',
     seoDescription:
-      'Case study: CIRO, a Flutter emergency-response dashboard where specialised AI agents fuse signals, verify them, classify incidents and recommend which units to send.',
+      'CIRO: a Flutter crisis-response command centre where AI agents fuse live signals, check credibility, classify incidents and recommend responses.',
     problem:
       'In an emergency, operators are flooded with reports from social media, dispatch calls and sensors at the same time. Checking which reports are real, working out what kind of incident it is and deciding which units to send all takes precious minutes.',
     solution:
@@ -233,7 +233,7 @@ export const PROJECTS: Project[] = [
     category: 'Web & Desktop Apps',
     tagline: 'A secure matrimonial platform with verified profiles, smart match suggestions and private messaging.',
     seoDescription:
-      'Case study: Nikkah Junction, a PHP & MySQL matrimonial web platform with admin-verified profiles, compatibility-based matching, private messaging and email verification.',
+      'Nikkah Junction: a PHP & MySQL matchmaking platform with admin-verified profiles, compatibility matching, private messaging and email verification.',
     problem:
       'People looking for a life partner online worry about fake profiles and privacy, and many matrimonial sites make it hard to find genuinely compatible matches.',
     solution:
@@ -273,7 +273,7 @@ export const PROJECTS: Project[] = [
     category: 'Web & Desktop Apps',
     tagline: 'Check live weather for any city and compare the coldest cities in Pakistan on a live chart.',
     seoDescription:
-      'Case study: a Python desktop weather app using the OpenWeatherMap API, Tkinter and Matplotlib to show live weather for any city and chart the 10 coldest cities in Pakistan.',
+      'A Python desktop weather app: live weather for any city via OpenWeatherMap, plus a live chart of the 10 coldest cities in Pakistan.',
     problem:
       'Checking the weather usually means opening a browser and jumping between sites, and comparing several cities at once is even harder. The goal was a small, fast app that shows the key numbers for any city instantly and compares cities across Pakistan at a glance.',
     solution:

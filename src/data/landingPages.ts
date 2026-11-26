@@ -32,7 +32,7 @@ export const LANDING_PAGES: LandingPage[] = [
     navLabel: 'Web Development in Pakistan',
     seoTitle: 'Web Development Company in Pakistan | Ttech SOLUTIONS',
     seoDescription:
-      'Ttech SOLUTIONS is a web development company in Pakistan building fast, mobile-friendly business websites and web apps with React and Next.js. Fixed quotes, 100% code ownership.',
+      'Web development company in Pakistan building fast, mobile-friendly websites and web apps with React & Next.js. Fixed quotes, 100% code ownership.',
     eyebrow: 'Web development · Pakistan',
     h1: 'Web Development Company in Pakistan',
     intro:
@@ -87,9 +87,9 @@ export const LANDING_PAGES: LandingPage[] = [
   {
     slug: 'restaurant-website-development',
     navLabel: 'Restaurant Websites',
-    seoTitle: 'Restaurant Website & Online Ordering Development | Ttech SOLUTIONS',
+    seoTitle: 'Restaurant Website & Online Ordering | Ttech SOLUTIONS',
     seoDescription:
-      'Restaurant website development with online menus, online ordering, table reservations and WhatsApp orders. Cut delivery-app commissions. Fixed quotes from Ttech SOLUTIONS.',
+      'Restaurant websites with online menus, ordering, table bookings and WhatsApp order alerts — no delivery-app commission. Fixed quotes from Ttech.',
     eyebrow: 'Restaurants · cafés · cloud kitchens',
     h1: 'Restaurant Website & Online Ordering Development',
     intro:
@@ -146,7 +146,7 @@ export const LANDING_PAGES: LandingPage[] = [
     navLabel: 'E-commerce Websites',
     seoTitle: 'E-commerce Website Development in Pakistan | Ttech SOLUTIONS',
     seoDescription:
-      'E-commerce website development with product catalogues, cart, JazzCash, Easypaisa, card and COD payments, order tracking and an easy admin dashboard. Fixed quotes from Ttech SOLUTIONS.',
+      'E-commerce websites with JazzCash, Easypaisa, card & COD payments, order tracking and an easy admin dashboard. Fixed quotes from Ttech SOLUTIONS.',
     eyebrow: 'Online stores · Pakistan & worldwide',
     h1: 'E-commerce Website Development',
     intro:
@@ -203,7 +203,7 @@ export const LANDING_PAGES: LandingPage[] = [
     navLabel: 'Mobile App Development',
     seoTitle: 'Mobile App Development Company in Pakistan | Ttech SOLUTIONS',
     seoDescription:
-      'Android and iOS app development in Pakistan with React Native and Flutter. One codebase for both platforms, admin panel, push notifications and app-store publishing. Fixed quotes.',
+      'Android & iOS app development in Pakistan with React Native and Flutter — one codebase, admin panel, push notifications and store publishing.',
     eyebrow: 'Android & iOS · Pakistan',
     h1: 'Mobile App Development in Pakistan',
     intro:
@@ -260,7 +260,7 @@ export const LANDING_PAGES: LandingPage[] = [
     navLabel: 'AI & Automation',
     seoTitle: 'AI Automation Services & Chatbot Development | Ttech SOLUTIONS',
     seoDescription:
-      'AI automation services: AI chatbots, social media automation, document processing, computer vision and workflow automation with n8n, Python and modern AI models. See real case studies.',
+      'AI automation: chatbots, social media autopilots, workflow automation with n8n and computer vision. See real case studies from Ttech SOLUTIONS.',
     eyebrow: 'AI · automation · computer vision',
     h1: 'AI Automation Services & Chatbot Development',
     intro:
