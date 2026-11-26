@@ -8,6 +8,7 @@ import { BookCallButton } from '../components/BookCallButton';
 import { ProjectVisual } from '../components/ProjectVisual';
 import { PROJECTS, getProject } from '../data/projects';
 import { getLandingPage } from '../data/landingPages';
+import { CONTENT_UPDATED, formatDate } from '../data/site';
 
 const GitHubIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -66,6 +67,9 @@ export default function CaseStudyPage() {
               {project.title}
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-relaxed text-[#475569] sm:text-lg">{project.tagline}</p>
+            <p className="mt-2 text-xs text-[#7B8AA3]">
+              Case study by Ttech SOLUTIONS · Last updated <time dateTime={CONTENT_UPDATED}>{formatDate(CONTENT_UPDATED)}</time>
+            </p>
 
             {project.links.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-3">

@@ -36,7 +36,7 @@ fs.writeFileSync(
   </head>`),
 );
 
-const { render, routes, PROJECTS, LANDING_PAGES } = await import(pathToFileURL(ssrEntry).href);
+const { render, routes, PROJECTS, LANDING_PAGES, FAQ_GROUPS, CONTENT_UPDATED } = await import(pathToFileURL(ssrEntry).href);
 
 // React 19 emits <title>/<meta>/<link> from react-helmet-async first in the output
 const HEAD_TAGS = /^(?:<title\b[^>]*>[\s\S]*?<\/title>|<meta\b[^>]*\/?>|<link\b[^>]*\/?>)+/;
@@ -127,13 +127,95 @@ ${PROJECTS.map((p) => `- [${p.title}](${SITE_URL}/work/${p.slug}): ${p.tagline} 
 
 ## Company
 
+- [FAQ: prices, timelines, payments, ownership](${SITE_URL}/faq)
 - [Home](${SITE_URL}/)
 - [Work](${SITE_URL}/work)
 - [Contact / free 30-minute consultation](${SITE_URL}/contact)
 - [Privacy policy](${SITE_URL}/privacy)
 - [Terms and conditions](${SITE_URL}/terms)
+
+## Optional
+
+- [Full text of all services, FAQs and case studies](${SITE_URL}/llms-full.txt)
 `;
 fs.writeFileSync(path.join(dist, 'llms.txt'), llms);
 console.log(`llms.txt: ${LANDING_PAGES.length} services, ${PROJECTS.length} case studies`);
+
+// llms-full.txt — the complete content in one Markdown file, so an AI
+// assistant can read everything about Ttech in a single request.
+const bullets = (items) => items.map((i) => `- ${i}`).join(`
+`);
+const llmsFull = `# Ttech SOLUTIONS — complete reference
+
+> Software development agency based in Pakistan, serving clients worldwide. Website: ${SITE_URL}. Contact: WhatsApp +92 348 9763998, teatech.solutionz@gmail.com. Last updated ${CONTENT_UPDATED}.
+
+## Frequently asked questions
+
+${FAQ_GROUPS.map(
+  (g) => `### ${g.title}
+
+${g.items.map((f) => `**${f.q}**
+${f.a}`).join(`
+
+`)}`,
+).join(`
+
+`)}
+
+## Services
+
+${LANDING_PAGES.map(
+  (p) => `### ${p.h1}
+
+URL: ${SITE_URL}/${p.slug}
+
+${p.intro}
+
+**At a glance:** ${p.pricing.range} · ${p.pricing.timeline}. ${p.pricing.note} Payments 30% / 40% / 30%. Client owns 100% of the code. 30 days of free bug fixes.
+
+**Who it is for:**
+${bullets(p.idealFor)}
+
+**${p.includesTitle}:**
+${bullets(p.includes.map((i) => `${i.title}: ${i.text}`))}
+
+**Why Ttech:**
+${bullets(p.whyUs)}
+
+**FAQ:**
+${p.faq.map((f) => `- **${f.q}** ${f.a}`).join(`
+`)}`,
+).join(`
+
+`)}
+
+## Case studies
+
+${PROJECTS.map(
+  (p) => `### ${p.title}
+
+URL: ${SITE_URL}/work/${p.slug} · Category: ${p.category} · ${p.client}
+
+${p.tagline}
+
+**Challenge:** ${p.problem}
+
+**What was built:** ${p.solution}
+
+**Key features:**
+${bullets(p.features)}
+
+**Results:**
+${bullets(p.results)}
+
+**Technology:** ${p.technologies.join(', ')}${p.links.length ? `
+
+**Links:** ${p.links.map((l) => `${l.label} — ${l.href}`).join(' · ')}` : ''}`,
+).join(`
+
+`)}
+`;
+fs.writeFileSync(path.join(dist, 'llms-full.txt'), llmsFull);
+console.log(`llms-full.txt: ${(llmsFull.length / 1024).toFixed(0)} KB`);
 
 fs.rmSync(path.join(root, 'dist-ssr'), { recursive: true, force: true });

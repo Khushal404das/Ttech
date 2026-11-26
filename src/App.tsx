@@ -20,6 +20,7 @@ const TermsPage = lazyWithRetry(() => import('./pages/TermsPage'));
 const NotFoundPage = lazyWithRetry(() => import('./pages/NotFoundPage'));
 const CaseStudyPage = lazyWithRetry(() => import('./pages/CaseStudyPage'));
 const LandingPage = lazyWithRetry(() => import('./pages/LandingPage'));
+const FaqPage = lazyWithRetry(() => import('./pages/FaqPage'));
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/work"     element={<WorkPage />} />
         <Route path="/work/:slug" element={<CaseStudyPage />} />
         <Route path="/contact"  element={<ContactPage />} />
+        <Route path="/faq"      element={<FaqPage />} />
         <Route path="/privacy"  element={<PrivacyPage />} />
         <Route path="/terms"    element={<TermsPage />} />
         {/* Service landing pages for local search, e.g. /web-development-company-pakistan */}

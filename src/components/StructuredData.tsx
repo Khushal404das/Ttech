@@ -1,5 +1,6 @@
 import React from 'react';
 import { SOCIAL_PROFILES } from './SocialLinks';
+import { CONTENT_UPDATED } from '../data/site';
 
 const SITE = 'https://ttechsolutionz.dev';
 export const ORG_ID = `${SITE}/#organization`;
@@ -111,6 +112,7 @@ export const CaseStudyStructuredData: React.FC<{
       image: `${SITE}${image}`,
       keywords: keywords.join(', '),
       inLanguage: 'en',
+      dateModified: CONTENT_UPDATED,
       creator: { '@id': ORG_ID },
       publisher: { '@id': ORG_ID },
       ...(sameAs && sameAs.length ? { sameAs } : {}),

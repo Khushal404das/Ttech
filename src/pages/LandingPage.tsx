@@ -8,6 +8,7 @@ import { ProjectVisual } from '../components/ProjectVisual';
 import { BreadcrumbStructuredData, JsonLd, ORG_ID } from '../components/StructuredData';
 import { LANDING_PAGES, type LandingPage as LandingPageData } from '../data/landingPages';
 import { getProject, type Project } from '../data/projects';
+import { CONTENT_UPDATED, formatDate } from '../data/site';
 
 const SITE = 'https://ttechsolutionz.dev';
 
@@ -37,6 +38,7 @@ export default function LandingPage({ page }: { page: LandingPageData }) {
         data={{
           '@context': 'https://schema.org',
           '@type': 'Service',
+          dateModified: CONTENT_UPDATED,
           name: page.h1,
           description: page.seoDescription,
           serviceType: page.navLabel,
@@ -83,6 +85,31 @@ export default function LandingPage({ page }: { page: LandingPageData }) {
         </section>
 
         <div className="mx-auto max-w-5xl space-y-16 px-4 py-16 sm:px-6 lg:px-8">
+          {/* At a glance — short, quotable facts for readers and AI answer engines */}
+          <section aria-labelledby="glance" className="rounded-3xl border border-[#DCE8F8] bg-white p-6 sm:p-8">
+            <h2 id="glance" className="font-display text-xl font-bold text-[#0B1220]">
+              {page.navLabel} at a glance
+            </h2>
+            <dl className="mt-4 grid gap-x-8 gap-y-4 text-sm sm:grid-cols-2">
+              {[
+                ['Typical price', `${page.pricing.range} (fixed written quote)`],
+                ['Typical timeline', page.pricing.timeline],
+                ['Payments', '30% to start · 40% at mid-project demo · 30% at launch'],
+                ['Ownership', '100% of source code, designs and accounts'],
+                ['After launch', '30 days of free bug fixes, optional monthly care'],
+                ['Who builds it', 'Ttech SOLUTIONS, Pakistan — serving clients worldwide'],
+              ].map(([k, v]) => (
+                <div key={k} className="border-b border-[#EEF4FC] pb-3">
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-[#7B8AA3]">{k}</dt>
+                  <dd className="mt-1 font-medium text-[#0B1220]">{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-4 text-xs text-[#7B8AA3]">
+              Last updated <time dateTime={CONTENT_UPDATED}>{formatDate(CONTENT_UPDATED)}</time>
+            </p>
+          </section>
+
           {/* Ideal for */}
           <section>
             <h2 className="font-display text-2xl font-extrabold text-[#0B1220] sm:text-3xl">Who this is for</h2>

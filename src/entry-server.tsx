@@ -13,6 +13,8 @@ import { PROJECTS } from './data/projects';
 import { LANDING_PAGES } from './data/landingPages';
 
 export { PROJECTS, LANDING_PAGES };
+export { FAQ_GROUPS } from './data/faq';
+export { CONTENT_UPDATED } from './data/site';
 
 type Route = {
   path: string;
@@ -38,6 +40,7 @@ export const routes: Route[] = [
     images: PROJECTS.filter((p) => p.image).map((p) => ({ src: p.image!.src, title: p.image!.alt })),
   },
   { path: '/contact', priority: 0.8, changefreq: 'monthly' },
+  { path: '/faq', priority: 0.8, changefreq: 'monthly' },
   ...LANDING_PAGES.map((p) => ({
     path: `/${p.slug}`,
     priority: 0.9,
